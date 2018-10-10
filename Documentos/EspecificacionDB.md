@@ -1,20 +1,28 @@
-#Especificación de las Tablas de a base de datos
+# Especificación de las Tablas de a base de datos
+
+
+
 [TOC]
 
-##Tablas
-Restaurante(++IDR++,Nombre,Ubicacion,TieneMenuCel,CalifFinal)
+## Tablas
 
-Usuario(++IDU++, Nombre, Apellido, Edad, Email, Passwd, NroTelefono, esCeliaco, tokenFacebook)
+**Restaurante**(<u>IDR</u>,Nombre,Ubicacion,TieneMenuCel,CalifFinal);
 
-Califico(++IDU++,++IDR++, CalidadServicio, Atencion, Precio, Higiene)
+**Usuario**(<u>IDU</u>, Nombre, Apellido, Edad, Email, Passwd, NroTelefono, esCeliaco, tokenFacebook);
 
-Ciudad(++CP++, Nombre, Poblacion, PoblacionCeliacos)
+**Califico**(<u>IDU</u>,<u>IDR</u>, CalidadServicio, Atencion, Precio, Higiene);
 
-estaUbicado(++IDR++,++CP++,++Puesto++)
+**Ciudad**(<u>CP</u>, Nombre, Poblacion, PoblacionCeliacos);
 
-viveEn(++IDU++, ++CP++)
+**estaUbicado**(<u>IDR</u>,<u>CP</u>,<u>Puesto</u>);
 
-##Aclaraciones
+**viveEn**(<u>IDU</u>, <u>CP</u>);
+
+
+
+## Aclaraciones
+
 1. **TokenFacebook:** este valor se obtiene al loguearse con Auth0 (autenticación por facebook)
 2. **Ubiacion:** latitud y longitud (según como lo almacene GoogleMaps)
-3. etc etc
+3. etc, etc
+

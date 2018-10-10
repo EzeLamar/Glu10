@@ -1,3 +1,4 @@
 # FrontEnd
 
-Aca va a ir las cosas hechas con Angular...
+Aca van a ir las cosas que se hagan de Angular.
+
