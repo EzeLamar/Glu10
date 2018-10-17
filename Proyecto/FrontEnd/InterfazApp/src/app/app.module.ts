@@ -11,13 +11,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // MaterialDesign
 import { MaterialModule } from './material.module';
+import { MenuCirculoComponent } from './components/menu-circulo/menu-circulo.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapsComponent
+    MapsComponent,
+    MenuCirculoComponent
   ],
   imports: [
     BrowserModule,
