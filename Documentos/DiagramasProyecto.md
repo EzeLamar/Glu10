@@ -6,13 +6,13 @@
 
 ## Diagrama de Uso
 
-![diagramaUso](/home/eze/Dropbox/IAP/Proyecto/DiagramaCasosDeUso_celiacos_1.png)
+![diagramaUso](/home/eze/DATOS/IAP/proyectoIAP/Documentos/assets/DiagramaCasosDeUso_celiacos_1.png)
 
 ------
 
 ## Diagrama Entidad-Relación
 
-![diagramaER](/home/eze/Dropbox/IAP/Proyecto/DiagramaER_celiacos_1.png)
+![diagramaER](/home/eze/DATOS/IAP/proyectoIAP/Documentos/assets/DiagramaER_celiacos_1.png)
 
 **Restaurante**(<u>IDR</u>,Nombre,Latitud,Longitud,TieneMenuCel,CalifFinal);
 
