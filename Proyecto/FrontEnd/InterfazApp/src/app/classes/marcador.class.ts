@@ -1,12 +1,15 @@
 export class Marcador {
-    public lat: number;
-    public lng: number;
+    public id: number;
+    public latitud: number;
+    public longitud: number;
     
-    public titulo = "Sin Titulo";
-    public desc = "Sin Descripción";
+    public nombre = "Sin Titulo";
+    public descripcion = "Sin Descripción";
+    public calificacion = "-1";
+    public tieneMenuCel : boolean;
    
     constructor (lat: number, lng: number) {
-        this.lat = lat;
-        this.lng = lng;
+        this.latitud = lat;
+        this.longitud = lng;
     }
 }
