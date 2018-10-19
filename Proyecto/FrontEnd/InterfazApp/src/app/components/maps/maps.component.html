@@ -15,11 +15,12 @@
                  [radius]="200"
 
             ></agm-circle>
-            <agm-marker *ngFor="let marcador of marcadores" [latitude]="marcador.lat" [longitude]="marcador.lng">
+            <agm-marker *ngFor="let marcador of marcadores" [latitude]="marcador.latitud" [longitude]="marcador.longitud">
                 <agm-info-window>
-                    <strong>{{ marcador.titulo }}</strong>
-                    <p>{{ marcador.desc }}</p>
-                    <button mat-raised-button color="primary">Aceptar</button>
+                    <strong>{{ marcador.nombre }}</strong>
+                    <p>{{ marcador.descripcion }}</p>
+                    <p>Calificacion: {{ marcador.calificacion }}</p>
+                    <button mat-raised-button color="primary">Calificar</button>
                     <button mat-raised-button color="warn">Cancelar</button>
                 </agm-info-window>
             </agm-marker>
