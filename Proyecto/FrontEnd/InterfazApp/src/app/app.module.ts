@@ -16,6 +16,9 @@ import { MenuCirculoComponent } from './components/menu-circulo/menu-circulo.com
 //comunicación con el Servidor PHP
 import { HttpClientModule } from '@angular/common/http';
 
+//servicios
+import { AuthService } from './services/auth.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +34,9 @@ import { HttpClientModule } from '@angular/common/http';
       apiKey: 'AIzaSyA-HXVa2jtkGfKtIJwisxgC46RaWqC1xuI'
     })
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
