@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Marcador } from 'src/app/classes/marcador.class';
 import {MatSnackBar} from '@angular/material';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import { MapaEditarComponent } from './mapa-editar.component';
-
 
 @Component({
   selector: 'app-maps',
@@ -11,6 +10,7 @@ import { MapaEditarComponent } from './mapa-editar.component';
   styleUrls: ['./maps.component.css']
 })
 export class MapsComponent implements OnInit {
+
 
   marcadores: Marcador[] = [];
   public lat = -38.710566;

@@ -15,6 +15,7 @@ import { MapaEditarComponent } from './components/maps/mapa-editar.component';
 
 // Formularios
 import { ReactiveFormsModule } from '@angular/forms';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 
 
@@ -25,7 +26,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     MapsComponent,
-    MapaEditarComponent
+    MapaEditarComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,

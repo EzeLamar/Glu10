@@ -1,0 +1,22 @@
+<mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
+  <span class="example-app-name">Maps</span>
+</mat-toolbar>
+
+<mat-sidenav-container
+class="example-container example-sidenav-container" color="primary" (backdropClick)="close()">
+<mat-sidenav #sidenav mode="push">
+    <p><button mat-button (click)="sidenav.toggle()"><mat-icon>map</mat-icon> Mapa</button></p>
+    <p><button mat-button (click)="sidenav.toggle()"><mat-icon>import_contacts</mat-icon> Recetas</button></p>
+    <p><button mat-button (click)="sidenav.toggle()"><mat-icon>room_service</mat-icon> Menu del Dia</button></p>
+    <p><button mat-button (click)="sidenav.toggle()"><mat-icon>local_offer</mat-icon> Descuentos</button></p>
+    <p><button mat-button (click)="sidenav.toggle()"><mat-icon>local_mall</mat-icon> Tienda</button></p>
+    <p><button mat-button (click)="sidenav.toggle()"><mat-icon>group</mat-icon> About us</button></p>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+      <app-maps></app-maps>
+
+    </mat-sidenav-content>
+</mat-sidenav-container>
