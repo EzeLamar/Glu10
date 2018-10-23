@@ -18,16 +18,22 @@ import { HttpClientModule } from '@angular/common/http';
 
 //servicios
 import { AuthService } from './services/auth.service';
+import { LoginComponent } from './components/login/login.component';
+
+//rutas
+import { APP_ROUTING } from './app.routes';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapsComponent,
-    MenuCirculoComponent
+    MenuCirculoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    APP_ROUTING,
     MaterialModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
