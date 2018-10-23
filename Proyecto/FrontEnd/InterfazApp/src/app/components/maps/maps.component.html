@@ -1,5 +1,5 @@
 
-<mat-card class="borde-arriba">
+<mat-card>
     <mat-card-title>Mapa</mat-card-title>
     <mat-card-content>
         <agm-map (mapClick)= "agregarMarcador( $event )" 
@@ -9,12 +9,12 @@
                  [streetViewControl]="false"
                  [minZoom]="14"
                  [maxZoom]="16">
-            <agm-circle
+            <!-- <agm-circle
                  [latitude]="lat"
                  [longitude]="lng"
                  [radius]="200"
 
-            ></agm-circle>
+            ></agm-circle> -->
             <agm-marker *ngFor="let marcador of marcadores" [latitude]="marcador.latitud" [longitude]="marcador.longitud">
                 <agm-info-window>
                     <strong>{{ marcador.nombre }}</strong>
@@ -27,5 +27,4 @@
         </agm-map>
     </mat-card-content>
 </mat-card>
-<app-menu-circulo></app-menu-circulo>
 <!-- minuto 0:00 video 230  Guardando los marcadores en el LocalStorage-->

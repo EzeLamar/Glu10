@@ -22,13 +22,25 @@ import { LoginComponent } from './components/login/login.component';
 
 //rutas
 import { APP_ROUTING } from './app.routes';
+import { FooterComponent } from './components/footer/footer.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { CalificacionComponent } from './components/calificacion/calificacion.component';
+import { RestauranteComponent } from './components/restaurante/restaurante.component';
+import { AboutComponent } from './components/about/about.component';
+import { RestaurantesComponent } from './components/restaurantes/restaurantes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapsComponent,
     MenuCirculoComponent,
-    LoginComponent
+    LoginComponent,
+    FooterComponent,
+    ToolbarComponent,
+    CalificacionComponent,
+    RestauranteComponent,
+    AboutComponent,
+    RestaurantesComponent
   ],
   imports: [
     BrowserModule,
