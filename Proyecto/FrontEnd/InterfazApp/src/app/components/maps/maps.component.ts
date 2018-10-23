@@ -13,11 +13,20 @@ import { MapaEditarComponent } from './mapa-editar.component';
 export class MapsComponent implements OnInit {
 
   marcadores: Marcador[] = [];
-  lat = -38.710566;
-  lng = -62.263447;
+  public lat = -38.710566;
+  public lng = -62.263447;
 
   constructor(public snackBar: MatSnackBar,
               public dialog: MatDialog ) {
+    // Geolocacion del usuario
+    if ('geolocation' in navigator) {
+      /* la geolocalización está disponible */
+      console.log('Puedo obtener Ubicacion');
+      this.findMe();
+    } else {
+      /* la geolocalización NO está disponible */
+      console.log('Error al obtener Ubicacion');
+    }
 
     // Mediante la funcion cargo los marcadores que anteriormente habia seleccionado en mi navegador
     if ( localStorage.getItem('marcadores')) {
@@ -31,6 +40,22 @@ export class MapsComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+  setearLatLng(position ) {
+    this.lat = position.coords.latitude;
+    this.lng = position.coords.longitude;
+  }
+  // Codigo para pedir la ubicacion del usuario al navegador y mostrar su ubicacion en el mapa
+  findMe() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position);
+        this.setearLatLng(position);
+        this.marcadores.push(new Marcador( position.coords.latitude, position.coords.longitude));
+            });
+    } else {
+      alert( 'Geolocation is not supported by this browser.' );
+    }
   }
 
   agregarMarcador( evento ) {
