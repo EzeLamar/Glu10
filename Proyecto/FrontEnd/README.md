@@ -8,5 +8,5 @@ A los anteriores se los puede editar para modificar su informacion (creacion/mod
 
 
 ## TODO:
-Obtener ubicacion mediante el navegador y mostrar esa ubicacion como predefinida (dsps el que la use puede moverse a donde se le cante)
+~~Obtener ubicacion mediante el navegador y mostrar esa ubicacion como predefinida (dsps el que la use puede moverse a donde se le cante)~~
 
