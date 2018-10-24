@@ -117,9 +117,15 @@ export class MapsComponent implements OnInit {
     else if (calificacion>=2)
       return ('../../../assets/amarillo.png'); 
     else 
-      return ('../../../assets/rojo.png');
+      return ('../../../assets/rojo.png');    
+  }
 
-    
-}
+  moverseACalificar(id: number){
+    console.log("calificar "+id);
+  }
+
+  moverseAVerMas(id: number){
+    console.log("verMas "+id);
+  }
 
 }
