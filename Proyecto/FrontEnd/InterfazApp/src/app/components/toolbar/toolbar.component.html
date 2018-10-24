@@ -16,7 +16,10 @@ class="example-container example-sidenav-container" color="primary" (backdropCli
 
 <mat-sidenav-content>
 
-    <app-restaurantes></app-restaurantes>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+    <!-- <app-restaurantes></app-restaurantes> -->
 
   </mat-sidenav-content>
 </mat-sidenav-container>
