@@ -72,6 +72,8 @@ export class MapsComponent implements OnInit {
     const nuevoMarcador = new Marcador(coords.lat, coords.lng);
     nuevoMarcador.nombre = "Hola";
     nuevoMarcador.descripcion= "este es un lugar copado";
+    nuevoMarcador.calificacion=3;
+    
     this.marcadores.push(nuevoMarcador);
     
     this.guardaMarcadores();
@@ -108,8 +110,16 @@ export class MapsComponent implements OnInit {
     return ('../../../assets/my_location.svg');
   }
 
-  markerIconRestaurante() {
-    return ('../../../assets/place.png');
+  markerIconRestaurante(calificacion:number) {
+    if(calificacion>=4)
+      return ('../../../assets/verde.png'); 
+    
+    else if (calificacion>=2)
+      return ('../../../assets/amarillo.png'); 
+    else 
+      return ('../../../assets/rojo.png');
+
+    
 }
 
 }
