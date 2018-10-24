@@ -22,7 +22,8 @@
             <agm-marker *ngFor="let marcador of marcadores" 
                         [latitude]="marcador.latitud" 
                         [longitude]="marcador.longitud"
-                        [iconUrl]="markerIconRestaurante()" class="pepe">
+                        [iconUrl]="markerIconRestaurante(marcador.calificacion)"
+                        >
                 <agm-info-window>
                     <strong>{{ marcador.nombre }}</strong>
                     <p>{{ marcador.descripcion }}</p>
