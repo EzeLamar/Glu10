@@ -21,13 +21,22 @@ export class MapsComponent implements OnInit {
   error = 'todo bien';
 
   constructor( private marcadorService: MarcadoresService ) { 
-    // if(localStorage.getItem('marcadores')){  //si existe
-    //   this.marcadores = JSON.parse( localStorage.getItem('marcadores') );
-    // } 
-    // else{
-    //   const nuevoMarcador = new Marcador(this.lat,this.lng );
-    //   this.marcadores.push(nuevoMarcador);
-    // }
+  // Geolocacion del usuario
+  if ('geolocation' in navigator) {
+    /* la geolocalización está disponible */
+    console.log('Puedo obtener Ubicacion');
+    this.findMe();
+  } else {
+    /* la geolocalización NO está disponible */
+    console.log('Error al obtener Ubicacion');
+  }
+
+  // Mediante la funcion cargo los marcadores que anteriormente habia seleccionado en mi navegador
+  if ( localStorage.getItem('marcadores')) {
+    this.marcadores = JSON.parse(localStorage.getItem('marcadores'));
+  }
+
+  // this.marcadores.push(nuevoMarcador);
   }
 
   ngOnInit() {
@@ -36,6 +45,25 @@ export class MapsComponent implements OnInit {
     console.log(this.error);
     //this.obtenerPrueba();
   }
+
+  setearLatLng(position ) {
+    this.lat = position.coords.latitude;
+    this.lng = position.coords.longitude;
+  }
+
+  // Codigo para pedir la ubicacion del usuario al navegador y mostrar su ubicacion en el mapa
+  findMe() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position);
+        this.setearLatLng(position);
+        this.marcadores.push(new Marcador( position.coords.latitude, position.coords.longitude));
+            });
+    } else {
+      alert( 'Geolocation is not supported by this browser.' );
+    }
+  }
+  
 
   agregarMarcador( evento ){
     const coords: { lat: number, lng: number } = evento.coords;
