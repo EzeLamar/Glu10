@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalificacionComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    foods: Food[] = [
+      {value: 'steak-0', viewValue: 'Steak'},
+      {value: 'pizza-1', viewValue: 'Pizza'},
+      {value: 'tacos-2', viewValue: 'Tacos'}
+    ];
+}
 
   ngOnInit() {
   }
