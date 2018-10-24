@@ -22,6 +22,8 @@ A los anteriores se los puede editar para modificar su informacion (creacion/mod
 
 ## Changelog
 
+- **fix** error de APIMaps que nos decia que habiamos importado mas de una vez la API
+
 - Se agregaron iconos acordes en el sidebar
 
 - Se incorporó un sidebar (Menu desplegable) al componente toolbar

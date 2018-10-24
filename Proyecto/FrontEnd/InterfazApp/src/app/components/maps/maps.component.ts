@@ -36,11 +36,13 @@ export class MapsComponent implements OnInit {
     // const nuevoMarcador = new Marcador(-38.710566, -62.263447);
 
     // this.marcadores.push(nuevoMarcador);
+    
 
   }
 
   ngOnInit() {
   }
+  
   setearLatLng(position ) {
     this.lat = position.coords.latitude;
     this.lng = position.coords.longitude;
