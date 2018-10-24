@@ -57,7 +57,7 @@ export class MapsComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         console.log(position);
         this.setearLatLng(position);
-        this.marcadores.push(new Marcador( position.coords.latitude, position.coords.longitude));
+        // this.marcadores.push(new Marcador( position.coords.latitude, position.coords.longitude));
             });
     } else {
       alert( 'Geolocation is not supported by this browser.' );
@@ -74,7 +74,7 @@ export class MapsComponent implements OnInit {
     nuevoMarcador.descripcion= "este es un lugar copado";
     this.marcadores.push(nuevoMarcador);
     
-    //this.guardaMarcadores();
+    this.guardaMarcadores();
 
   }
 
@@ -103,4 +103,13 @@ export class MapsComponent implements OnInit {
       }
     );
   }
+
+  markerIconUbicacionActual() {
+    return ('../../../assets/my_location.svg');
+  }
+
+  markerIconRestaurante() {
+    return ('../../../assets/place.png');
+}
+
 }

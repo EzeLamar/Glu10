@@ -9,13 +9,20 @@
                  [streetViewControl]="false"
                  [minZoom]="14"
                  [maxZoom]="16">
-            <!-- <agm-circle
-                 [latitude]="lat"
-                 [longitude]="lng"
-                 [radius]="200"
 
-            ></agm-circle> -->
-            <agm-marker *ngFor="let marcador of marcadores" [latitude]="marcador.latitud" [longitude]="marcador.longitud">
+            <agm-marker [latitude]="lat" 
+                        [longitude]="lng" 
+                        [iconUrl]="markerIconUbicacionActual()"
+                        >
+                    <agm-info-window>
+                        <strong>Ubicación Actual</strong>
+                    </agm-info-window>
+            </agm-marker>
+
+            <agm-marker *ngFor="let marcador of marcadores" 
+                        [latitude]="marcador.latitud" 
+                        [longitude]="marcador.longitud"
+                        [iconUrl]="markerIconRestaurante()" class="pepe">
                 <agm-info-window>
                     <strong>{{ marcador.nombre }}</strong>
                     <p>{{ marcador.descripcion }}</p>
