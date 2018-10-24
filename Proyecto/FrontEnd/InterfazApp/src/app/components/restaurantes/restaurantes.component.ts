@@ -9,6 +9,7 @@ import { Marcador } from '../../classes/marcador.class';
 })
 export class RestaurantesComponent implements OnInit {
 
+  mobile: boolean;
   topTen: Marcador[] = [];
   Arr = Array; //Array type captured in a variable 
   num:number = 5; 
@@ -19,6 +20,10 @@ export class RestaurantesComponent implements OnInit {
    }
 
   ngOnInit() {
+    if (window.screen.width < 1000)  // 768px portrait
+      this.mobile = true;
+    else 
+      this.mobile= false;
   }
 
 }
