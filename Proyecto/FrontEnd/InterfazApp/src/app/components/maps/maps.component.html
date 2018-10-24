@@ -7,8 +7,10 @@
                         <strong>{{ marcador.titulo }}</strong>
                         <p>
                             {{ marcador.desc }}
+
                         </p>
-                        <div>
+                        <app-star-rating  [rating]=marcador.calificacion  [starCount]="starCount" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></app-star-rating>
+                        <div class="margen-estrellas">
                             <button (click)="editarMarcador( marcador )" mat-raised-button color="primary">Editar</button>
                             <button (click)="borrarMarcador( i )" mat-raised-button color="warn">Borrar</button>
                         </div>

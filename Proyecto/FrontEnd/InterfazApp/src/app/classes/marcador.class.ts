@@ -7,6 +7,7 @@ export class Marcador {
 
     public titulo = ' sin Titulo';
     public desc = ' sin Descripcion';
+    public calificacion = 3;
 
     constructor( lat: number, lng: number) {
         this.lat = lat;

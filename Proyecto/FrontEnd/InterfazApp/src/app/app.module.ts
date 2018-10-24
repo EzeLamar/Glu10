@@ -16,6 +16,7 @@ import { MapaEditarComponent } from './components/maps/mapa-editar.component';
 // Formularios
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 
 
@@ -27,7 +28,8 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
     AppComponent,
     MapsComponent,
     MapaEditarComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,

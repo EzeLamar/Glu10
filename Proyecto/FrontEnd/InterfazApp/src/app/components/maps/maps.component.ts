@@ -3,6 +3,7 @@ import { Marcador } from 'src/app/classes/marcador.class';
 import {MatSnackBar} from '@angular/material';
 import {MatDialog, MatDialogRef} from '@angular/material';
 import { MapaEditarComponent } from './mapa-editar.component';
+import { StarRatingComponent } from '../star-rating/star-rating.component';
 
 @Component({
   selector: 'app-maps',
@@ -15,6 +16,11 @@ export class MapsComponent implements OnInit {
   marcadores: Marcador[] = [];
   public lat = -38.710566;
   public lng = -62.263447;
+
+  public starCount = 5;
+  public starColor = 'accent';
+  public rating: number;
+
 
   constructor(public snackBar: MatSnackBar,
               public dialog: MatDialog ) {
@@ -36,13 +42,16 @@ export class MapsComponent implements OnInit {
     // const nuevoMarcador = new Marcador(-38.710566, -62.263447);
 
     // this.marcadores.push(nuevoMarcador);
-    
+
 
   }
 
   ngOnInit() {
   }
-  
+  onRatingChanged(rating) {
+    console.log(rating);
+    this.rating = rating;
+  }
   setearLatLng(position ) {
     this.lat = position.coords.latitude;
     this.lng = position.coords.longitude;
