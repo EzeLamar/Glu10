@@ -40,9 +40,7 @@ export class MapsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.error);
     this.obtenerMarcadoresServer();
-    console.log(this.error);
     //this.obtenerPrueba();
   }
 
@@ -85,9 +83,11 @@ export class MapsComponent implements OnInit {
   }
 
   obtenerMarcadoresServer(): void{
+    console.log("esperando por los marcadores");
     this.marcadorService.getAll().subscribe(
       ( res: Marcador[] ) => {
         this.marcadores = res;
+        console.log("se obtuvieron los marcadores");
       },
       ( err ) => {
         this.error= err;   //VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
