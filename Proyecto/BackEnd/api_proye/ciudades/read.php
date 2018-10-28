@@ -5,20 +5,17 @@ header("Content-Type: application/json; charset=UTF-8");
 
 // se inluye la base de datos y los objetos necesarios
 include_once '../config/database.php';
-include_once '../objects/restaurant.php';
+include_once '../objects/ciudades.php';
 
 // inicializacion de la base de datos
 $database = new Database();
 $db = $database->getConnection();
 
 // inicializacion del objeto restaurant
-$restaurant = new Restaurant($db);
-
-//se obtiene el cp pasado por json
-$data = json_decode(file_get_contents("php://input"));
+$restaurant = new Ciudad($db);
 
 // consulta a restaurant
-$stmt = $restaurant->read($data->cp);
+$stmt = $restaurant->read();
 $num = $stmt->rowCount();
 
 // si se hallo alguna fila (numero filas >0)
@@ -36,13 +33,10 @@ if($num>0){
         extract($row);
         // esto asigna fila['nombre'] a la variable $nombre, igual con el resto de campos
         $restaurant_item=array(
-            "id" => $IDR,
+            "cp" => $cp,
             "nombre" => $nombre,
-            "descripcion" => html_entity_decode($descripcion),
-            "calificacion" => $calificacion,
-            "tieneMenuCel" => $tieneMenuCel,
-            "longitud" => $longitud,
-            "latitud"=> $latitud
+            "canthabit" => html_entity_decode($canthabit),
+            "canthabitcel" => $canthabitcel
 
         );
 
@@ -63,7 +57,7 @@ else{
 
     // se le dice al cliente uqe no se encontraron entradas
     echo json_encode(
-        array("message" => "No se encontraron restaurantes.")
+        array("message" => "No se encontraron ciudades.")
     );
 }
 ?>

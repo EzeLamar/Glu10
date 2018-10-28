@@ -39,18 +39,29 @@ class Usuario{
     }
 
     // insertar un usuario nuevo
-    function create(){
+    function create($cp,$id){
 
         // consulta a la base de datos para insertar un registro
         $query = "INSERT INTO
                     " . $this->table_name . "
                 SET
-                  nombre =:nombre, apellido =:apellido, edad =:edad, email =:email, password =:password, nroTel =:nroTel, esCel =:esCel   ";
+                    IDU =:id, nombre =:nombre, apellido =:apellido, edad =:edad, email =:email, password =:password, nroTel =:nroTel, esCel =:esCel";
+
+        // consulta a la base de datos para insertar un registro
+        $query2 = "INSERT INTO
+                      viveen
+                SET
+                   CP =:cp, IDU =:id ";
+
 
         // preparar la consulta
         $stmt = $this->conn->prepare($query);
 
+        // preparar la consulta
+        $stmt2= $this->conn->prepare($query2);
+
         // se pasan los atributos a formato html
+        $this->id=htmlspecialchars(strip_tags($this->id));
         $this->nombre=htmlspecialchars(strip_tags($this->nombre));
         $this->apellido=htmlspecialchars(strip_tags($this->apellido));
         $this->edad=htmlspecialchars(strip_tags($this->edad));
@@ -59,41 +70,56 @@ class Usuario{
         $this->nroTel=htmlspecialchars(strip_tags($this->nroTel));
         $this->esCel=htmlspecialchars(strip_tags($this->esCel));
 
+        // se pasan los atributos a formato html
+        $cp=htmlspecialchars(strip_tags($cp));
+        $this->id=htmlspecialchars(strip_tags($id));
+
         // se ligan los valores de parametros
+        $stmt->bindParam(":id", $this->id);
         $stmt->bindParam(":nombre", $this->nombre);
-        $stmt->bindParam(":longitud", $this->apellido);
-        $stmt->bindParam(":latitud", $this->edad);
-        $stmt->bindParam(":tieneMenuCel", $this->email);
-        $stmt->bindParam(":calificacion", $this->password);
-        $stmt->bindParam(":descripcion", $this->nroTel);
-        $stmt->bindParam(":descripcion", $this->esCel);
+        $stmt->bindParam(":apellido", $this->apellido);
+        $stmt->bindParam(":edad", $this->edad);
+        $stmt->bindParam(":email", $this->email);
+        $stmt->bindParam(":password", $this->password);
+        $stmt->bindParam(":nroTel", $this->nroTel);
+        $stmt->bindParam(":esCel", $this->esCel);
+
+        // se ligan los valores de parametros
+        $stmt2->bindParam(":cp", $cp);
+        $stmt2->bindParam(":id", $id);
 
         // ejecutar la consulta: puede fallar o ser exitosa
-        if($stmt->execute()){
+      if($stmt->execute() && $stmt2->execute()){
             return true;
         }
 
         return false;
 
     }
+
+
     //funcion de borrado
     function delete(){
 
         // consulta de eliminacion
         $query = "DELETE FROM " . $this->table_name . " WHERE IDU = ?";
-
+        $query2 ="DELETE FROM viveen WHERE IDU = ?";
         // preparar la consulta
         $stmt = $this->conn->prepare($query);
+        $stmt2 = $this->conn->prepare($query2);
 
         // se pasan los valores a formato html
         $this->id=htmlspecialchars(strip_tags($this->id));
 
+
         // se enlaza el parametro de id
         $stmt->bindParam(1, $this->id);
+        $stmt2->bindParam(1, $this->id);
 
         // ejecutar la consulta
-        if($stmt->execute()){
-            return true;
+      if($stmt2->execute()){
+         if($stmt->execute())
+              return true;
         }
 
         return false;
@@ -201,7 +227,7 @@ class Usuario{
         $stmt->bindParam(":nroTel", $this->nroTel);
         $stmt->bindParam(":password", $this->password);
         $stmt->bindParam(":esCel", $this->esCel);
-
+        $stmt->bindParam(":id", $this->id);
 
         // ejecutar la consulta
         if($stmt->execute()){
@@ -211,4 +237,37 @@ class Usuario{
         return false;
     }
 
+    function calificar($IDR,$cs,$a,$p,$h){
+
+      $query = "INSERT INTO
+                  califico
+              SET
+                  IDU =:id,IDR=:IDR,calidadServicio=:cs,atencion=:a,higiene=:h,precio=:p";
+
+      // preparar la consulta
+      $stmt = $this->conn->prepare($query);
+
+      // pasar a formato html
+      $this->id=htmlspecialchars(strip_tags($this->id));
+      $IDR=htmlspecialchars(strip_tags($IDR));
+      $cs=htmlspecialchars(strip_tags($cs));
+      $a=htmlspecialchars(strip_tags($a));
+      $p=htmlspecialchars(strip_tags($p));
+      $h=htmlspecialchars(strip_tags($h));
+
+      // se enlazan los nuevos valores
+      $stmt->bindParam(":id", $this->id);
+      $stmt->bindParam(":IDR", $IDR);
+      $stmt->bindParam(":cs", $cs);
+      $stmt->bindParam(":a", $a);
+      $stmt->bindParam(":p", $p);
+      $stmt->bindParam(":h", $h);
+
+      // ejecutar la consulta
+      if($stmt->execute()){
+          return true;
+      }
+
+      return false;
+    }
 }

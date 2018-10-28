@@ -24,16 +24,19 @@ $data = json_decode(file_get_contents("php://input"));
 
 // asegurarse que los campos no esten vacios
 if(
+    !empty($data->id) &&
     !empty($data->nombre) &&
     !empty($data->apellido) &&
     !empty($data->edad) &&
     !empty($data->email) &&
     !empty($data->password) &&
     !empty($data->nroTel)  &&
-    !empty($data->esCel)
+    !empty($data->esCel) &&
+    !empty($data->cp)
 ){
 
     //se setean los atributos
+    $product->id = $data->id;
     $product->nombre = $data->nombre;
     $product->apellido = $data->apellido;
     $product->edad = $data->edad;
@@ -42,14 +45,19 @@ if(
     $product->nroTel=$data->nroTel;
     $product->esCel=$data->esCel;
 
+    $id=$product->id;
+    $cp=$data->cp;
+
     // se crea el restaurant
-    if($product->create()){
+    if($product->create($cp,$id)){
+
 
         // setear el codigo de respuesta - 201 created
         http_response_code(201);
 
         // aviso al usuario
         echo json_encode(array("message" => "el usuario fue creado exitosamente."));
+
     }
 
     // si no fue posible insertar
