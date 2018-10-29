@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9a5f3f6db4808d212d6538249af8fd9f7937c90d
 
 @Component({
   selector: 'app-calificacion',
@@ -8,8 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CalificacionComponent implements OnInit {
 
+<<<<<<< HEAD
 
     constructor() { }
+=======
+  selected = 'option2';
+  ngOnInit() {
+  }
+>>>>>>> 9a5f3f6db4808d212d6538249af8fd9f7937c90d
 
     ngOnInit() {
     }
