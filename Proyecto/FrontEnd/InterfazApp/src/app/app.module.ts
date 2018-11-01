@@ -45,7 +45,7 @@ import { RestaurantesComponent } from './components/restaurantes/restaurantes.co
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatSelectModule,
+  //  MatSelectModule,
     APP_ROUTING,
     MaterialModule,
     HttpClientModule,
