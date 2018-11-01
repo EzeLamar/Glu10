@@ -41,7 +41,8 @@ export class MapsComponent implements OnInit {
 
   ngOnInit() {
     this.obtenerMarcadoresServer();
-    //this.obtenerPrueba();
+    console.log(this.error);
+    // this.obtenerPrueba();
   }
 
   setearLatLng(position ) {
@@ -61,47 +62,48 @@ export class MapsComponent implements OnInit {
       alert( 'Geolocation is not supported by this browser.' );
     }
   }
-  
 
-  agregarMarcador( evento ){
+
+  agregarMarcador( evento ) {
     const coords: { lat: number, lng: number } = evento.coords;
 
-    console.log("lat:"+coords.lat+", long:"+coords.lng);
+    console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);
     const nuevoMarcador = new Marcador(coords.lat, coords.lng);
-    nuevoMarcador.nombre = "Hola";
-    nuevoMarcador.descripcion= "este es un lugar copado";
-    nuevoMarcador.calificacion=3;
-    
+    nuevoMarcador.nombre = 'Hola';
+    nuevoMarcador.descripcion = 'este es un lugar copado';
+    nuevoMarcador.calificacion = 5;
+
     this.marcadores.push(nuevoMarcador);
-    
+
     this.guardaMarcadores();
 
   }
 
-  guardaMarcadores(){
-    localStorage.setItem('marcadores',JSON.stringify(this.marcadores));
+  guardaMarcadores() {
+    localStorage.setItem('marcadores', JSON.stringify(this.marcadores));
   }
 
   obtenerMarcadoresServer(): void{
     console.log("esperando por los marcadores");
+
     this.marcadorService.getAll().subscribe(
       ( res: Marcador[] ) => {
         this.marcadores = res;
         console.log("se obtuvieron los marcadores");
       },
       ( err ) => {
-        this.error= err;   //VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
+        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
       }
     );
   }
 
-  obtenerPrueba(): void{
+  obtenerPrueba(): void {
     this.marcadorService.getPrueba().subscribe(
       ( res: string ) => {
-        console.log("Component:"+res);
+        console.log("Component:" + res);
       },
       ( err ) => {
-        this.error= err;   //VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
+        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
       }
     );
   }
