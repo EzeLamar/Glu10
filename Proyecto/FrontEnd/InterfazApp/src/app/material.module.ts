@@ -4,23 +4,40 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
 import {MatCardModule} from '@angular/material/card';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
+
+
 
 @NgModule({
   imports: [CommonModule,
-            MatButtonModule, 
-            MatCheckboxModule, 
+            MatButtonModule,
+            MatCheckboxModule,
             MatToolbarModule,
             MatProgressBarModule,
             MatCardModule,
-            MatInputModule
+            MatSnackBarModule,
+            MatDialogModule,
+            MatInputModule,
+            MatSidenavModule,
+            MatIconModule,
+            MatSelectModule
           ],
-  exports: [MatButtonModule, 
-            MatCheckboxModule, 
+  exports: [MatButtonModule,
+            MatCheckboxModule,
             MatToolbarModule,
             MatProgressBarModule,
             MatCardModule,
-            MatInputModule
+            MatSnackBarModule,
+            MatDialogModule,
+            MatInputModule,
+            MatSidenavModule,
+            MatIconModule,
+            MatSelectModule
           ],
 })
 export class MaterialModule {

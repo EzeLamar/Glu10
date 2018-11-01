@@ -1,5 +1,5 @@
 
-<mat-card class="borde-arriba">
+<mat-card>
     <mat-card-title>Mapa</mat-card-title>
     <mat-card-content>
         <agm-map (mapClick)= "agregarMarcador( $event )" 
@@ -9,23 +9,30 @@
                  [streetViewControl]="false"
                  [minZoom]="14"
                  [maxZoom]="16">
-            <agm-circle
-                 [latitude]="lat"
-                 [longitude]="lng"
-                 [radius]="200"
 
-            ></agm-circle>
-            <agm-marker *ngFor="let marcador of marcadores" [latitude]="marcador.latitud" [longitude]="marcador.longitud">
+            <agm-marker [latitude]="lat" 
+                        [longitude]="lng" 
+                        [iconUrl]="markerIconUbicacionActual()"
+                        >
+                    <agm-info-window>
+                        <strong>Ubicación Actual</strong>
+                    </agm-info-window>
+            </agm-marker>
+
+            <agm-marker *ngFor="let marcador of marcadores" 
+                        [latitude]="marcador.latitud" 
+                        [longitude]="marcador.longitud"
+                        [iconUrl]="markerIconRestaurante(marcador.calificacion)"
+                        >
                 <agm-info-window>
                     <strong>{{ marcador.nombre }}</strong>
                     <p>{{ marcador.descripcion }}</p>
                     <p>Calificacion: {{ marcador.calificacion }}</p>
-                    <button mat-raised-button color="primary">Calificar</button>
-                    <button mat-raised-button color="warn">Cancelar</button>
+                    <button (click)="moverseACalificar( marcador.id )" mat-raised-button color="primary">Calificar</button>
+                    <button (click)="moverseAVerMas( marcador.id )" mat-stroked-button color="primary">Ver Más</button>
                 </agm-info-window>
             </agm-marker>
         </agm-map>
     </mat-card-content>
 </mat-card>
-<app-menu-circulo></app-menu-circulo>
 <!-- minuto 0:00 video 230  Guardando los marcadores en el LocalStorage-->

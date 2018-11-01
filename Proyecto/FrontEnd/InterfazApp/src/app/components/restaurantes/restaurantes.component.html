@@ -1,0 +1,18 @@
+<mat-drawer-container class="example-container">
+    <mat-drawer mode="side" opened >
+            <div *ngIf="!mobile">
+                <app-restaurante *ngFor="let i of Arr(num).fill(1)"></app-restaurante>
+            </div>            
+
+    </mat-drawer>
+    <mat-drawer-content>
+
+            <app-maps></app-maps>
+
+    </mat-drawer-content>
+  </mat-drawer-container>
+
+  
+<!-- <app-heore-tarjeta [heroe]="heroe" [index]="i" **ngFor="let hreoe of heroes, let i=index">
+
+</app-heore-tarjeta> -->

@@ -21,21 +21,47 @@ export class MapsComponent implements OnInit {
   error = 'todo bien';
 
   constructor( private marcadorService: MarcadoresService ) { 
-    // if(localStorage.getItem('marcadores')){  //si existe
-    //   this.marcadores = JSON.parse( localStorage.getItem('marcadores') );
-    // } 
-    // else{
-    //   const nuevoMarcador = new Marcador(this.lat,this.lng );
-    //   this.marcadores.push(nuevoMarcador);
-    // }
+  // Geolocacion del usuario
+  if ('geolocation' in navigator) {
+    /* la geolocalización está disponible */
+    console.log('Puedo obtener Ubicacion');
+    this.findMe();
+  } else {
+    /* la geolocalización NO está disponible */
+    console.log('Error al obtener Ubicacion');
+  }
+
+  // Mediante la funcion cargo los marcadores que anteriormente habia seleccionado en mi navegador
+  if ( localStorage.getItem('marcadores')) {
+    this.marcadores = JSON.parse(localStorage.getItem('marcadores'));
+  }
+
+  // this.marcadores.push(nuevoMarcador);
   }
 
   ngOnInit() {
-    console.log(this.error);
     this.obtenerMarcadoresServer();
-    console.log(this.error);
     //this.obtenerPrueba();
   }
+
+  setearLatLng(position ) {
+    this.lat = position.coords.latitude;
+    this.lng = position.coords.longitude;
+  }
+
+  // Codigo para pedir la ubicacion del usuario al navegador y mostrar su ubicacion en el mapa
+  findMe() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        console.log(position);
+        this.setearLatLng(position);
+        // this.marcadores.push(new Marcador( position.coords.latitude, position.coords.longitude));
+            });
+    } else {
+      alert( 'Geolocation is not supported by this browser.' );
+    }
+  }
+  
 
   agregarMarcador( evento ){
     const coords: { lat: number, lng: number } = evento.coords;
@@ -44,9 +70,11 @@ export class MapsComponent implements OnInit {
     const nuevoMarcador = new Marcador(coords.lat, coords.lng);
     nuevoMarcador.nombre = "Hola";
     nuevoMarcador.descripcion= "este es un lugar copado";
+    nuevoMarcador.calificacion=3;
+    
     this.marcadores.push(nuevoMarcador);
     
-    //this.guardaMarcadores();
+    this.guardaMarcadores();
 
   }
 
@@ -55,9 +83,11 @@ export class MapsComponent implements OnInit {
   }
 
   obtenerMarcadoresServer(): void{
+    console.log("esperando por los marcadores");
     this.marcadorService.getAll().subscribe(
       ( res: Marcador[] ) => {
         this.marcadores = res;
+        console.log("se obtuvieron los marcadores");
       },
       ( err ) => {
         this.error= err;   //VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
@@ -75,4 +105,27 @@ export class MapsComponent implements OnInit {
       }
     );
   }
+
+  markerIconUbicacionActual() {
+    return ('../../../assets/my_location.svg');
+  }
+
+  markerIconRestaurante(calificacion:number) {
+    if(calificacion>=4)
+      return ('../../../assets/verde.png'); 
+    
+    else if (calificacion>=2)
+      return ('../../../assets/amarillo.png'); 
+    else 
+      return ('../../../assets/rojo.png');    
+  }
+
+  moverseACalificar(id: number){
+    console.log("calificar "+id);
+  }
+
+  moverseAVerMas(id: number){
+    console.log("verMas "+id);
+  }
+
 }

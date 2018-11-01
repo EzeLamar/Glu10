@@ -13,8 +13,9 @@ import { Marcador } from "../classes/marcador.class";
 })
 export class MarcadoresService {
   //192.168.1.104
-  ipServerPHP =  "192.168.1.104";
-  baseUrl ="http://"+this.ipServerPHP+"/MIPROYECTO/api";
+  // ipServerPHP =  "192.168.1.104";
+  // baseUrl ="http://"+this.ipServerPHP+"/MIPROYECTO/api";
+  baseUrl = "https://localhost:3002"    //<--------- json-server
   marcadoresServer: Marcador[];
   holaMundo: string;
 
@@ -22,9 +23,10 @@ export class MarcadoresService {
                 
   //solicito al servidor que me conteste con lo que haga api/list
   public getAll(): Observable<Marcador[]> {
-    return this.http.get(`${this.baseUrl}_proye/restaurant/read.php`).pipe(
+    return this.http.get(`${this.baseUrl}/read`).pipe(
       map((res) => {
         this.marcadoresServer = res['records'];
+        console.log(this.marcadoresServer);
         return this.marcadoresServer;
     }),
     catchError(this.handleError));
