@@ -6,13 +6,17 @@
 
 ## Diagrama de Uso
 
-![diagramaUso](/home/eze/Dropbox/IAP/Proyecto/DiagramaCasosDeUso_celiacos_1.png)
+![diagramaUso](https://raw.githubusercontent.com/EzeLamar/proyectoIAP/master/Documentos/assets/DiagramaCasosDeUso_celiacos_1.png)
+
+
+
+------
 
 ## Diagrama Entidad-Relación
 
-![diagramaER](/home/eze/Dropbox/IAP/Proyecto/DiagramaER_celiacos_1.png)
+![diagramaER](https://raw.githubusercontent.com/EzeLamar/proyectoIAP/master/Documentos/assets/DiagramaER_celiacos_1.png)
 
-**Restaurante**(<u>IDR</u>,Nombre,Ubicacion,TieneMenuCel,CalifFinal);
+**Restaurante**(<u>IDR</u>,Nombre,Latitud,Longitud,TieneMenuCel,CalifFinal);
 
 **Usuario**(<u>IDU</u>, Nombre, Apellido, Edad, Email, Passwd, NroTelefono, esCeliaco, tokenFacebook);
 
@@ -29,14 +33,14 @@
 ### Aclaraciones
 
 1. **TokenFacebook:** este valor se obtiene al loguearse con Auth0 (autenticación por facebook)
-2. **Ubiacion:** latitud y longitud (según como lo almacene GoogleMaps)
+2. **Latitud y Longitud**: valores utilizados para ubicar un punto en el mapa por la API de **GoogleMaps**.
 3. etc, etc
 
-
+------
 
 ## Diagramas de Secuencia
 
-### Búsqueda de Restaurantes para Celíacos cerca de la ubicación del Usuario.
+### Búsqueda de Restaurantes para Celíacos en una Ciudad
 
 ```mermaid
 sequenceDiagram

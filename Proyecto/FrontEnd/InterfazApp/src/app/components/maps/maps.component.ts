@@ -40,7 +40,6 @@ export class MapsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.error);
     this.obtenerMarcadoresServer();
     console.log(this.error);
     // this.obtenerPrueba();
@@ -84,10 +83,13 @@ export class MapsComponent implements OnInit {
     localStorage.setItem('marcadores', JSON.stringify(this.marcadores));
   }
 
-  obtenerMarcadoresServer(): void {
+  obtenerMarcadoresServer(): void{
+    console.log("esperando por los marcadores");
+
     this.marcadorService.getAll().subscribe(
       ( res: Marcador[] ) => {
         this.marcadores = res;
+        console.log("se obtuvieron los marcadores");
       },
       ( err ) => {
         this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
@@ -117,9 +119,15 @@ export class MapsComponent implements OnInit {
     else if (calificacion>=2)
       return ('../../../assets/amarillo.png'); 
     else 
-      return ('../../../assets/rojo.png');
+      return ('../../../assets/rojo.png');    
+  }
 
-    
-}
+  moverseACalificar(id: number){
+    console.log("calificar "+id);
+  }
+
+  moverseAVerMas(id: number){
+    console.log("verMas "+id);
+  }
 
 }
