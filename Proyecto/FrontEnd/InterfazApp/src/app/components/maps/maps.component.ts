@@ -5,6 +5,7 @@ import { Marcador } from '../../classes/marcador.class';
 import { MarcadoresService } from "../../services/marcadores.service";
 
 
+
 @Component({
   selector: 'app-maps',
   templateUrl: './maps.component.html',
@@ -44,6 +45,8 @@ export class MapsComponent implements OnInit {
     console.log(this.error);
     // this.obtenerPrueba();
   }
+
+
 
   setearLatLng(position ) {
     this.lat = position.coords.latitude;
@@ -90,17 +93,8 @@ export class MapsComponent implements OnInit {
       ( res: Marcador[] ) => {
         this.marcadores = res;
         console.log("se obtuvieron los marcadores");
-      },
-      ( err ) => {
-        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
-      }
-    );
-  }
-
-  obtenerPrueba(): void {
-    this.marcadorService.getPrueba().subscribe(
-      ( res: string ) => {
-        console.log("Component:" + res);
+        console.log("obtengo marcadores cerca..");
+        this.marcadorService.setMarcadoresCerca(this.lat, this.lng);
       },
       ( err ) => {
         this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
