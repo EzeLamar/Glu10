@@ -50,7 +50,8 @@ import { RestaurantesComponent } from './components/restaurantes/restaurantes.co
     MaterialModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA-HXVa2jtkGfKtIJwisxgC46RaWqC1xuI'
+      apiKey: 'AIzaSyA-HXVa2jtkGfKtIJwisxgC46RaWqC1xuI',
+      libraries: [ 'geometry' ]
     })
   ],
   providers: [
