@@ -6,6 +6,10 @@ import { map, catchError } from 'rxjs/operators';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 //clase importada
 import { Marcador } from "../classes/marcador.class";
+//para detectar distancias entre marcadores
+import { MapsAPILoader } from '@agm/core';
+declare var google;
+
 
 
 @Injectable({
@@ -13,32 +17,43 @@ import { Marcador } from "../classes/marcador.class";
 })
 export class MarcadoresService {
   //192.168.1.104
-  ipServerPHP =  "192.168.1.104";
-  baseUrl ="http://"+this.ipServerPHP+"/MIPROYECTO/api";
-  marcadoresServer: Marcador[];
-  holaMundo: string;
+  // ipServerPHP =  "192.168.1.104";
+  // baseUrl ="http://"+this.ipServerPHP+"/MIPROYECTO/api";
+  baseUrl = "https://localhost:3002"    //<--------- json-server
+  marcadoresServer: Marcador[]=[];
+  marcadoresRadioPosicion: Marcador[]=[];
+  
 
-  constructor( private http: HttpClient ) { }
+  RadioMaximo = 3000; 
+
+  constructor(  private http: HttpClient ,
+                private mapsAPILoader: MapsAPILoader ) { }
                 
   //solicito al servidor que me conteste con lo que haga api/list
   public getAll(): Observable<Marcador[]> {
-    return this.http.get(`${this.baseUrl}_proye/restaurant/read.php`).pipe(
+    return this.http.get(`${this.baseUrl}/read`).pipe(
       map((res) => {
         this.marcadoresServer = res['records'];
+        console.log(this.marcadoresServer);
         return this.marcadoresServer;
     }),
     catchError(this.handleError));
   }
 
-  //solicito al servidor que me conteste con lo que haga api/list
-  public getPrueba(): Observable<string> {
-    return this.http.get(this.baseUrl+"/holamundo.php").pipe(
-      map((res) => {
-        this.holaMundo = res['data'];
-        console.log("service:"+this.holaMundo);
-        return this.holaMundo;
-    }),
-    catchError(this.handleError));
+  public setMarcadoresCerca(latActual:number, lnActual: number) {
+    
+    
+      const center = new google.maps.LatLng(latActual,lnActual);
+      //markers located within 50 km distance from center are included
+      this.marcadoresRadioPosicion = this.marcadoresServer.filter(m => {
+        const markerLoc = new google.maps.LatLng(m.latitud, m.longitud);
+        const  distanceInMts = google.maps.geometry.spherical.computeDistanceBetween(markerLoc, center);
+        if (distanceInMts <= this.RadioMaximo) {
+          return m;
+        }
+      });
+      console.log("marcadores cerca");
+      console.log(this.marcadoresRadioPosicion);
   }
     
   private handleError(error: HttpErrorResponse) {

@@ -47,11 +47,13 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+  //  MatSelectModule,
     APP_ROUTING,
     MaterialModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyA-HXVa2jtkGfKtIJwisxgC46RaWqC1xuI'
+      apiKey: 'AIzaSyA-HXVa2jtkGfKtIJwisxgC46RaWqC1xuI',
+      libraries: [ 'geometry' ]
     })
   ],
   providers: [

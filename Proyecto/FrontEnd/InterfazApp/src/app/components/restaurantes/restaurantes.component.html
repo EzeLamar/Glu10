@@ -1,7 +1,8 @@
 <mat-drawer-container class="example-container">
-    <mat-drawer mode="side" opened>
-
-            <app-restaurante *ngFor="let i of Arr(num).fill(1)"></app-restaurante>
+    <mat-drawer mode="side" opened >
+            <div *ngIf="!mobile">
+                <app-restaurante *ngFor="let i of Arr(num).fill(1)"></app-restaurante>
+            </div>            
 
     </mat-drawer>
     <mat-drawer-content>

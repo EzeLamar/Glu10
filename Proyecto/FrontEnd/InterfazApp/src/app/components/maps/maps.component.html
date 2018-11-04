@@ -27,8 +27,8 @@
                     <strong>{{ marcador.nombre }}</strong>
                     <p>{{ marcador.descripcion }}</p>
                     <p><app-star-rating [rating]=marcador.calificacion [starCount]="starCount" [color]="starColor"></app-star-rating></p>
-                    <button mat-raised-button color="primary">Calificar</button>
-                    <button mat-raised-button color="warn">Cancelar</button>
+                    <button (click)="moverseACalificar( marcador.id )" mat-raised-button color="primary">Calificar</button>
+                    <button (click)="moverseAVerMas( marcador.id )" mat-stroked-button color="primary">Ver Más</button>
                 </agm-info-window>
             </agm-marker>
         </agm-map>

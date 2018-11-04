@@ -1,18 +1,50 @@
-<h4>Basic mat-select</h4>
-<mat-form-field>
-  <mat-select placeholder="Favorite food">
-    <mat-option *ngFor="let food of foods" [value]="food.value">
-      {{food.viewValue}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-
-<h4>Basic native select</h4>
-<mat-form-field>
-  <select matNativeControl required>
-    <option value="volvo">Volvo</option>
-    <option value="saab">Saab</option>
-    <option value="mercedes">Mercedes</option>
-    <option value="audi">Audi</option>
+  <body>
+    <h1> Calificaion :</h1>
+    <h4>Calidad de servicio</h4>
+    <div class="d-inline-flex p-2">
+      <select class="custom-select">
+        <option selected>selectiona uno</option>
+        <option value="1">Muy bien</option>
+        <option value="2">Bien</option>
+        <option value="3">Pasable</option>
+        <option value="4">Mala</option>
+      </select>
+  </div>
+  <h4>Velocidad de attencion :</h4>
+  <div class="d-inline-flex p-2">
+  <select class="custom-select">
+    <option selected>selectiona uno</option>
+    <option value="1">Muy rapida</option>
+    <option value="2">Rapida</option>
+    <option value="3">Lenta</option>
+    <option value="4">Muy lenta</option>
   </select>
-</mat-form-field>
+  </div>
+  <h4>Precio :</h4>
+  <div class="d-inline-flex p-2">
+  <select class="custom-select">
+    <option selected>selectiona uno</option>
+    <option value="1">Menos de 50$</option>
+    <option value="2">Entre 50 y 100$</option>
+    <option value="3">Entre 100 y 150 $</option>
+    <option value="4">Mas de 150$</option>
+  </select>
+  </div>
+  <h4>Limpieza del local :</h4>
+  <div class="d-inline-flex p-2">
+  <select class="custom-select">
+    <option selected>selectiona uno</option>
+    <option value="1">Perfectamente limpio</option>
+    <option value="2">Limpio</option>
+    <option value="3">Poco sucio</option>
+    <option value="4">Sucio</option>
+  </select>
+  </div>
+  <div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>

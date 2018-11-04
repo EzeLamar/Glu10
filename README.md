@@ -9,6 +9,6 @@ Este proyecto estará dividido en 2 partes:
 1. **FrontEnd**:
    - Angular 6
 2. **Backend:**
-   - PHP
+   - REST PHP
    - MySQL
 
