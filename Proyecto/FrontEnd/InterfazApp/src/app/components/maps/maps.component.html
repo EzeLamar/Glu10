@@ -1,4 +1,3 @@
-
 <mat-card>
     <mat-card-title>Mapa</mat-card-title>
     <mat-card-content>
@@ -27,7 +26,7 @@
                 <agm-info-window>
                     <strong>{{ marcador.nombre }}</strong>
                     <p>{{ marcador.descripcion }}</p>
-                    <p>Calificacion: {{ marcador.calificacion }}</p>
+                    <p><app-star-rating [rating]=marcador.calificacion [starCount]="starCount" [color]="starColor"></app-star-rating></p>
                     <button (click)="moverseACalificar( marcador.id )" mat-raised-button color="primary">Calificar</button>
                     <button (click)="moverseAVerMas( marcador.id )" mat-stroked-button color="primary">Ver Más</button>
                 </agm-info-window>

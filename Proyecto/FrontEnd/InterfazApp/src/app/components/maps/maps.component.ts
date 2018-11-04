@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Marcador } from '../../classes/marcador.class';
 
-//serivcio importado
-import { MarcadoresService } from "../../services/marcadores.service";
+// servicio importado
+import { MarcadoresService } from '../../services/marcadores.service';
 
 
 
@@ -13,15 +13,19 @@ import { MarcadoresService } from "../../services/marcadores.service";
 })
 export class MapsComponent implements OnInit {
 
-  //para pruebas
+  // para pruebas
   lat: number = -38.71536909404415;
   lng: number = -62.26685779187005;
 
-  //atributos de la clase
+  // Para star-rating
+  public starCount = 5;
+  public starColor = 'accent';
+
+  // atributos de la clase
   marcadores: Marcador[] = [];
   error = 'todo bien';
 
-  constructor( private marcadorService: MarcadoresService ) { 
+  constructor( private marcadorService: MarcadoresService ) {
   // Geolocacion del usuario
   if ('geolocation' in navigator) {
     /* la geolocalización está disponible */
@@ -74,7 +78,7 @@ export class MapsComponent implements OnInit {
     const nuevoMarcador = new Marcador(coords.lat, coords.lng);
     nuevoMarcador.nombre = 'Hola';
     nuevoMarcador.descripcion = 'este es un lugar copado';
-    nuevoMarcador.calificacion = 5;
+    nuevoMarcador.calificacion = 3;
 
     this.marcadores.push(nuevoMarcador);
 
@@ -86,7 +90,7 @@ export class MapsComponent implements OnInit {
     localStorage.setItem('marcadores', JSON.stringify(this.marcadores));
   }
 
-  obtenerMarcadoresServer(): void{
+  obtenerMarcadoresServer(): void {
     console.log("esperando por los marcadores");
 
     this.marcadorService.getAll().subscribe(
