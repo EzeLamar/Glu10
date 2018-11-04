@@ -28,6 +28,7 @@ import { CalificacionComponent } from './components/calificacion/calificacion.co
 import { RestauranteComponent } from './components/restaurante/restaurante.component';
 import { AboutComponent } from './components/about/about.component';
 import { RestaurantesComponent } from './components/restaurantes/restaurantes.component';
+import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { RestaurantesComponent } from './components/restaurantes/restaurantes.co
     CalificacionComponent,
     RestauranteComponent,
     AboutComponent,
-    RestaurantesComponent
+    RestaurantesComponent,
+    StarRatingComponent
   ],
   imports: [
     BrowserModule,
