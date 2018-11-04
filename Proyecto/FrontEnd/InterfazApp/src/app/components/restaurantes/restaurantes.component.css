@@ -4,3 +4,7 @@
     margin: 10px;
     /* border: 1px solid #555; */
   }
+
+  .mat-drawer {
+    width: 220px;
+  }
