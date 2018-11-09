@@ -151,7 +151,13 @@ export class MapsComponent implements OnInit {
 
     const dialogRef = this.dialog.open(MapaEditarComponent, {
       width: '250px',
-      data: {nombre: marcador.nombre , descripcion: marcador.descripcion }
+      data: { nombre: marcador.nombre ,
+              descripcion: marcador.descripcion,
+              latitud : marcador.latitud,
+              longitud : marcador.longitud,
+              tieneMenuCel : marcador.tieneMenuCel,
+              calificacion : marcador.calificacion 
+            }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
@@ -162,6 +168,8 @@ export class MapsComponent implements OnInit {
 
       marcador.nombre = result.nombre;
       marcador.descripcion = result.descripcion;
+      marcador.calificacion = result.calificacion;
+      marcador.tieneMenuCel = result.tieneMenuCel;
 
       this.guardaMarcadores();
       this.snackBar.open('Marcador actualizado', 'Cerrar', { duration: 1000 });

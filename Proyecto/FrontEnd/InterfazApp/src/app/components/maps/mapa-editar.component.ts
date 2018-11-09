@@ -17,7 +17,11 @@ export class MapaEditarComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.forma = fb.group({
         'nombre': data.nombre,
-        'descripcion': data.descripcion
+        'descripcion': data.descripcion,
+        'latitud' : data.latitud,
+        'longitud': data.longitud,
+        'tieneMenuCel' : data.tieneMenuCel,
+        'calificacion' : data.calificacion 
       });
      }
 
