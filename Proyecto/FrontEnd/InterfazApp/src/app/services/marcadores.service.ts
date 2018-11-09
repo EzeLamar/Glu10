@@ -22,6 +22,8 @@ export class MarcadoresService {
   baseUrl = "https://localhost:3002"    //<--------- json-server
   marcadoresServer: Marcador[]=[];
   marcadoresRadioPosicion: Marcador[]=[];
+  latActual= 0;
+  lngActual = 0;
   
 
   RadioMaximo = 3000; 
@@ -40,10 +42,10 @@ export class MarcadoresService {
     catchError(this.handleError));
   }
 
-  public setMarcadoresCerca(latActual:number, lnActual: number) {
+  public setMarcadoresCerca(): Marcador[] {
     
     
-      const center = new google.maps.LatLng(latActual,lnActual);
+      const center = new google.maps.LatLng(this.latActual,this.lngActual);
       //markers located within 50 km distance from center are included
       this.marcadoresRadioPosicion = this.marcadoresServer.filter(m => {
         const markerLoc = new google.maps.LatLng(m.latitud, m.longitud);
@@ -54,6 +56,12 @@ export class MarcadoresService {
       });
       console.log("marcadores cerca");
       console.log(this.marcadoresRadioPosicion);
+      return this.marcadoresRadioPosicion;
+  }
+
+  public setUbicacionActual(latActual: number, lngActual: number) {
+    this.latActual = latActual;
+    this.lngActual = lngActual;
   }
     
   private handleError(error: HttpErrorResponse) {
