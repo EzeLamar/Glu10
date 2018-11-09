@@ -87,8 +87,11 @@ export class MapsComponent implements OnInit {
     nuevoMarcador.calificacion = 3;
 
     this.marcadores.push(nuevoMarcador);
+    //this.marcadorService.marcadoresServer.push(nuevoMarcador);
+   
     this.snackBar.open('Marcador agregado', 'Cerrar', { duration: 1000 });
     this.guardaMarcadores();
+    this.panelRestaurantesCerca.actualizarRestaurantesCerca();
 
   }
 
@@ -150,7 +153,9 @@ export class MapsComponent implements OnInit {
           this.marcadores.splice(i, 1);
         }
       this.guardaMarcadores();
+      this.panelRestaurantesCerca.actualizarRestaurantesCerca();
       this.snackBar.open('Marcador borrado', 'Cerrar', { duration: 1000 });
+      
   }
 
   editarMarcador(marcador: Marcador ) {
