@@ -1,6 +1,15 @@
+/* mat-card
+{
+  width: 600px;
+} */
+
 agm-map {
-    height: 500px;
-  }
-.margen-estrellas{
-  margin-top: 10px;
+    height: 400px;
+    /* width: 600px; */
 }
+
+mat-drawer
+{
+  flex: 1;
+}
+

@@ -9,6 +9,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
+import {MatSelectModule} from '@angular/material/select';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
@@ -23,6 +24,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
             MatInputModule,
             MatSidenavModule,
             MatIconModule,
+            MatSelectModule,
             MatTooltipModule
           ],
   exports: [MatButtonModule,
@@ -35,6 +37,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
             MatInputModule,
             MatSidenavModule,
             MatIconModule,
+            MatSelectModule,
             MatTooltipModule
           ],
 })

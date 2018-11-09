@@ -1,0 +1,12 @@
+
+{
+  "read": {
+      "records": [
+        { "id": 1, "nombre": "Grido", "latitud": -38.73231351891272, "longitud":-62.244311642822254, "calificacion":3.5, "descripcion": "venden helados", "tieneMenuCel":true },
+        { "id": 2, "nombre": "Guapaleta", "latitud": -38.73459033911623, "longitud":-62.249977168261694, "calificacion":5, "descripcion": "venden helados", "tieneMenuCel":true },
+        { "id": 3, "nombre": "Planeta Empanada", "latitud": -38.73003742616042, "longitud":-62.25426870268552, "calificacion":1.5, "descripcion": "venden empanadas", "tieneMenuCel":true },
+        { "id": 4, "nombre": "Barone", "latitud": -38.73511995711531, "longitud":-62.242482698364256, "calificacion":3, "descripcion": "venden empanadas", "tieneMenuCel":true }       
+      ]
+  }
+  
+}

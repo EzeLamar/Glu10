@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 // sidenav
 import {MatSidenav} from '@angular/material/sidenav';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-toolbar',
@@ -11,7 +12,8 @@ export class ToolbarComponent implements OnInit {
 
   @ViewChild('sidenav') sidenav: MatSidenav;
 
-  constructor() { }
+  constructor( private router:Router ) { }
+
 
   ngOnInit() {
   }
@@ -21,4 +23,15 @@ export class ToolbarComponent implements OnInit {
   open() {
     this.sidenav.open();
   }
+
+  moverseAMap(){
+    this.sidenav.close();
+    this.router.navigate(['/mapa']);
+  }
+
+  moverseAAbout(){
+    this.sidenav.close();
+    this.router.navigate(['/about']);
+  }
 }
+

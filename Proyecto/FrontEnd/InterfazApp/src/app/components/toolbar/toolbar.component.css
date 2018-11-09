@@ -7,7 +7,7 @@ example-container {
     left: 0;
     right: 0;
   }
-  
+
   example-toolbar {
     position: fixed;
     /* Make sure the toolbar will stay on top of the content as it scrolls past. */
@@ -24,8 +24,9 @@ example-container {
     flex: 1;
   }
   
-  example-is-mobile example-sidenav-container {
+  example-is-mobile .example-sidenav-container {
     /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
        `<body>` to be our scrolling element for mobile layouts. */
     flex: 1 0 auto;
-  }
+}
+

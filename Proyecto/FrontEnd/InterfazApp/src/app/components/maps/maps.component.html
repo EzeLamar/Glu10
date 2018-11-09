@@ -1,22 +1,42 @@
-<mat-card class="borde-arriba">
-    <mat-card-title>Restaurantes</mat-card-title>
-        <mat-card-content>
-            <agm-map (mapClick)="agregarMarcador( $event )" [latitude]="lat" [longitude]="lng" [zoom]="15">
-                <agm-marker *ngFor="let marcador of marcadores; let i = index" [latitude]="marcador.lat" [longitude]="marcador.lng">
-                    <agm-info-window>
-                        <strong>{{ marcador.titulo }}</strong>
-                        <p>
-                            {{ marcador.desc }}
+<mat-card>
+    <mat-card-title>Mapa</mat-card-title>
+    <mat-card-content>
+        <agm-map (mapClick)= "agregarMarcador( $event )" 
+                 [latitude]="lat" 
+                 [longitude]="lng" 
+                 [zoom]="14"
+                 [streetViewControl]="false"
+                 [minZoom]="14"
+                 [maxZoom]="16">
 
-                        </p>
-                        <app-star-rating  [rating]=marcador.calificacion  [starCount]="starCount" [color]="starColor" (ratingUpdated)="onRatingChanged($event)"></app-star-rating>
-                        <div class="margen-estrellas">
-                            <button (click)="editarMarcador( marcador )" mat-raised-button color="primary">Editar</button>
-                            <button (click)="borrarMarcador( i )" mat-raised-button color="warn">Borrar</button>
-                        </div>
+            <agm-marker [latitude]="lat" 
+                        [longitude]="lng" 
+                        [iconUrl]="markerIconUbicacionActual()"
+                        >
+                    <agm-info-window>
+                        <strong>Ubicación Actual</strong>
                     </agm-info-window>
-                </agm-marker>
-            </agm-map>
-        </mat-card-content>
+            </agm-marker>
+
+            <agm-marker *ngFor="let marcador of marcadores" 
+                        [latitude]="marcador.latitud" 
+                        [longitude]="marcador.longitud"
+                        [iconUrl]="markerIconRestaurante(marcador.calificacion)"
+                        >
+                <agm-info-window>
+                    <strong>{{ marcador.nombre }}</strong>
+                    <p>{{ marcador.descripcion }}</p>
+                    <p><app-star-rating [rating]=marcador.calificacion [starCount]="starCount" [color]="starColor"></app-star-rating></p>
+                    <button (click)="moverseACalificar( marcador.id )" mat-raised-button color="primary">Calificar</button>
+                    <button (click)="moverseAVerMas( marcador.id )" mat-stroked-button color="primary">Ver Más</button>
+                  /*
+                  aca pongo los botones que usa el admin
+                   <button (click)="editarMarcador( marcador )" mat-raised-button color="primary">Editar</button>
+                   <button (click)="borrarMarcador( i )" mat-raised-button color="warn">Borrar</button>
+                  */
+                </agm-info-window>
+            </agm-marker>
+        </agm-map>
+    </mat-card-content>
 </mat-card>
-    
+
