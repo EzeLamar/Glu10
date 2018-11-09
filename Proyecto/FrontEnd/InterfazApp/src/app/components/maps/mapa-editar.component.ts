@@ -16,6 +16,7 @@ export class MapaEditarComponent implements OnInit {
                 public dialogRef: MatDialogRef<MapaEditarComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.forma = fb.group({
+        'id' : data.id,
         'nombre': data.nombre,
         'descripcion': data.descripcion,
         'latitud' : data.latitud,
