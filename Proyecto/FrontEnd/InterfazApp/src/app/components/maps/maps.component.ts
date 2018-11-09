@@ -83,7 +83,7 @@ export class MapsComponent implements OnInit {
     nuevoMarcador.calificacion = 3;
 
     this.marcadores.push(nuevoMarcador);
-
+    this.snackBar.open('Marcador agregado', 'Cerrar', { duration: 1000 });
     this.guardaMarcadores();
 
   }
@@ -129,47 +129,21 @@ export class MapsComponent implements OnInit {
   moverseAVerMas(id: number){
     console.log("verMas "+id);
   }
-  onRatingChanged(rating) {
-    console.log(rating);
-    this.rating = rating;
-  }
-  setearLatLng(position ) {
-    this.lat = position.coords.latitude;
-    this.lng = position.coords.longitude;
-  }
-  // Codigo para pedir la ubicacion del usuario al navegador y mostrar su ubicacion en el mapa
-  findMe() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position);
-        this.setearLatLng(position);
-        this.marcadores.push(new Marcador( position.coords.latitude, position.coords.longitude));
-            });
-    } else {
-      alert( 'Geolocation is not supported by this browser.' );
-    }
-  }
 
-  agregarMarcador( evento ) {
+  // onRatingChanged(rating) {
+  //   console.log(rating);
+  //   this.rating = rating;
+  // }
 
-    const coords: { lat: number, lng: number } = evento.coords;
 
-    this.marcadores.push( new Marcador( coords.lat, coords.lng ));
-
-    this.guardarStorage();
-    this.snackBar.open('Marcador agregado', 'Cerrar', { duration: 1000 });
-
-    // console.log(evento);
-  }
-
-  guardarStorage() {
-
-    localStorage.setItem('marcadores', JSON.stringify (this.marcadores));
-  }
-
-  borrarMarcador( i: number ) {
-      this.marcadores.splice( i , 1);
-      this.guardarStorage();
+  borrarMarcador( id: number ) {
+      let encontre = false;
+      for(let i=0; i<this.marcadores.length && !encontre; i++)
+        if( this.marcadores[i].id == id ){
+          encontre=true;
+          this.marcadores.splice(i, 1);
+        }
+      this.guardaMarcadores();
       this.snackBar.open('Marcador borrado', 'Cerrar', { duration: 1000 });
   }
 
@@ -177,7 +151,7 @@ export class MapsComponent implements OnInit {
 
     const dialogRef = this.dialog.open(MapaEditarComponent, {
       width: '250px',
-      data: {titulo: marcador.titulo , desc: marcador.desc }
+      data: {nombre: marcador.nombre , descripcion: marcador.descripcion }
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
@@ -186,10 +160,10 @@ export class MapsComponent implements OnInit {
         return;
       }
 
-      marcador.titulo = result.titulo;
-      marcador.desc = result.desc;
+      marcador.nombre = result.nombre;
+      marcador.descripcion = result.descripcion;
 
-      this.guardarStorage();
+      this.guardaMarcadores();
       this.snackBar.open('Marcador actualizado', 'Cerrar', { duration: 1000 });
     });
   }

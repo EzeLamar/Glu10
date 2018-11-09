@@ -16,8 +16,6 @@ import { MaterialModule } from './material.module';
 // Formularios
 import { MapaEditarComponent } from './components/maps/mapa-editar.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ToolbarComponent } from './components/toolbar/toolbar.component';
-import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 //comunicación con el Servidor PHP
 import { HttpClientModule } from '@angular/common/http';
@@ -44,7 +42,6 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     AppComponent,
     MapsComponent,
     MapaEditarComponent,
-    MenuCirculoComponent,
     LoginComponent,
     FooterComponent,
     ToolbarComponent,
