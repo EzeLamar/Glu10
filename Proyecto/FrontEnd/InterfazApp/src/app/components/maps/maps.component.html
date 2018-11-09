@@ -29,9 +29,14 @@
                     <p><app-star-rating [rating]=marcador.calificacion [starCount]="starCount" [color]="starColor"></app-star-rating></p>
                     <button (click)="moverseACalificar( marcador.id )" mat-raised-button color="primary">Calificar</button>
                     <button (click)="moverseAVerMas( marcador.id )" mat-stroked-button color="primary">Ver Más</button>
+                  /*
+                  aca pongo los botones que usa el admin
+                   <button (click)="editarMarcador( marcador )" mat-raised-button color="primary">Editar</button>
+                   <button (click)="borrarMarcador( i )" mat-raised-button color="warn">Borrar</button>
+                  */
                 </agm-info-window>
             </agm-marker>
         </agm-map>
     </mat-card-content>
 </mat-card>
-<!-- minuto 0:00 video 230  Guardando los marcadores en el LocalStorage-->
+

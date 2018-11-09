@@ -7,6 +7,7 @@ example-container {
     left: 0;
     right: 0;
   }
+
   example-toolbar {
     position: fixed;
     /* Make sure the toolbar will stay on top of the content as it scrolls past. */
@@ -28,3 +29,4 @@ example-container {
        `<body>` to be our scrolling element for mobile layouts. */
     flex: 1 0 auto;
 }
+

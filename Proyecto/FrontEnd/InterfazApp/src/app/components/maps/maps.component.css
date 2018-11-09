@@ -6,9 +6,10 @@
 agm-map {
     height: 400px;
     /* width: 600px; */
-  }
+}
 
 mat-drawer
 {
   flex: 1;
 }
+
