@@ -3,6 +3,7 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import { MapaEditarComponent } from './mapa-editar.component';
 import { Component, OnInit } from '@angular/core';
 import { Marcador } from '../../classes/marcador.class';
+import { Router } from '@angular/router';
 
 //importo al panel de restaurantes cerca para indicarle que se actualice LUEGO de obener los datos.
 import { RestaurantesComponent } from "../restaurantes/restaurantes.component";
@@ -31,7 +32,8 @@ export class MapsComponent implements OnInit {
   constructor(  private snackBar: MatSnackBar,
                 private dialog: MatDialog,
                 private marcadorService: MarcadoresService,
-                private panelRestaurantesCerca: RestaurantesComponent ) {
+                private panelRestaurantesCerca: RestaurantesComponent,
+                private router: Router) {
   // Geolocacion del usuario
   if ('geolocation' in navigator) {
     /* la geolocalización está disponible */
@@ -131,12 +133,15 @@ export class MapsComponent implements OnInit {
       return ('../../../assets/rojo.png');    
   }
 
-  moverseACalificar(id: number){
+   //para ruteos
+   moverseACalificar(id: number){
     console.log("calificar "+id);
+    this.router.navigate(['/restaurante',id,'calificar']);
   }
 
   moverseAVerMas(id: number){
     console.log("verMas "+id);
+    this.router.navigate(['/restaurante',id,'info']);
   }
 
   // onRatingChanged(rating) {
