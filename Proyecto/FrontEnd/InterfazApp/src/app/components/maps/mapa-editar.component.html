@@ -1,0 +1,27 @@
+<form [formGroup]= "forma">
+
+
+    <mat-form-field >
+      <input matInput placeholder="ID" formControlName="id">
+    </mat-form-field>
+
+    <mat-form-field >
+      <input matInput placeholder="Nombre" formControlName="nombre">
+
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Calificacion" formControlName="calificacion">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="tieneMenuCel" formControlName="tieneMenuCel">
+    </mat-form-field>
+  
+    <mat-form-field >
+      <textarea rows="3" matInput placeholder="Descripcion" formControlName="descripcion"></textarea>
+    </mat-form-field>
+    <button (click)="guardarCambios()" mat-raised-button color="primary">Aceptar</button>
+    <button (click)="onNoClick()" mat-raised-button color="warn">Cancelar</button>
+  </form>
+  

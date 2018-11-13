@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { MapsComponent } from './components/maps/maps.component';
 
-//mapas
+// mapas
 import { AgmCoreModule } from '@agm/core';
 
 // Animacion
@@ -11,7 +11,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // MaterialDesign
 import { MaterialModule } from './material.module';
-import { MenuCirculoComponent } from './components/menu-circulo/menu-circulo.component';
+
+
+// Formularios
+import { MapaEditarComponent } from './components/maps/mapa-editar.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 //comunicación con el Servidor PHP
 import { HttpClientModule } from '@angular/common/http';
@@ -31,10 +35,13 @@ import { RestaurantesComponent } from './components/restaurantes/restaurantes.co
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 
 @NgModule({
+  entryComponents: [
+    MapaEditarComponent
+  ],
   declarations: [
     AppComponent,
     MapsComponent,
-    MenuCirculoComponent,
+    MapaEditarComponent,
     LoginComponent,
     FooterComponent,
     ToolbarComponent,
@@ -50,6 +57,7 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
   //  MatSelectModule,
     APP_ROUTING,
     MaterialModule,
+    ReactiveFormsModule,
     HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA-HXVa2jtkGfKtIJwisxgC46RaWqC1xuI',

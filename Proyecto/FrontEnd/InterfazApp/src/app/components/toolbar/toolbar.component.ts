@@ -14,6 +14,7 @@ export class ToolbarComponent implements OnInit {
 
   constructor( private router:Router ) { }
 
+
   ngOnInit() {
   }
   close() {
@@ -33,3 +34,4 @@ export class ToolbarComponent implements OnInit {
     this.router.navigate(['/about']);
   }
 }
+

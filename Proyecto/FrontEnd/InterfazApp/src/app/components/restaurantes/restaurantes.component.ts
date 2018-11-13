@@ -11,13 +11,14 @@ import { MarcadoresService } from "../../services/marcadores.service";
 export class RestaurantesComponent implements OnInit {
 
   mobile: boolean;
-  RestaurantesCerca: Marcador[] = [new Marcador(1,1), new Marcador(2,2)];
+  RestaurantesCerca: Marcador[] = [];
   Arr = Array; //Array type captured in a variable 
   num:number = 5; 
 
 
   constructor( private marcadoresService:MarcadoresService ) {
       //deberia obtener los marcadores desde la BD con una consulta al servico...
+      this.actualizarRestaurantesCerca();
    }
 
   ngOnInit() {
@@ -25,11 +26,11 @@ export class RestaurantesComponent implements OnInit {
       this.mobile = true;
     else 
       this.mobile= false;
-    this.actualizarRestaurantesCerca();
   }
 
   actualizarRestaurantesCerca(){
-    this.RestaurantesCerca= this.marcadoresService.marcadoresRadioPosicion;
+    this.RestaurantesCerca= this.marcadoresService.setMarcadoresCerca();
+    console.log(this.RestaurantesCerca);
   }
 
 }
