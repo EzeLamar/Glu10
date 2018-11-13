@@ -27,8 +27,9 @@ export class Marcador {
     
     public nombre = "Sin Titulo";
     public descripcion = "Sin Descripción";
-    public calificacion = -1;
+    public calificacion = 1;
     public tieneMenuCel : boolean;
+    public imagen = "../../assets/image-not-available.png";
    
     constructor (lat: number, lng: number) {
         this.latitud = lat;
