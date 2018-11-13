@@ -33,6 +33,7 @@ import { RestauranteComponent } from './components/restaurante/restaurante.compo
 import { AboutComponent } from './components/about/about.component';
 import { RestaurantesComponent } from './components/restaurantes/restaurantes.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
+import { InfoRestauranteComponent } from './components/info-restaurante/info-restaurante.component';
 
 @NgModule({
   entryComponents: [
@@ -49,7 +50,8 @@ import { StarRatingComponent } from './components/star-rating/star-rating.compon
     RestauranteComponent,
     AboutComponent,
     RestaurantesComponent,
-    StarRatingComponent
+    StarRatingComponent,
+    InfoRestauranteComponent
   ],
   imports: [
     BrowserModule,
