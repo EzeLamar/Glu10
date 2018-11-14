@@ -3,9 +3,10 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import { MapaEditarComponent } from './mapa-editar.component';
 import { Component, OnInit } from '@angular/core';
 import { Marcador } from '../../classes/marcador.class';
-
-//importo al panel de restaurantes cerca para indicarle que se actualice LUEGO de obener los datos.
-import { RestaurantesComponent } from "../restaurantes/restaurantes.component";
+// Servicio Autenticacion
+import { AuthService } from '../../services/auth.service';
+// importo al panel de restaurantes cerca para indicarle que se actualice LUEGO de obener los datos.
+import { RestaurantesComponent } from '../restaurantes/restaurantes.component';
 // servicio importado
 import { MarcadoresService } from '../../services/marcadores.service';
 
@@ -28,7 +29,11 @@ export class MapsComponent implements OnInit {
   marcadores: Marcador[] = [];
   error = 'todo bien';
 
-  constructor(  private snackBar: MatSnackBar,
+  // Para verificar si es admin o no
+  perfil: any;
+
+  constructor(  private auth0: AuthService,
+                private snackBar: MatSnackBar,
                 private dialog: MatDialog,
                 private marcadorService: MarcadoresService,
                 private panelRestaurantesCerca: RestaurantesComponent ) {
@@ -51,13 +56,30 @@ export class MapsComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Obtengo el perfil del usuario autentificado
+    this.auth0.userChange$.subscribe(userProfile => this.perfil = userProfile);
+
+    // if (this.auth0.userProfile) {
+    //   this.perfil = this.auth0.userProfile;
+    // } else {
+    //   this.auth0.getProfile((err, profile) => {
+    //     this.perfil = profile;
+    //   });
+    // }
+    // obtener Marcadores
     this.obtenerMarcadoresServer();
     console.log(this.error);
     // this.obtenerPrueba();
   }
+  // Verifico si es admin para poder realizar la modificacion de marcadores
+  esAdmin() {
+    if ( this.perfil != null && this.perfil.name === 'admin@admin.com') {
+      return true;
+    }
+      return false;
+  }
 
-
-  setearLatLng(position ) {
+  setearLatLng(position) {
     this.lat = position.coords.latitude;
     this.lng = position.coords.longitude;
   }
@@ -87,8 +109,7 @@ export class MapsComponent implements OnInit {
     nuevoMarcador.calificacion = 3;
 
     this.marcadores.push(nuevoMarcador);
-    //this.marcadorService.marcadoresServer.push(nuevoMarcador);
-   
+    // this.marcadorService.marcadoresServer.push(nuevoMarcador);
     this.snackBar.open('Marcador agregado', 'Cerrar', { duration: 1000 });
     this.guardaMarcadores();
     this.panelRestaurantesCerca.actualizarRestaurantesCerca();

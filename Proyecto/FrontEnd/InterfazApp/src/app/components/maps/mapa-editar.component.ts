@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -12,7 +11,7 @@ export class MapaEditarComponent implements OnInit {
 
   forma: FormGroup;
 
-  constructor( public fb: FormBuilder,
+  constructor(  public fb: FormBuilder,
                 public dialogRef: MatDialogRef<MapaEditarComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.forma = fb.group({
@@ -22,7 +21,7 @@ export class MapaEditarComponent implements OnInit {
         'latitud' : data.latitud,
         'longitud': data.longitud,
         'tieneMenuCel' : data.tieneMenuCel,
-        'calificacion' : data.calificacion 
+        'calificacion' : data.calificacion
       });
      }
 

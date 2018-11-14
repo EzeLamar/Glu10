@@ -27,13 +27,13 @@
                     <strong>{{ marcador.nombre }}</strong>
                     <p>{{ marcador.descripcion }}</p>
                     <p><app-star-rating [rating]=marcador.calificacion [starCount]="starCount" [color]="starColor"></app-star-rating></p>
-                    <button (click)="moverseACalificar( marcador.id )" mat-raised-button color="primary">Calificar</button>
-                    <button (click)="moverseAVerMas( marcador.id )" mat-stroked-button color="primary">Ver Más</button>
-                  /*
-                  aca pongo los botones que usa el admin
-                   <button (click)="editarMarcador( marcador )" mat-raised-button color="primary">Editar</button>
-                   <button (click)="borrarMarcador( marcador.id )" mat-raised-button color="warn">Borrar</button>
-                  */
+                    <button (click)="moverseACalificar( marcador.id )" mat-raised-button color="primary" *ngIf="!esAdmin()">Calificar</button>
+                    <button (click)="moverseAVerMas( marcador.id )" mat-stroked-button color="primary" *ngIf="!esAdmin()">Ver Más</button>
+                  
+                    {{ perfil?.name }}
+                   <button (click)="editarMarcador( marcador )" mat-raised-button color="primary" *ngIf="esAdmin()">Editar</button>
+                   <button (click)="borrarMarcador( marcador.id )" mat-raised-button color="warn" *ngIf="esAdmin()">Borrar</button>
+                  
                 </agm-info-window>
             </agm-marker>
         </agm-map>
