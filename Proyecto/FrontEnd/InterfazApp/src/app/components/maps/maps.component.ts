@@ -82,11 +82,8 @@ export class MapsComponent implements OnInit {
     const coords: { lat: number, lng: number } = evento.coords;
 
     console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);
+    //creo el nuevo marcador con la latitud y longitud donde se hizo click..
     const nuevoMarcador = new Marcador(coords.lat, coords.lng);
-    nuevoMarcador.id= 0;
-    nuevoMarcador.nombre = 'Hola';
-    nuevoMarcador.descripcion = 'este es un lugar copado';
-    nuevoMarcador.calificacion = 3;
 
     this.marcadores.push(nuevoMarcador);
     //this.marcadorService.marcadoresServer.push(nuevoMarcador);
@@ -94,6 +91,9 @@ export class MapsComponent implements OnInit {
     this.snackBar.open('Marcador agregado', 'Cerrar', { duration: 1000 });
     this.guardaMarcadores();
     this.panelRestaurantesCerca.actualizarRestaurantesCerca();
+
+    //lo agregamos a la base de datos
+    this.almacenarMarcadorServer(nuevoMarcador);
 
   }
 
@@ -112,6 +112,18 @@ export class MapsComponent implements OnInit {
         this.marcadorService.setUbicacionActual(this.lat, this.lng);
         this.panelRestaurantesCerca.actualizarRestaurantesCerca();
         //this.marcadorService.setMarcadoresCerca(this.lat, this.lng);
+      },
+      ( err ) => {
+        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
+      }
+    );
+  }
+
+  almacenarMarcadorServer(nuevoMarcador: Marcador): void {
+
+    this.marcadorService.addMarcador(nuevoMarcador).subscribe(
+      ( res: string ) => {
+          console.log(res);
       },
       ( err ) => {
         this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
@@ -189,6 +201,8 @@ export class MapsComponent implements OnInit {
       marcador.descripcion = result.descripcion;
       marcador.calificacion = result.calificacion;
       marcador.tieneMenuCel = result.tieneMenuCel;
+      this.almacenarMarcadorServer(marcador);
+
 
       this.guardaMarcadores();
       this.snackBar.open('Marcador actualizado', 'Cerrar', { duration: 1000 });
