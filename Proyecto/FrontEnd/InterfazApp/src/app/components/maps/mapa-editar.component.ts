@@ -23,6 +23,7 @@ export class MapaEditarComponent implements OnInit {
         'latitud' : data.latitud,
         'longitud': data.longitud,
         'tieneMenuCel' : data.tieneMenuCel,
+        'imagen' : data.imagen,
         'calificacion' : data.calificacion 
       });
      }
