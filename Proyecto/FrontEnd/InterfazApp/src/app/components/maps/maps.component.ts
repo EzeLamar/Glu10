@@ -84,16 +84,26 @@ export class MapsComponent implements OnInit {
     console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);
     //creo el nuevo marcador con la latitud y longitud donde se hizo click..
     const nuevoMarcador = new Marcador(coords.lat, coords.lng);
-
+    //asigno el mayorID+1 al nuevo marcador (para evitar conflictos cn la BD).
+    nuevoMarcador.id = this.marcadorService.obtenerMayorIDR()+1;
+    //seteo el resto de los campos del nuevo Marcador..
+    nuevoMarcador.nombre = 'Nuevo Marcador';
+    nuevoMarcador.descripcion = 'ingrese dirección..';
+    nuevoMarcador.tieneMenuCel= "true";
+    nuevoMarcador.cp = 8000;
+    nuevoMarcador.calificacion = 3;
+    nuevoMarcador.imagen = "../../assets/image-not-available.png";
+    
     this.marcadores.push(nuevoMarcador);
-    //this.marcadorService.marcadoresServer.push(nuevoMarcador);
+
+    //lo agregamos a la base de datos
+    this.almacenarMarcadorServer(nuevoMarcador);
    
     this.snackBar.open('Marcador agregado', 'Cerrar', { duration: 1000 });
     this.guardaMarcadores();
     this.panelRestaurantesCerca.actualizarRestaurantesCerca();
 
-    //lo agregamos a la base de datos
-    this.almacenarMarcadorServer(nuevoMarcador);
+
 
   }
 
@@ -131,6 +141,7 @@ export class MapsComponent implements OnInit {
     );
   }
 
+
   markerIconUbicacionActual() {
     return ('../../../assets/my_location.svg');
   }
@@ -165,14 +176,15 @@ export class MapsComponent implements OnInit {
   borrarMarcador( id: number ) {
       let encontre = false;
       for(let i=0; i<this.marcadores.length && !encontre; i++)
-        if( this.marcadores[i].id == id ){
+        if( this.marcadores[i].id === id ){
           encontre=true;
+          this.marcadorService.removeMarcador(this.marcadorService[i]);
           this.marcadores.splice(i, 1);
+          
         }
       this.guardaMarcadores();
       this.panelRestaurantesCerca.actualizarRestaurantesCerca();
       this.snackBar.open('Marcador borrado', 'Cerrar', { duration: 1000 });
-      
   }
 
   editarMarcador(marcador: Marcador ) {
@@ -185,6 +197,7 @@ export class MapsComponent implements OnInit {
               descripcion: marcador.descripcion,
               latitud : marcador.latitud,
               longitud : marcador.longitud,
+              imagen : marcador.imagen,
               tieneMenuCel : marcador.tieneMenuCel,
               calificacion : marcador.calificacion 
             }
@@ -197,16 +210,27 @@ export class MapsComponent implements OnInit {
       }
 
       marcador.id = result.id;
+      marcador.cp = result.cp;
       marcador.nombre = result.nombre;
       marcador.descripcion = result.descripcion;
       marcador.calificacion = result.calificacion;
       marcador.tieneMenuCel = result.tieneMenuCel;
-      this.almacenarMarcadorServer(marcador);
-
-
+      marcador.imagen = result.imagen;
+      this.actualizarMarcadorServer(marcador);
       this.guardaMarcadores();
       this.snackBar.open('Marcador actualizado', 'Cerrar', { duration: 1000 });
     });
+  }
+
+  public actualizarMarcadorServer(marcador: Marcador){
+    this.marcadorService.updateMarcador(marcador).subscribe(
+      ( res: string ) => {
+          console.log(res);
+      },
+      ( err ) => {
+        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
+      }
+    );
   }
 
 }

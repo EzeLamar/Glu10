@@ -85,17 +85,6 @@ export class MarcadoresService {
 
   //POST
     addMarcador (nuevoMarcador: Marcador): Observable<string> {
-
-      //asigno el mayorID+1 al nuevo marcador (para evitar conflictos cn la BD).
-      nuevoMarcador.id = this.obtenerMayorIDR()+1;
-      //seteo el resto de los campos del nuevo Marcador..
-      nuevoMarcador.nombre = 'Nuevo Marcador';
-      nuevoMarcador.descripcion = 'ingrese dirección..';
-      nuevoMarcador.tieneMenuCel= "true";
-      nuevoMarcador.cp = 8000;
-      nuevoMarcador.imagen = "../../assets/image-not-available.png";
-       
-    nuevoMarcador.calificacion = 3;
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json'
@@ -104,6 +93,62 @@ export class MarcadoresService {
       };
       console.log(nuevoMarcador);
       return this.http.post<string>(this.baseUrl+"/restaurant/create.php", nuevoMarcador, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        );
+    }
+    //buscar el marcador en marcadoresServer y retorna su posición actual.
+    //Retorna -1 si no lo encuentra
+    private buscarMarcador(id:number): number {
+      let encontre = false;
+      let pos=0;
+      for( pos=0; (pos<this.marcadoresServer.length)&&(!encontre); pos++ )
+        if( this.marcadoresServer[pos].id === id )
+          encontre = true;
+      if(!encontre)
+        pos=-1;
+      return pos;
+    }
+
+    public removeMarcador(idMarcador: number):Observable<string>{
+
+
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+          // ,'Authorization': 'my-auth-token'
+        })
+      };
+
+      return this.http.post<string>(this.baseUrl+"/restaurant/remove.php", idMarcador, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        );
+    }
+
+    updateMarcador (marcadorActualizado: Marcador): Observable<string> {
+      //asumo que dicho marcador con idMarcador existe
+
+      //busco la posicion donde se encuentra el marcador a actualizar
+      //let pos = this.buscarMarcador(idMarcador);
+      //actualizo los campos del marcador
+
+      // this.marcadoresServer[pos].id = nuevosValoresMarcador.id;
+      // this.marcadoresServer[pos].cp = nuevosValoresMarcador.cp;
+      // this.marcadoresServer[pos].nombre = nuevosValoresMarcador.nombre;
+      // this.marcadoresServer[pos].calificacion = nuevosValoresMarcador.calificacion;
+      // this.marcadoresServer[pos].tieneMenuCel = nuevosValoresMarcador.tieneMenuCel;
+      // this.marcadoresServer[pos].imagen = nuevosValoresMarcador.imagen;  
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+          // ,'Authorization': 'my-auth-token'
+        })
+      };
+
+      return this.http.post<string>(this.baseUrl+"/restaurant/update.php", marcadorActualizado, httpOptions)
         .pipe(
           catchError(this.handleError)
         );
