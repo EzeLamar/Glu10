@@ -12,8 +12,9 @@ export class MapaEditarComponent implements OnInit {
 
   forma: FormGroup;
 
-  constructor( public fb: FormBuilder,
-                public dialogRef: MatDialogRef<MapaEditarComponent>,
+  constructor( private fb: FormBuilder,
+               private dialogRef: MatDialogRef<MapaEditarComponent>,
+
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.forma = fb.group({
         'id' : data.id,
@@ -31,6 +32,7 @@ export class MapaEditarComponent implements OnInit {
   guardarCambios() {
     console.log(this.forma.value);
     this.dialogRef.close(this.forma.value);
+
   }
   onNoClick(): void {
     this.dialogRef.close();
