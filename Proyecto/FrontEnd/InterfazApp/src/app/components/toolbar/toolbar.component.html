@@ -1,6 +1,10 @@
 <mat-toolbar color="primary" class="example-toolbar">
   <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
   <span class="example-app-name">Maps</span>
+  <span class="example-spacer"></span>
+  <span class="example-app-name" *ngIf="auth0.isAuthenticated()">{{ perfil?.name }}</span>
+  <button mat-button class="example-app-name" (click)="logout()" *ngIf="auth0.isAuthenticated()" >Salir <mat-icon class="example-icon">exit_to_app</mat-icon></button>
+  <button mat-button class="example-app-name" (click)="login()" *ngIf="!auth0.isAuthenticated()" >Ingresar <mat-icon class="example-icon">exit_to_app</mat-icon></button>
 </mat-toolbar>
 
 <mat-sidenav-container

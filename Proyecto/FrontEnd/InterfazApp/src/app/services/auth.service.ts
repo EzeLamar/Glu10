@@ -4,11 +4,15 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import * as auth0 from 'auth0-js';
+import { Observable, Observer } from 'rxjs';
 
 (window as any).global = window;
 
 @Injectable()
 export class AuthService {
+
+  private observer: Observer<string>;
+  userChange$: Observable<string> = new Observable(obs => this.observer = obs);
 
   public userProfile: any;
 
@@ -16,7 +20,7 @@ export class AuthService {
     clientID: 'Cg8fLad40Y6nxLL5b3E2i3mLtAbQNrIQ',
     domain: 'gluten.auth0.com',
     responseType: 'token id_token',
-    redirectUri: 'http://localhost:4200/callback',
+    redirectUri: 'https://localhost:4200/callback',
     scope: 'openid profile'
   });
 
@@ -31,9 +35,10 @@ export class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this.setSession(authResult);
-        this.router.navigate(['/home']);
+        this.getProfile();
+        this.router.navigate(['/mapa']);
       } else if (err) {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/about']);
         console.log(err);
       }
     });
@@ -62,8 +67,7 @@ export class AuthService {
     const expiresAt = JSON.parse(localStorage.getItem('expires_at') || '{}');
     return new Date().getTime() < expiresAt;
   }
-
-  public getProfile(cb): void {
+  public getProfile(): void {
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
       throw new Error('Access Token must exist to fetch profile');
@@ -71,9 +75,10 @@ export class AuthService {
     const self = this;
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (profile) {
-        self.userProfile = profile;
+        this.observer.next(profile);
+        // self.userProfile = profile;
       }
-      cb(err, profile);
+      // cb(err, profile);
     });
   }
 }
