@@ -72,6 +72,7 @@ export class MapsComponent implements OnInit {
     // this.obtenerPrueba();
   }
   // Verifico si es admin para poder realizar la modificacion de marcadores
+  // this.perfil != null &&
   esAdmin() {
     if ( this.perfil != null && this.perfil.name === 'admin@admin.com') {
       return true;
@@ -99,20 +100,22 @@ export class MapsComponent implements OnInit {
 
 
   agregarMarcador( evento ) {
-    const coords: { lat: number, lng: number } = evento.coords;
+    if ( this.esAdmin() ) {
+      const coords: { lat: number, lng: number } = evento.coords;
 
-    console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);
-    const nuevoMarcador = new Marcador(coords.lat, coords.lng);
-    nuevoMarcador.id= 0;
-    nuevoMarcador.nombre = 'Hola';
-    nuevoMarcador.descripcion = 'este es un lugar copado';
-    nuevoMarcador.calificacion = 3;
+      console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);
+      const nuevoMarcador = new Marcador(coords.lat, coords.lng);
+      nuevoMarcador.id = 0;
+      nuevoMarcador.nombre = 'Hola';
+      nuevoMarcador.descripcion = 'este es un lugar copado';
+      nuevoMarcador.calificacion = 3;
 
-    this.marcadores.push(nuevoMarcador);
-    // this.marcadorService.marcadoresServer.push(nuevoMarcador);
-    this.snackBar.open('Marcador agregado', 'Cerrar', { duration: 1000 });
-    this.guardaMarcadores();
-    this.panelRestaurantesCerca.actualizarRestaurantesCerca();
+      this.marcadores.push(nuevoMarcador);
+      // this.marcadorService.marcadoresServer.push(nuevoMarcador);
+      this.snackBar.open('Marcador agregado', 'Cerrar', { duration: 1000 });
+      this.guardaMarcadores();
+      this.panelRestaurantesCerca.actualizarRestaurantesCerca();
+    }
 
   }
 

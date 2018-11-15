@@ -14,6 +14,7 @@ export class ToolbarComponent implements OnInit {
   @ViewChild('sidenav') sidenav: MatSidenav;
 
   perfil: any;
+  nombre: string;
 
   constructor( private router: Router, private auth0: AuthService ) {
     auth0.handleAuthentication();
@@ -22,13 +23,6 @@ export class ToolbarComponent implements OnInit {
 
   ngOnInit() {
     this.auth0.userChange$.subscribe(userProfile => this.perfil = userProfile);
-    // if (this.auth0.userProfile) {
-    //   this.profile = this.auth0.userProfile;
-    // } else {
-    //   this.auth0.getProfile((err, profile) => {
-    //     this.profile = profile;
-    //   });
-    // }
   }
   // For auth service purpose
   login() {
