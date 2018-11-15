@@ -167,11 +167,6 @@ export class MapsComponent implements OnInit {
     this.router.navigate(['/restaurante',id,'info']);
   }
 
-  // onRatingChanged(rating) {
-  //   console.log(rating);
-  //   this.rating = rating;
-  // }
-
 
   borrarMarcador( id: number ) {
       let encontre = false;
@@ -199,14 +194,22 @@ export class MapsComponent implements OnInit {
 
   editarMarcador(marcador: Marcador ) {
 
+    //copia de los valores viejos del marcador
+    let valoresViejos = new Marcador(0,0);
+    valoresViejos.id = marcador.id;
+    valoresViejos.cp = marcador.cp;
+    valoresViejos.nombre = marcador.nombre;
+    valoresViejos.descripcion = marcador.descripcion;
+    valoresViejos.calificacion = marcador.calificacion;
+    valoresViejos.imagen = marcador.imagen;
+    
     const dialogRef = this.dialog.open(MapaEditarComponent, {
       width: '250px',
       data: { 
               id: marcador.id, 
+              cp: marcador.cp,
               nombre: marcador.nombre ,
               descripcion: marcador.descripcion,
-              latitud : marcador.latitud,
-              longitud : marcador.longitud,
               imagen : marcador.imagen,
               tieneMenuCel : marcador.tieneMenuCel,
               calificacion : marcador.calificacion 
@@ -218,22 +221,40 @@ export class MapsComponent implements OnInit {
       if ( !result ) {
         return;
       }
+      //chequeo que campos fueron modifados
+      let valoresModificados = {'id': marcador.id};
 
-      marcador.id = result.id;
-      marcador.cp = result.cp;
-      marcador.nombre = result.nombre;
-      marcador.descripcion = result.descripcion;
-      marcador.calificacion = result.calificacion;
-      marcador.tieneMenuCel = result.tieneMenuCel;
-      marcador.imagen = result.imagen;
-      this.actualizarMarcadorServer(marcador);
+      if(valoresViejos.cp !== result.cp ){
+        marcador.cp = result.cp;
+        valoresModificados={ ...valoresModificados, ...{'cp': result.cp} }; 
+      }
+      if(valoresViejos.nombre !== result.nombre ){
+        marcador.nombre = result.nombre;
+        valoresModificados={ ...valoresModificados, ...{'nombre': result.nombre} }; 
+      }
+      if(valoresViejos.descripcion !== result.descripcion ){
+        marcador.descripcion = result.descripcion;
+        valoresModificados={ ...valoresModificados, ...{'descripcion': result.descripcion} }; 
+      }
+      if(valoresViejos.calificacion !== result.calificacion ){
+        marcador.calificacion = result.calificacion;
+        valoresModificados={ ...valoresModificados, ...{'calificacion': result.calificacion} }; 
+      }
+      if(valoresViejos.imagen !== result.imagen ){
+        marcador.imagen = result.imagen;
+        valoresModificados={ ...valoresModificados, ...{'imagen': result.imagen} }; 
+      }
+
+      console.log("valoresModificados",valoresModificados);
+
+      this.actualizarMarcadorServer(valoresModificados);
       this.guardaMarcadores();
       this.snackBar.open('Marcador actualizado', 'Cerrar', { duration: 1000 });
     });
   }
 
-  public actualizarMarcadorServer(marcador: Marcador){
-    this.marcadorService.updateMarcador(marcador).subscribe(
+  public actualizarMarcadorServer(valoresModificados){
+    this.marcadorService.updateMarcador(valoresModificados).subscribe(
       ( res: string ) => {
           console.log(res);
       },

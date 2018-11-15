@@ -129,7 +129,7 @@ export class MarcadoresService {
         );
     }
 
-    updateMarcador (marcadorActualizado: Marcador): Observable<string> {
+    updateMarcador (camposModificados): Observable<string> {
 
       const httpOptions = {
         headers: new HttpHeaders({
@@ -138,7 +138,7 @@ export class MarcadoresService {
         })
       };
 
-      return this.http.post<string>(this.baseUrl+"/restaurant/update.php", marcadorActualizado, httpOptions)
+      return this.http.post<string>(this.baseUrl+"/restaurant/update.php", camposModificados, httpOptions)
         .pipe(
           catchError(this.handleError)
         );
