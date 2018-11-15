@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -11,7 +10,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class MapaEditarComponent implements OnInit {
 
   forma: FormGroup;
-
   constructor( private fb: FormBuilder,
                private dialogRef: MatDialogRef<MapaEditarComponent>,
 
