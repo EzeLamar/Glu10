@@ -255,23 +255,23 @@ export class MapsComponent implements OnInit {
 
       if(valoresViejos.cp !== result.cp ){
         marcador.cp = result.cp;
-        valoresModificados={ ...valoresModificados, ...{'cp': result.cp} }; 
+        Object.assign(valoresModificados,{'cp': result.cp}); 
       }
       if(valoresViejos.nombre !== result.nombre ){
         marcador.nombre = result.nombre;
-        valoresModificados={ ...valoresModificados, ...{'nombre': result.nombre} }; 
+        Object.assign(valoresModificados,{'nombre': result.nombre}); 
       }
       if(valoresViejos.descripcion !== result.descripcion ){
         marcador.descripcion = result.descripcion;
-        valoresModificados={ ...valoresModificados, ...{'descripcion': result.descripcion} }; 
+        Object.assign(valoresModificados,{'descripcion': result.descripcion}); 
       }
       if(valoresViejos.calificacion !== result.calificacion ){
         marcador.calificacion = result.calificacion;
-        valoresModificados={ ...valoresModificados, ...{'calificacion': result.calificacion} }; 
+        Object.assign(valoresModificados,{'calificacion': result.calificacion}); 
       }
       if(valoresViejos.imagen !== result.imagen ){
         marcador.imagen = result.imagen;
-        valoresModificados={ ...valoresModificados, ...{'imagen': result.imagen} }; 
+        Object.assign(valoresModificados,{'imagen': result.imagen}); 
       }
 
       console.log("valoresModificados",valoresModificados);
