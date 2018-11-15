@@ -3,10 +3,14 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import { MapaEditarComponent } from './mapa-editar.component';
 import { Component, OnInit } from '@angular/core';
 import { Marcador } from '../../classes/marcador.class';
+
 // Servicio Autenticacion
 import { AuthService } from '../../services/auth.service';
 // importo al panel de restaurantes cerca para indicarle que se actualice LUEGO de obener los datos.
 import { RestaurantesComponent } from '../restaurantes/restaurantes.component';
+// Para Ruteo
+import { Router } from '@angular/router';
+
 // servicio importado
 import { MarcadoresService } from '../../services/marcadores.service';
 
@@ -36,7 +40,8 @@ export class MapsComponent implements OnInit {
                 private snackBar: MatSnackBar,
                 private dialog: MatDialog,
                 private marcadorService: MarcadoresService,
-                private panelRestaurantesCerca: RestaurantesComponent ) {
+                private panelRestaurantesCerca: RestaurantesComponent,
+                private router: Router) {
   // Geolocacion del usuario
   if ('geolocation' in navigator) {
     /* la geolocalización está disponible */
@@ -100,22 +105,34 @@ export class MapsComponent implements OnInit {
 
 
   agregarMarcador( evento ) {
-    if ( this.esAdmin() ) {
+  if ( this.esAdmin() ) {
       const coords: { lat: number, lng: number } = evento.coords;
 
       console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);
+      //creo el nuevo marcador con la latitud y longitud donde se hizo click..
       const nuevoMarcador = new Marcador(coords.lat, coords.lng);
-      nuevoMarcador.id = 0;
-      nuevoMarcador.nombre = 'Hola';
-      nuevoMarcador.descripcion = 'este es un lugar copado';
+      //asigno el mayorID+1 al nuevo marcador (para evitar conflictos cn la BD).
+      nuevoMarcador.id = this.marcadorService.obtenerMayorIDR()+1;
+      //seteo el resto de los campos del nuevo Marcador..
+      nuevoMarcador.nombre = 'Nuevo Marcador';
+      nuevoMarcador.descripcion = 'ingrese dirección..';
+      nuevoMarcador.tieneMenuCel= "true";
+      nuevoMarcador.cp = 8000;
       nuevoMarcador.calificacion = 3;
+      nuevoMarcador.imagen = "../../assets/image-not-available.png";
 
       this.marcadores.push(nuevoMarcador);
-      // this.marcadorService.marcadoresServer.push(nuevoMarcador);
+
+      //lo agregamos a la base de datos
+      this.almacenarMarcadorServer(nuevoMarcador);
+
       this.snackBar.open('Marcador agregado', 'Cerrar', { duration: 1000 });
       this.guardaMarcadores();
       this.panelRestaurantesCerca.actualizarRestaurantesCerca();
-    }
+  }
+
+
+
 
   }
 
@@ -141,6 +158,19 @@ export class MapsComponent implements OnInit {
     );
   }
 
+  almacenarMarcadorServer(nuevoMarcador: Marcador): void {
+
+    this.marcadorService.addMarcador(nuevoMarcador).subscribe(
+      ( res: string ) => {
+          console.log(res);
+      },
+      ( err ) => {
+        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
+      }
+    );
+  }
+
+
   markerIconUbicacionActual() {
     return ('../../../assets/my_location.svg');
   }
@@ -155,12 +185,15 @@ export class MapsComponent implements OnInit {
       return ('../../../assets/rojo.png');    
   }
 
-  moverseACalificar(id: number){
+   //para ruteos
+   moverseACalificar(id: number){
     console.log("calificar "+id);
+    this.router.navigate(['/restaurante',id,'calificar']);
   }
 
   moverseAVerMas(id: number){
     console.log("verMas "+id);
+    this.router.navigate(['/restaurante',id,'info']);
   }
 
   // onRatingChanged(rating) {
@@ -172,14 +205,15 @@ export class MapsComponent implements OnInit {
   borrarMarcador( id: number ) {
       let encontre = false;
       for(let i=0; i<this.marcadores.length && !encontre; i++)
-        if( this.marcadores[i].id == id ){
+        if( this.marcadores[i].id === id ){
           encontre=true;
+          this.marcadorService.removeMarcador(this.marcadorService[i]);
           this.marcadores.splice(i, 1);
+          
         }
       this.guardaMarcadores();
       this.panelRestaurantesCerca.actualizarRestaurantesCerca();
       this.snackBar.open('Marcador borrado', 'Cerrar', { duration: 1000 });
-      
   }
 
   editarMarcador(marcador: Marcador ) {
@@ -192,6 +226,7 @@ export class MapsComponent implements OnInit {
               descripcion: marcador.descripcion,
               latitud : marcador.latitud,
               longitud : marcador.longitud,
+              imagen : marcador.imagen,
               tieneMenuCel : marcador.tieneMenuCel,
               calificacion : marcador.calificacion 
             }
@@ -204,14 +239,27 @@ export class MapsComponent implements OnInit {
       }
 
       marcador.id = result.id;
+      marcador.cp = result.cp;
       marcador.nombre = result.nombre;
       marcador.descripcion = result.descripcion;
       marcador.calificacion = result.calificacion;
       marcador.tieneMenuCel = result.tieneMenuCel;
-
+      marcador.imagen = result.imagen;
+      this.actualizarMarcadorServer(marcador);
       this.guardaMarcadores();
       this.snackBar.open('Marcador actualizado', 'Cerrar', { duration: 1000 });
     });
+  }
+
+  public actualizarMarcadorServer(marcador: Marcador){
+    this.marcadorService.updateMarcador(marcador).subscribe(
+      ( res: string ) => {
+          console.log(res);
+      },
+      ( err ) => {
+        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
+      }
+    );
   }
 
 }

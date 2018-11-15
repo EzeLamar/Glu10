@@ -10,9 +10,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class MapaEditarComponent implements OnInit {
 
   forma: FormGroup;
+  constructor( private fb: FormBuilder,
+               private dialogRef: MatDialogRef<MapaEditarComponent>,
 
-  constructor(  public fb: FormBuilder,
-                public dialogRef: MatDialogRef<MapaEditarComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
       this.forma = fb.group({
         'id' : data.id,
@@ -21,7 +21,8 @@ export class MapaEditarComponent implements OnInit {
         'latitud' : data.latitud,
         'longitud': data.longitud,
         'tieneMenuCel' : data.tieneMenuCel,
-        'calificacion' : data.calificacion
+        'imagen' : data.imagen,
+        'calificacion' : data.calificacion 
       });
      }
 
@@ -30,6 +31,7 @@ export class MapaEditarComponent implements OnInit {
   guardarCambios() {
     console.log(this.forma.value);
     this.dialogRef.close(this.forma.value);
+
   }
   onNoClick(): void {
     this.dialogRef.close();

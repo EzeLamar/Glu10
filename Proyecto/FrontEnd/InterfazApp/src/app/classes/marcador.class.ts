@@ -21,6 +21,7 @@ export class Marcador {
 
 */
 export class Marcador {
+    public cp = 8000;
     public id: number;
     public latitud: number;
     public longitud: number;
@@ -28,7 +29,7 @@ export class Marcador {
     public nombre = "Sin Titulo";
     public descripcion = "Sin Descripción";
     public calificacion = 1;
-    public tieneMenuCel : boolean;
+    public tieneMenuCel = "true";
     public imagen = "../../assets/image-not-available.png";
    
     constructor (lat: number, lng: number) {
