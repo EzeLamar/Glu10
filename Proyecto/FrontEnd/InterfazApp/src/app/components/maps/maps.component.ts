@@ -178,13 +178,23 @@ export class MapsComponent implements OnInit {
       for(let i=0; i<this.marcadores.length && !encontre; i++)
         if( this.marcadores[i].id === id ){
           encontre=true;
-          this.marcadorService.removeMarcador(this.marcadorService[i]);
+          this.borrarMarcadorServer(id);
           this.marcadores.splice(i, 1);
-          
         }
       this.guardaMarcadores();
       this.panelRestaurantesCerca.actualizarRestaurantesCerca();
       this.snackBar.open('Marcador borrado', 'Cerrar', { duration: 1000 });
+  }
+
+  public borrarMarcadorServer(id: number){
+    this.marcadorService.removeMarcador(id).subscribe(
+      ( res: string ) => {
+          console.log(res);
+      },
+      ( err ) => {
+        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
+      }
+    );
   }
 
   editarMarcador(marcador: Marcador ) {

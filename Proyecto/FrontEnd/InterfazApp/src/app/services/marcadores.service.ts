@@ -112,8 +112,6 @@ export class MarcadoresService {
 
     public removeMarcador(idMarcador: number):Observable<string>{
 
-
-
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json'
@@ -121,25 +119,17 @@ export class MarcadoresService {
         })
       };
 
-      return this.http.post<string>(this.baseUrl+"/restaurant/remove.php", idMarcador, httpOptions)
+      let idAEliminar = {
+        id: idMarcador
+      };
+      console.log("entre al removeMarcador!!");
+      return this.http.post<string>(this.baseUrl+"/restaurant/remove.php", idAEliminar, httpOptions)
         .pipe(
           catchError(this.handleError)
         );
     }
 
     updateMarcador (marcadorActualizado: Marcador): Observable<string> {
-      //asumo que dicho marcador con idMarcador existe
-
-      //busco la posicion donde se encuentra el marcador a actualizar
-      //let pos = this.buscarMarcador(idMarcador);
-      //actualizo los campos del marcador
-
-      // this.marcadoresServer[pos].id = nuevosValoresMarcador.id;
-      // this.marcadoresServer[pos].cp = nuevosValoresMarcador.cp;
-      // this.marcadoresServer[pos].nombre = nuevosValoresMarcador.nombre;
-      // this.marcadoresServer[pos].calificacion = nuevosValoresMarcador.calificacion;
-      // this.marcadoresServer[pos].tieneMenuCel = nuevosValoresMarcador.tieneMenuCel;
-      // this.marcadoresServer[pos].imagen = nuevosValoresMarcador.imagen;  
 
       const httpOptions = {
         headers: new HttpHeaders({
