@@ -19,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 //comunicación con el Servidor PHP
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 //servicios
 import { AuthService } from './services/auth.service';
@@ -61,6 +62,7 @@ import { InfoRestauranteComponent } from './components/info-restaurante/info-res
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HttpModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA-HXVa2jtkGfKtIJwisxgC46RaWqC1xuI',
       libraries: [ 'geometry' ]
