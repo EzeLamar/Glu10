@@ -2,18 +2,18 @@
     <h1> Calificaion :</h1>
     <h4>Calidad de servicio</h4>
     <div class="d-inline-flex p-2">
-      <select class="custom-select">
-        <option selected>selectiona uno</option>
+      <select class="custom-select" name="servicio">
+        <option selected>selectiona una</option>
         <option value="1">Muy bien</option>
         <option value="2">Bien</option>
         <option value="3">Pasable</option>
         <option value="4">Mala</option>
       </select>
   </div>
-  <h4>Velocidad de attencion :</h4>
+  <h4>Velocidad de atencion :</h4>
   <div class="d-inline-flex p-2">
-  <select class="custom-select">
-    <option selected>selectiona uno</option>
+  <select class="custom-select" name="velocidad">
+    <option selected>selectiona una</option>
     <option value="1">Muy rapida</option>
     <option value="2">Rapida</option>
     <option value="3">Lenta</option>
@@ -22,8 +22,8 @@
   </div>
   <h4>Precio :</h4>
   <div class="d-inline-flex p-2">
-  <select class="custom-select">
-    <option selected>selectiona uno</option>
+  <select class="custom-select" name="precio">
+    <option selected>selectiona una</option>
     <option value="1">Menos de 50$</option>
     <option value="2">Entre 50 y 100$</option>
     <option value="3">Entre 100 y 150 $</option>
@@ -32,8 +32,8 @@
   </div>
   <h4>Limpieza del local :</h4>
   <div class="d-inline-flex p-2">
-  <select class="custom-select">
-    <option selected>selectiona uno</option>
+  <select class="custom-select" name="limpieza">
+    <option selected>selectiona una</option>
     <option value="1">Perfectamente limpio</option>
     <option value="2">Limpio</option>
     <option value="3">Poco sucio</option>
@@ -41,7 +41,7 @@
   </select>
   </div>
   <div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button (click)="calificar()" type="submit" class="btn btn-primary">Submit</button>
   </div>
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

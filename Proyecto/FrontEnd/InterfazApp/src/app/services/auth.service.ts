@@ -20,7 +20,7 @@ export class AuthService {
     clientID: 'Cg8fLad40Y6nxLL5b3E2i3mLtAbQNrIQ',
     domain: 'gluten.auth0.com',
     responseType: 'token id_token',
-    redirectUri: 'https://localhost:4200/callback',
+    redirectUri: 'https://localhost:4200/mapa',
     scope: 'openid profile'
   });
 
@@ -58,7 +58,7 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     // Go back to the home route
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 
   public isAuthenticated(): boolean {

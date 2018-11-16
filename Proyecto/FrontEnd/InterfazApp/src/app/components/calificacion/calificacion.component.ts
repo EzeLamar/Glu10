@@ -8,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
 export class CalificacionComponent implements OnInit {
 
 
-  constructor() { }
-  
-  selected = 'option2';
-  
-  ngOnInit() { }
+  constructor() {
+    }
 
+  ngOnInit() {}
+
+  calificar() {
+    Int servicio= request.getParameter("servicio");
+    Int velocidad= request.getParameter("velocidad");
+    Int precio= request.getParameter("precio");
+    Int servicio= request.getParameter("limpieza");
+    Int calificado=(servicio+velocidad+precio+servicio)/4;
+    console.log(calificado);
+  }
 }
