@@ -13,3 +13,13 @@ mat-drawer
   flex: 1;
 }
 
+.example-header-image {
+  /* background-image: url(https://www.guiavoy.com.ar/media/com_mtree/images/listings/m/117.jpg); */
+  background-size: cover;
+  vertical-align: middle;
+}
+
+.tituloGlobo {
+  font-size: 120%;
+  margin-left: 5px;
+}

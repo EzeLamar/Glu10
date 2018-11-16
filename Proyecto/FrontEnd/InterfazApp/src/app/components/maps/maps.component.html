@@ -24,8 +24,9 @@
                         [longitude]="marcador.longitud"
                         [iconUrl]="markerIconRestaurante(marcador.calificacion)"
                         >
-                <agm-info-window>
-                    <strong>{{ marcador.nombre }}</strong>
+                <agm-info-window> 
+                        <img mat-card-avatar class="example-header-image" [src]=marcador.imagen alt="Photo">
+                        <strong class="tituloGlobo">{{ marcador.nombre }}</strong>
                     <p>{{ marcador.descripcion }}</p>
                     <p><app-star-rating [rating]=marcador.calificacion [starCount]="starCount" [color]="starColor"></app-star-rating></p>
                     <button (click)="moverseACalificar( marcador.id )" mat-raised-button color="primary" *ngIf="!esAdmin()">Calificar</button>

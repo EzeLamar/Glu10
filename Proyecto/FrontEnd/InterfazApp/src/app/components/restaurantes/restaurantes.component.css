@@ -4,3 +4,16 @@
     margin: 10px;
     /* border: 1px solid #555; */
   }
+
+  .fondoPanelTarjetas{
+    background-color: blueviolet;
+  }
+
+  .TituloPanelTarjetas{
+    font-size: 120%;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .espacioEntreTarjetas{
+    margin-top: 10px;
+  }

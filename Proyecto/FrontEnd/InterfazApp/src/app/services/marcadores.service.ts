@@ -31,7 +31,7 @@ export class MarcadoresService {
 
   
 
-  RadioMaximo = 3000; 
+  RadioMaximo = 1500; 
 
   constructor(  private http: HttpClient ,
                 private mapsAPILoader: MapsAPILoader ) { }
