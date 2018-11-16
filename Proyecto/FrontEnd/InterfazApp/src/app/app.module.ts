@@ -23,6 +23,7 @@ import { HttpModule } from '@angular/http';
 
 //servicios
 import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { LoginComponent } from './components/login/login.component';
 
 //rutas
@@ -69,7 +70,8 @@ import { InfoRestauranteComponent } from './components/info-restaurante/info-res
     })
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

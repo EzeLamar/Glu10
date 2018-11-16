@@ -18,6 +18,10 @@ export class ToolbarComponent implements OnInit {
 
   constructor( private router: Router, private auth0: AuthService ) {
     auth0.handleAuthentication();
+    // Borrar dsps ( FIX RAPIDO )
+    if (auth0.isAuthenticated()) {
+      auth0.logout();
+    }
   }
 
 
@@ -30,7 +34,7 @@ export class ToolbarComponent implements OnInit {
   }
   logout() {
     this.auth0.logout();
-    this.router.navigate(['/login']);
+    // this.router.navigate(['/login']); Ya lo realizo en el metodo "logout()" del servicio auth
   }
   // For the menu
   close() {
