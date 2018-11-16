@@ -20,7 +20,9 @@ var options = {
 //agrego reglas o rutas falsas simulando REST API
 server.use(jsonServer.rewriter({
   '/restaurant/read.php': '/read',
-  '/restaurant/create.php': '/salida'
+  '/restaurant/create.php': '/salida',
+  '/restaurant/update.php': '/update',
+  '/restaurant/remove.php': '/remove'
 }));
 
 server.use(middlewares);
@@ -31,6 +33,7 @@ https.createServer(options, server).listen(3003, function() {
   console.log("Rutas:")
   console.log("/restaurant/read.php <- GET de TODOS los marcadores.");
   console.log("/restaurant/create.php <- POST 1 nuevo marcador.");
-  
-  
+  console.log("/restaurant/update.php <- UPDATE de 1 marcador.");
+  console.log("/restaurant/remove.php <- DELETE 1 marcador.");
+    
 });

@@ -3,10 +3,14 @@ import {MatDialog, MatDialogRef} from '@angular/material';
 import { MapaEditarComponent } from './mapa-editar.component';
 import { Component, OnInit } from '@angular/core';
 import { Marcador } from '../../classes/marcador.class';
+
+// Servicio Autenticacion
+import { AuthService } from '../../services/auth.service';
+// importo al panel de restaurantes cerca para indicarle que se actualice LUEGO de obener los datos.
+import { RestaurantesComponent } from '../restaurantes/restaurantes.component';
+// Para Ruteo
 import { Router } from '@angular/router';
 
-//importo al panel de restaurantes cerca para indicarle que se actualice LUEGO de obener los datos.
-import { RestaurantesComponent } from "../restaurantes/restaurantes.component";
 // servicio importado
 import { MarcadoresService } from '../../services/marcadores.service';
 
@@ -29,7 +33,11 @@ export class MapsComponent implements OnInit {
   marcadores: Marcador[] = [];
   error = 'todo bien';
 
-  constructor(  private snackBar: MatSnackBar,
+  // Para verificar si es admin o no
+  perfil: any;
+
+  constructor(  private auth0: AuthService,
+                private snackBar: MatSnackBar,
                 private dialog: MatDialog,
                 private marcadorService: MarcadoresService,
                 private panelRestaurantesCerca: RestaurantesComponent,
@@ -53,13 +61,31 @@ export class MapsComponent implements OnInit {
   }
 
   ngOnInit() {
+    // Obtengo el perfil del usuario autentificado
+    this.auth0.userChange$.subscribe(userProfile => this.perfil = userProfile);
+
+    // if (this.auth0.userProfile) {
+    //   this.perfil = this.auth0.userProfile;
+    // } else {
+    //   this.auth0.getProfile((err, profile) => {
+    //     this.perfil = profile;
+    //   });
+    // }
+    // obtener Marcadores
     this.obtenerMarcadoresServer();
     console.log(this.error);
     // this.obtenerPrueba();
   }
+  // Verifico si es admin para poder realizar la modificacion de marcadores
+  // this.perfil != null &&
+  esAdmin() {
+    if ( this.perfil != null && this.perfil.name === 'admin@admin.com') {
+      return true;
+    }
+      return false;
+  }
 
-
-  setearLatLng(position ) {
+  setearLatLng(position) {
     this.lat = position.coords.latitude;
     this.lng = position.coords.longitude;
   }
@@ -79,21 +105,34 @@ export class MapsComponent implements OnInit {
 
 
   agregarMarcador( evento ) {
-    const coords: { lat: number, lng: number } = evento.coords;
+  if ( this.esAdmin() ) {
+      const coords: { lat: number, lng: number } = evento.coords;
 
-    console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);
-    //creo el nuevo marcador con la latitud y longitud donde se hizo click..
-    const nuevoMarcador = new Marcador(coords.lat, coords.lng);
+      console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);
+      //creo el nuevo marcador con la latitud y longitud donde se hizo click..
+      const nuevoMarcador = new Marcador(coords.lat, coords.lng);
+      //asigno el mayorID+1 al nuevo marcador (para evitar conflictos cn la BD).
+      nuevoMarcador.id = this.marcadorService.obtenerMayorIDR()+1;
+      //seteo el resto de los campos del nuevo Marcador..
+      nuevoMarcador.nombre = 'Nuevo Marcador';
+      nuevoMarcador.descripcion = 'ingrese dirección..';
+      nuevoMarcador.tieneMenuCel= "true";
+      nuevoMarcador.cp = 8000;
+      nuevoMarcador.calificacion = 3;
+      nuevoMarcador.imagen = "../../assets/image-not-available.png";
 
-    this.marcadores.push(nuevoMarcador);
-    //this.marcadorService.marcadoresServer.push(nuevoMarcador);
-   
-    this.snackBar.open('Marcador agregado', 'Cerrar', { duration: 1000 });
-    this.guardaMarcadores();
-    this.panelRestaurantesCerca.actualizarRestaurantesCerca();
+      this.marcadores.push(nuevoMarcador);
 
-    //lo agregamos a la base de datos
-    this.almacenarMarcadorServer(nuevoMarcador);
+      //lo agregamos a la base de datos
+      this.almacenarMarcadorServer(nuevoMarcador);
+
+      this.snackBar.open('Marcador agregado', 'Cerrar', { duration: 1000 });
+      this.guardaMarcadores();
+      this.panelRestaurantesCerca.actualizarRestaurantesCerca();
+  }
+
+
+
 
   }
 
@@ -131,6 +170,7 @@ export class MapsComponent implements OnInit {
     );
   }
 
+
   markerIconUbicacionActual() {
     return ('../../../assets/my_location.svg');
   }
@@ -156,35 +196,50 @@ export class MapsComponent implements OnInit {
     this.router.navigate(['/restaurante',id,'info']);
   }
 
-  // onRatingChanged(rating) {
-  //   console.log(rating);
-  //   this.rating = rating;
-  // }
-
 
   borrarMarcador( id: number ) {
       let encontre = false;
       for(let i=0; i<this.marcadores.length && !encontre; i++)
-        if( this.marcadores[i].id == id ){
+        if( this.marcadores[i].id === id ){
           encontre=true;
+          this.borrarMarcadorServer(id);
           this.marcadores.splice(i, 1);
         }
       this.guardaMarcadores();
       this.panelRestaurantesCerca.actualizarRestaurantesCerca();
       this.snackBar.open('Marcador borrado', 'Cerrar', { duration: 1000 });
-      
+  }
+
+  public borrarMarcadorServer(id: number){
+    this.marcadorService.removeMarcador(id).subscribe(
+      ( res: string ) => {
+          console.log(res);
+      },
+      ( err ) => {
+        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
+      }
+    );
   }
 
   editarMarcador(marcador: Marcador ) {
 
+    //copia de los valores viejos del marcador
+    let valoresViejos = new Marcador(0,0);
+    valoresViejos.id = marcador.id;
+    valoresViejos.cp = marcador.cp;
+    valoresViejos.nombre = marcador.nombre;
+    valoresViejos.descripcion = marcador.descripcion;
+    valoresViejos.calificacion = marcador.calificacion;
+    valoresViejos.imagen = marcador.imagen;
+    
     const dialogRef = this.dialog.open(MapaEditarComponent, {
       width: '250px',
       data: { 
               id: marcador.id, 
+              cp: marcador.cp,
               nombre: marcador.nombre ,
               descripcion: marcador.descripcion,
-              latitud : marcador.latitud,
-              longitud : marcador.longitud,
+              imagen : marcador.imagen,
               tieneMenuCel : marcador.tieneMenuCel,
               calificacion : marcador.calificacion 
             }
@@ -195,18 +250,47 @@ export class MapsComponent implements OnInit {
       if ( !result ) {
         return;
       }
+      //chequeo que campos fueron modifados
+      let valoresModificados = {'id': marcador.id};
 
-      marcador.id = result.id;
-      marcador.nombre = result.nombre;
-      marcador.descripcion = result.descripcion;
-      marcador.calificacion = result.calificacion;
-      marcador.tieneMenuCel = result.tieneMenuCel;
-      this.almacenarMarcadorServer(marcador);
+      if(valoresViejos.cp !== result.cp ){
+        marcador.cp = result.cp;
+        Object.assign(valoresModificados,{'cp': result.cp}); 
+      }
+      if(valoresViejos.nombre !== result.nombre ){
+        marcador.nombre = result.nombre;
+        Object.assign(valoresModificados,{'nombre': result.nombre}); 
+      }
+      if(valoresViejos.descripcion !== result.descripcion ){
+        marcador.descripcion = result.descripcion;
+        Object.assign(valoresModificados,{'descripcion': result.descripcion}); 
+      }
+      if(valoresViejos.calificacion !== result.calificacion ){
+        marcador.calificacion = result.calificacion;
+        Object.assign(valoresModificados,{'calificacion': result.calificacion}); 
+      }
+      if(valoresViejos.imagen !== result.imagen ){
+        marcador.imagen = result.imagen;
+        Object.assign(valoresModificados,{'imagen': result.imagen}); 
+      }
 
+      console.log("valoresModificados",valoresModificados);
 
+      this.actualizarMarcadorServer(valoresModificados);
       this.guardaMarcadores();
       this.snackBar.open('Marcador actualizado', 'Cerrar', { duration: 1000 });
     });
+  }
+
+  public actualizarMarcadorServer(valoresModificados){
+    this.marcadorService.updateMarcador(valoresModificados).subscribe(
+      ( res: string ) => {
+          console.log(res);
+      },
+      ( err ) => {
+        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
+      }
+    );
   }
 
 }

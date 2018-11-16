@@ -85,17 +85,6 @@ export class MarcadoresService {
 
   //POST
     addMarcador (nuevoMarcador: Marcador): Observable<string> {
-
-      //asigno el mayorID+1 al nuevo marcador (para evitar conflictos cn la BD).
-      nuevoMarcador.id = this.obtenerMayorIDR()+1;
-      //seteo el resto de los campos del nuevo Marcador..
-      nuevoMarcador.nombre = 'Nuevo Marcador';
-      nuevoMarcador.descripcion = 'ingrese dirección..';
-      nuevoMarcador.tieneMenuCel= "true";
-      nuevoMarcador.cp = 8000;
-      nuevoMarcador.imagen = "../../assets/image-not-available.png";
-       
-    nuevoMarcador.calificacion = 3;
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json'
@@ -104,6 +93,52 @@ export class MarcadoresService {
       };
       console.log(nuevoMarcador);
       return this.http.post<string>(this.baseUrl+"/restaurant/create.php", nuevoMarcador, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        );
+    }
+    //buscar el marcador en marcadoresServer y retorna su posición actual.
+    //Retorna -1 si no lo encuentra
+    private buscarMarcador(id:number): number {
+      let encontre = false;
+      let pos=0;
+      for( pos=0; (pos<this.marcadoresServer.length)&&(!encontre); pos++ )
+        if( this.marcadoresServer[pos].id === id )
+          encontre = true;
+      if(!encontre)
+        pos=-1;
+      return pos;
+    }
+
+    public removeMarcador(idMarcador: number):Observable<string>{
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+          // ,'Authorization': 'my-auth-token'
+        })
+      };
+
+      let idAEliminar = {
+        id: idMarcador
+      };
+      console.log("entre al removeMarcador!!");
+      return this.http.post<string>(this.baseUrl+"/restaurant/remove.php", idAEliminar, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        );
+    }
+
+    updateMarcador (camposModificados): Observable<string> {
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+          // ,'Authorization': 'my-auth-token'
+        })
+      };
+
+      return this.http.post<string>(this.baseUrl+"/restaurant/update.php", camposModificados, httpOptions)
         .pipe(
           catchError(this.handleError)
         );

@@ -17,14 +17,16 @@ import { MaterialModule } from './material.module';
 import { MapaEditarComponent } from './components/maps/mapa-editar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
-//comunicación con el Servidor PHP
+// Comunicación con el Servidor PHP
 import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
-//servicios
+// Servicios
 import { AuthService } from './services/auth.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { LoginComponent } from './components/login/login.component';
 
-//rutas
+// Rutas
 import { APP_ROUTING } from './app.routes';
 import { FooterComponent } from './components/footer/footer.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
@@ -34,6 +36,9 @@ import { AboutComponent } from './components/about/about.component';
 import { RestaurantesComponent } from './components/restaurantes/restaurantes.component';
 import { StarRatingComponent } from './components/star-rating/star-rating.component';
 import { InfoRestauranteComponent } from './components/info-restaurante/info-restaurante.component';
+import { PageErrorComponent } from './components/page-error/page-error.component';
+
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   entryComponents: [
@@ -51,9 +56,11 @@ import { InfoRestauranteComponent } from './components/info-restaurante/info-res
     AboutComponent,
     RestaurantesComponent,
     StarRatingComponent,
-    InfoRestauranteComponent
+    InfoRestauranteComponent,
+    PageErrorComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
   //  MatSelectModule,
@@ -61,13 +68,15 @@ import { InfoRestauranteComponent } from './components/info-restaurante/info-res
     MaterialModule,
     ReactiveFormsModule,
     HttpClientModule,
+    HttpModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyA-HXVa2jtkGfKtIJwisxgC46RaWqC1xuI',
       libraries: [ 'geometry' ]
     })
   ],
   providers: [
-    AuthService
+    AuthService,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })
