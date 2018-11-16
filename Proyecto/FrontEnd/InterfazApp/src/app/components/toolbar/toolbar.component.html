@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" class="example-toolbar">
   <button mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
-  <span class="example-app-name">Maps</span>
+  <span class="example-app-name">Glu10</span>
   <span class="example-spacer"></span>
   <span class="example-app-name" *ngIf="auth0.isAuthenticated()">{{ perfil?.name }}</span>
   <button mat-button class="example-app-name" (click)="logout()" *ngIf="auth0.isAuthenticated()" >Salir <mat-icon class="example-icon">exit_to_app</mat-icon></button>
@@ -10,10 +10,10 @@
 <mat-sidenav-container
 class="example-container example-sidenav-container" color="primary" (backdropClick)="close()">
 <mat-sidenav #sidenav mode="push">
-  <p><button mat-button (click)="moverseAMap()"><mat-icon>map</mat-icon> Mapa</button></p>
-  <p><button mat-button (click)="sidenav.toggle()"><mat-icon>import_contacts</mat-icon> Recetas</button></p>
-  <p><button mat-button (click)="sidenav.toggle()"><mat-icon>room_service</mat-icon> Menu del Dia</button></p>
-  <p><button mat-button (click)="sidenav.toggle()"><mat-icon>local_offer</mat-icon> Descuentos</button></p>
+  <p><button mat-button (click)="moverseAMap()" *ngIf="auth0.isAuthenticated()"><mat-icon>map</mat-icon> Mapa</button></p>
+  <p><button mat-button (click)="sidenav.toggle()" *ngIf="auth0.isAuthenticated()"><mat-icon>import_contacts</mat-icon> Recetas</button></p>
+  <p><button mat-button (click)="sidenav.toggle()" *ngIf="auth0.isAuthenticated()"><mat-icon>room_service</mat-icon> Menu del Dia</button></p>
+  <p><button mat-button (click)="sidenav.toggle()" *ngIf="auth0.isAuthenticated()"><mat-icon>local_offer</mat-icon> Descuentos</button></p>
   <p><button mat-button (click)="sidenav.toggle()"><mat-icon>local_mall</mat-icon> Tienda</button></p>
   <p><button mat-button (click)="moverseAAbout()"><mat-icon>group</mat-icon> About us</button></p>
 </mat-sidenav>
