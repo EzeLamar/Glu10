@@ -4,6 +4,7 @@ import { RestaurantesComponent } from './components/restaurantes/restaurantes.co
 import { CalificacionComponent } from './components/calificacion/calificacion.component';
 import { LoginComponent } from './components/login/login.component';
 import { InfoRestauranteComponent } from './components/info-restaurante/info-restaurante.component';
+import { PageErrorComponent } from './components/page-error/page-error.component';
 
 import { AuthGuardService } from './services/auth-guard.service';
 
@@ -13,6 +14,7 @@ const APP_ROUTES: Routes = [
      { path: 'about', component:  AboutComponent },
      { path: 'restaurante/:id/info', component:  InfoRestauranteComponent, canActivate: [ AuthGuardService ] },
      { path: 'restaurante/:id/calificar', component:  CalificacionComponent, canActivate: [ AuthGuardService ] },
+     { path: 'error', component: PageErrorComponent },
      { path: '**', pathMatch: 'full', redirectTo: 'about' }
 ];
 

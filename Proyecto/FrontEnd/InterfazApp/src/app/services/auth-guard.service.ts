@@ -11,7 +11,8 @@ import { AuthService } from './auth.service';
 })
 export class AuthGuardService implements CanActivate {
 
-  constructor( private auth: AuthService) { }
+  constructor(  private router: Router,
+                private auth: AuthService) { }
 
   canActivate( next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
@@ -20,6 +21,7 @@ export class AuthGuardService implements CanActivate {
       return true;
     }
     console.log('Bloqueado por Guard');
+    this.router.navigate(['/error']);
     return false;
     }
 
