@@ -10,10 +10,10 @@
 <mat-sidenav-container
 class="example-container example-sidenav-container" color="primary" (backdropClick)="close()">
 <mat-sidenav #sidenav mode="push">
-  <p><button mat-button (click)="moverseAMap()" *ngIf="!auth0.isAuthenticated()"><mat-icon>map</mat-icon> Mapa</button></p>
-  <p><button mat-button (click)="sidenav.toggle()" *ngIf="!auth0.isAuthenticated()"><mat-icon>import_contacts</mat-icon> Recetas</button></p>
-  <p><button mat-button (click)="sidenav.toggle()" *ngIf="!auth0.isAuthenticated()"><mat-icon>room_service</mat-icon> Menu del Dia</button></p>
-  <p><button mat-button (click)="sidenav.toggle()" *ngIf="!auth0.isAuthenticated()"><mat-icon>local_offer</mat-icon> Descuentos</button></p>
+  <p><button mat-button (click)="moverseAMap()" *ngIf="auth0.isAuthenticated()"><mat-icon>map</mat-icon> Mapa</button></p>
+  <p><button mat-button (click)="sidenav.toggle()" *ngIf="auth0.isAuthenticated()"><mat-icon>import_contacts</mat-icon> Recetas</button></p>
+  <p><button mat-button (click)="sidenav.toggle()" *ngIf="auth0.isAuthenticated()"><mat-icon>room_service</mat-icon> Menu del Dia</button></p>
+  <p><button mat-button (click)="sidenav.toggle()" *ngIf="auth0.isAuthenticated()"><mat-icon>local_offer</mat-icon> Descuentos</button></p>
   <p><button mat-button (click)="sidenav.toggle()"><mat-icon>local_mall</mat-icon> Tienda</button></p>
   <p><button mat-button (click)="moverseAAbout()"><mat-icon>group</mat-icon> About us</button></p>
 </mat-sidenav>
