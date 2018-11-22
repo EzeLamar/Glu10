@@ -143,6 +143,23 @@ export class MarcadoresService {
           catchError(this.handleError)
         );
     }
+
+    //para la autenticacion del usuario
+    public esAdmin( nombre:string ):Observable<boolean>{
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+          // ,'Authorization': 'my-auth-token'
+        })
+      };
+      let usuarioAValidar = { name: nombre};
+
+      return this.http.post<boolean>(this.baseUrl+"/restaurant/esAdmin.php", usuarioAValidar, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        );
+
+    }
   
 }
 

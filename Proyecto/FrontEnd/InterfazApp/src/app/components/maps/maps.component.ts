@@ -85,6 +85,12 @@ export class MapsComponent implements OnInit {
   // Verifico si es admin para poder realizar la modificacion de marcadores
   // this.perfil != null &&
   esAdmin() {
+    
+    //debería vericiarlo con el backEnd
+    // if( this.auth0.esAdministrador() )
+    //   return true;
+    // else return false;
+
     if ( this.perfil != null && this.perfil.name === 'admin@admin.com') {
       return true;
     }
@@ -111,7 +117,7 @@ export class MapsComponent implements OnInit {
 
 
   agregarMarcador( evento ) {
-  if ( this.esAdmin() ) {
+    if ( this.esAdmin() ) {
       const coords: { lat: number, lng: number } = evento.coords;
 
       console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);

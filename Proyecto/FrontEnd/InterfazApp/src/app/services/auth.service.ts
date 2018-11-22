@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import * as auth0 from 'auth0-js';
 import { Observable, Observer } from 'rxjs';
+import { MarcadoresService } from "./marcadores.service";
+import { error } from '@angular/compiler/src/util';
 
 (window as any).global = window;
 
@@ -29,7 +31,9 @@ export class AuthService {
     scope: 'openid profile'
   });
 
-  constructor(public router: Router) {}
+  constructor( public router: Router,
+               private backend: MarcadoresService
+             ) {}
 
   public login(): void {
     this.auth0.authorize();
@@ -90,5 +94,19 @@ export class AuthService {
       }
       // cb(err, profile);
     });
+  }
+
+  public esAdministrador(): boolean {
+    this.backend.esAdmin(this.userProfile.name).subscribe(
+      ( res: boolean ) => {
+          console.log(res);
+          return res;
+      },
+      ( err ) => {
+        console.log(error); 
+        return false;   //retorno false para no darle permisos cuando no deberia
+      }
+    );
+    return false;
   }
 }
