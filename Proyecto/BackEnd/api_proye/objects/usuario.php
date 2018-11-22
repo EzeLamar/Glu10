@@ -14,6 +14,7 @@ class Usuario{
     public $password;
     public $nroTel;
     public $esCel;
+    public $IDGoogle;
 
     // constructor, se le pasa un objeto de tipo database
     public function __construct($db){
@@ -45,7 +46,7 @@ class Usuario{
         $query = "INSERT INTO
                     " . $this->table_name . "
                 SET
-                    IDU =:id, nombre =:nombre, apellido =:apellido, edad =:edad, email =:email, password =:password, nroTel =:nroTel, esCel =:esCel";
+                    IDU =:id, nombre =:nombre, apellido =:apellido, edad =:edad, email =:email, password =:password, nroTel =:nroTel, esCel =:esCel, IDGoogle=:IDGoogle";
 
         // consulta a la base de datos para insertar un registro
         $query2 = "INSERT INTO
@@ -69,7 +70,7 @@ class Usuario{
         $this->password=htmlspecialchars(strip_tags($this->password));
         $this->nroTel=htmlspecialchars(strip_tags($this->nroTel));
         $this->esCel=htmlspecialchars(strip_tags($this->esCel));
-
+        $this->IDGoogle=htmlspecialchars(strip_tags($this->IDGoogle));
         // se pasan los atributos a formato html
         $cp=htmlspecialchars(strip_tags($cp));
         $this->id=htmlspecialchars(strip_tags($id));
@@ -83,6 +84,7 @@ class Usuario{
         $stmt->bindParam(":password", $this->password);
         $stmt->bindParam(":nroTel", $this->nroTel);
         $stmt->bindParam(":esCel", $this->esCel);
+        $stmt->bindParam(":IDGoogle", $this->IDGoogle);
 
         // se ligan los valores de parametros
         $stmt2->bindParam(":cp", $cp);
@@ -103,11 +105,14 @@ class Usuario{
 
         // consulta de eliminacion
         $query = "DELETE FROM " . $this->table_name . " WHERE IDU = ?";
+
         $query2 ="DELETE FROM viveen WHERE IDU = ?";
+
+        $query3 ="DELETE FROM califico WHERE IDU = ?";
         // preparar la consulta
         $stmt = $this->conn->prepare($query);
         $stmt2 = $this->conn->prepare($query2);
-
+        $stmt3 = $this->conn->prepare($query3);
         // se pasan los valores a formato html
         $this->id=htmlspecialchars(strip_tags($this->id));
 
@@ -115,9 +120,10 @@ class Usuario{
         // se enlaza el parametro de id
         $stmt->bindParam(1, $this->id);
         $stmt2->bindParam(1, $this->id);
+        $stmt3->bindParam(1, $this->id);
 
         // ejecutar la consulta
-      if($stmt2->execute()){
+      if($stmt2->execute() && $stmt3->execute()){
          if($stmt->execute())
               return true;
         }
@@ -190,44 +196,115 @@ class Usuario{
     }
 
     // actualizar los datos del restaurant
-    function update(){
+    function update($cont){
+      //almacena los parametros que seran pasados a la consulta
+        $stringConsulta = " ";
 
+        if($this->nombre!=NULL){
+           $stringConsulta = $stringConsulta . " nombre=:nombre";
+           if($cont>1){
+             $cont--;
+             $stringConsulta = $stringConsulta . ",";
+           }
+         }
+         if($this->apellido!=NULL){
+            $stringConsulta = $stringConsulta . " apellido=:apellido";
+            if($cont>1){
+              $cont--;
+              $stringConsulta = $stringConsulta . ",";
+            }
+          }
+          if($this->edad!=NULL){
+             $stringConsulta = $stringConsulta . " edad=:edad";
+             if($cont>1){
+               $cont--;
+               $stringConsulta = $stringConsulta . ",";
+             }
+           }
+           if($this->email!=NULL){
+              $stringConsulta = $stringConsulta . " email=:email";
+              if($cont>1){
+                $cont--;
+                $stringConsulta = $stringConsulta . ",";
+              }
+            }
+            if($this->nroTel!=NULL){
+               $stringConsulta = $stringConsulta . " nroTel=:nroTel";
+               if($cont>1){
+                 $cont--;
+                 $stringConsulta = $stringConsulta . ",";
+               }
+             }
+             if($this->password!=NULL){
+                $stringConsulta = $stringConsulta . " password=:password";
+                if($cont>1){
+                  $cont--;
+                  $stringConsulta = $stringConsulta . ",";
+                }
+              }
+              if($this->esCel!=NULL){
+                 $stringConsulta = $stringConsulta . " esCel=:esCel";
+                 if($cont>1){
+                   $cont--;
+                   $stringConsulta = $stringConsulta . ",";
+                 }
+               }
+               if($this->IDGoogle!=NULL){
+                  $stringConsulta = $stringConsulta . " IDGoogle=:IDGoogle";
+                  if($cont>1){
+                    $cont--;
+                  }
+                }
         // consulta de actualizacion
         $query = "UPDATE
                     " . $this->table_name . "
                 SET
-                    nombre = :nombre,
-                    apellido = :apellido,
-                    edad = :edad,
-                    password = :password,
-                    email = :email,
-                    esCel = :esCel,
-                    nroTel = :nroTel
+                    "  . $stringConsulta . "
                 WHERE
                     IDU = :id";
 
         // preparar la consulta
         $stmt = $this->conn->prepare($query);
 
-        // pasar a formato html
-        $this->nombre=htmlspecialchars(strip_tags($this->nombre));
-        $this->apellido=htmlspecialchars(strip_tags($this->apellido));
-        $this->edad=htmlspecialchars(strip_tags($this->edad));
-        $this->email=htmlspecialchars(strip_tags($this->email));
-        $this->id=htmlspecialchars(strip_tags($this->id));
-        $this->nroTel=htmlspecialchars(strip_tags($this->nroTel));
-        $this->password=htmlspecialchars(strip_tags($this->password));
-        $this->esCel=htmlspecialchars(strip_tags($this->esCel));
+        // pasar a formato html y se enlazan los nuevos valores
+        if($this->nombre!=NULL){
+          $this->nombre=htmlspecialchars(strip_tags($this->nombre));
+          $stmt->bindParam(":nombre", $this->nombre);
+        }
+        if($this->apellido!=NULL){
+          $this->apellido=htmlspecialchars(strip_tags($this->apellido));
+          $stmt->bindParam(":apellido", $this->apellido);
+        }
+        if($this->edad!=NULL){
+          $this->edad=htmlspecialchars(strip_tags($this->edad));
+          $stmt->bindParam(":edad", $this->edad);
+        }
+        if($this->email!=NULL){
+          $this->email=htmlspecialchars(strip_tags($this->email));
+          $stmt->bindParam(":email", $this->email);
+        }
 
-        // se enlazan los nuevos valores
-        $stmt->bindParam(":nombre", $this->nombre);
-        $stmt->bindParam(":apellido", $this->apellido);
-        $stmt->bindParam(":edad", $this->edad);
-        $stmt->bindParam(":email", $this->email);
-        $stmt->bindParam(":nroTel", $this->nroTel);
-        $stmt->bindParam(":password", $this->password);
-        $stmt->bindParam(":esCel", $this->esCel);
+        $this->id=htmlspecialchars(strip_tags($this->id));
+
+        if($this->nroTel!=NULL){
+          $this->nroTel=htmlspecialchars(strip_tags($this->nroTel));
+          $stmt->bindParam(":nroTel", $this->nroTel);
+        }
+        if($this->password!=NULL){
+          $this->password=htmlspecialchars(strip_tags($this->password));
+          $stmt->bindParam(":password", $this->password);
+        }
+        if($this->esCel!=NULL){
+          $this->esCel=htmlspecialchars(strip_tags($this->esCel));
+          $stmt->bindParam(":esCel", $this->esCel);
+        }
+        if($this->IDGoogle!=NULL){
+          $this->IDGoogle=htmlspecialchars(strip_tags($this->IDGoogle));
+          $stmt->bindParam(":IDGoogle", $this->IDGoogle);
+        }
+
         $stmt->bindParam(":id", $this->id);
+
 
         // ejecutar la consulta
         if($stmt->execute()){
@@ -265,6 +342,16 @@ class Usuario{
 
       // ejecutar la consulta
       if($stmt->execute()){
+
+        // get database connection
+        $database = new Database();
+        $db = $database->getConnection();
+
+        // prepare product object
+        $restaurant = new Restaurant($db);
+        $restaurant->actualizarCalif($IDR);
+        $restaurant->actualizarPuesto($IDR);
+
           return true;
       }
 

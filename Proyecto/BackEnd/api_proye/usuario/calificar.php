@@ -11,6 +11,8 @@ include_once '../config/database.php';
 
 // se incluyen los objetos
 include_once '../objects/usuario.php';
+// se incluyen los objetos
+include_once '../objects/restaurant.php';
 
 //constructor de la base de datos y obtencion de la conexion
 $database = new Database();

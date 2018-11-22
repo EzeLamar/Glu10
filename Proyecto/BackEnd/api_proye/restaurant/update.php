@@ -20,18 +20,46 @@ $product = new Restaurant($db);
 // get id of product to be edited
 $data = json_decode(file_get_contents("php://input"));
 
+
+//contador de cantidad de parametros
+$cont=0;
+
 // set ID property of product to be edited
+if($data->id!=NULL)
 $product->id = $data->id;
 
 // set product property values
+if($data->nombre!=NULL){
 $product->nombre = $data->nombre;
+$cont++;
+}
+if($data->latitud!=NULL){
 $product->latitud = $data->latitud;
+$cont++;
+}
+if($data->longitud!=NULL){
 $product->longitud = $data->longitud;
+$cont++;
+}
+if($data->descripcion!=NULL){
 $product->descripcion = $data->descripcion;
-$product->tineMenuCel = $data->tieneMenuCel;
+$cont++;
+}
+if($data->tieneMenuCel!=NULL){
+$product->tieneMenuCel = $data->tieneMenuCel;
+$cont++;
+}
+if($data->calificacion!=NULL){
 $product->calificacion = $data->calificacion;
+$cont++;
+}
+if(!empty($data->imagen)){
+$product->imagen = $data->imagen;
+$cont++;
+}
+
 // update the product
-if($product->update()){
+if($product->update($cont)){
 
     // set response code - 200 ok
     http_response_code(200);

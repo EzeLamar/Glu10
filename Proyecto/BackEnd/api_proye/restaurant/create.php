@@ -31,6 +31,7 @@ if(
     !empty($data->tieneMenuCel) &&
     !empty($data->descripcion) &&
     !empty($data->calificacion) &&
+    !empty($data->imagen) &&
     !empty($data->cp)
 ){
 
@@ -42,8 +43,8 @@ if(
     $product->tieneMenuCel = $data->tieneMenuCel;
     $product->descripcion = $data->descripcion;
     $product->calificacion=$data->calificacion;
+    $product->imagen=$data->imagen;
 
-    
     // se crea el restaurant
     if($product->create($data->cp)){
 

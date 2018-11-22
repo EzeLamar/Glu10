@@ -3,7 +3,7 @@ class Ciudad{
 
     // variable de conexion con la base de datos y nombre de la tabla
     private $conn;
-    private $table_name = "ciudades";
+    private $table_name = "ciudad";
 
     // atributos
     public $cp;
@@ -150,32 +150,62 @@ class Ciudad{
     }
 
     // actualizar los datos del restaurant
-    function update(){
+    function update($cont){
+      //almacena los parametros que seran pasados a la consulta
+        $stringConsulta = " ";
 
+        if($this->nombre!=NULL){
+           $stringConsulta = $stringConsulta . " nombre=:nombre";
+           if($cont>1){
+             $cont--;
+             $stringConsulta = $stringConsulta . ",";
+           }
+         }
+         if($this->canthabit!=NULL){
+            $stringConsulta = $stringConsulta . " poblacion=:canthabit";
+            if($cont>1){
+              $cont--;
+              $stringConsulta = $stringConsulta . ",";
+            }
+          }
+          if($this->canthabitcel!=NULL){
+             $stringConsulta = $stringConsulta . " poblacionCel=:canthabitcel";
+             if($cont>1){
+               $cont--;
+             }
+           }
+           echo $stringConsulta;
         // consulta de actualizacion
         $query = "UPDATE
                     " . $this->table_name . "
                 SET
-                    nombre = :nombre,
-                    poblacion = :canthabit,
-                    poblacionCel = :canthabitcel,
+                    " . $stringConsulta . "
 
                 WHERE
-                    CP = :cp";
+                    CP =:cp";
 
+       echo $query;
         // preparar la consulta
         $stmt = $this->conn->prepare($query);
 
-        // pasar a formato html
+        // pasar a formato html y se enlazan los nuevos valores
+        if($this->nombre!=NULL){
         $this->nombre=htmlspecialchars(strip_tags($this->nombre));
-        $this->canthabit=htmlspecialchars(strip_tags($this->canthabit));
-        $this->canthabitcel=htmlspecialchars(strip_tags($this->canthabitcel));
-
-
-        // se enlazan los nuevos valores
         $stmt->bindParam(":nombre", $this->nombre);
+        }
+        if($this->canthabit!=NULL){
+        $this->canthabit=htmlspecialchars(strip_tags($this->canthabit));
         $stmt->bindParam(":canthabit", $this->canthabit);
+        }
+        if($this->canthabitcel!=NULL){
+        $this->canthabitcel=htmlspecialchars(strip_tags($this->canthabitcel));
         $stmt->bindParam(":canthabitcel", $this->canthabitcel);
+        }
+
+        $this->cp=htmlspecialchars(strip_tags($this->cp));
+        $stmt->bindParam(":cp", $this->cp);
+
+
 
 
 

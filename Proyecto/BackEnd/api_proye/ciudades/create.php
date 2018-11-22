@@ -26,14 +26,16 @@ $data = json_decode(file_get_contents("php://input"));
 if(
     !empty($data->nombre) &&
     !empty($data->canthabit) &&
-    !empty($data->canthabitcel)
+    !empty($data->canthabitcel) &&
+    !empty($data->cp)
+
 ){
 
     //se setean los atributos
     $product->nombre = $data->nombre;
     $product->canthabit = $data->canthabit;
     $product->canthabitcel = $data->canthabitcel;
-
+    $product->cp = $data->cp;
 
     // se crea el restaurant
     if($product->create()){

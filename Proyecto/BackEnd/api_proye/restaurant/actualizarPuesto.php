@@ -8,47 +8,29 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/ciudades.php';
+include_once '../objects/restaurant.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
 // prepare product object
-$product = new Ciudad($db);
+$product = new Restaurant($db);
 
 // get id of product to be edited
 $data = json_decode(file_get_contents("php://input"));
 
-//cuenta la cantidad de parametros a ser actualizados
-$cont=0;
-
 // set ID property of product to be edited
-if($data->cp!=NULL)
-$product->cp = $data->cp;
+$id = $data->id;
 
-// set product property values
-if($data->nombre!=NULL){
-$product->nombre = $data->nombre;
-$cont++;
-}
-if($data->canthabit!=NULL){
-$product->canthabit = $data->canthabit;
-$cont++;
-}
-if($data->canthabitcel!=NULL){
-$product->canthabitcel = $data->canthabitcel;
-$cont++;
-}
-echo "" . $cont;
 // update the product
-if($product->update($cont)){
+if($product->actualizarPuesto($id)){
 
     // set response code - 200 ok
     http_response_code(200);
 
     // tell the user
-    echo json_encode(array("message" => "los datos de la ciudad fueron actualizados."));
+    echo json_encode(array("message" => "el puesto del restaurante fue actualizado."));
 }
 
 // if unable to update the product, tell the user

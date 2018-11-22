@@ -17,6 +17,7 @@ $restaurant = new Restaurant($db);
 //se obtiene el cp pasado por json
 $data = json_decode(file_get_contents("php://input"));
 
+
 // consulta a restaurant
 $stmt = $restaurant->read($data->cp);
 $num = $stmt->rowCount();
@@ -42,7 +43,8 @@ if($num>0){
             "calificacion" => $calificacion,
             "tieneMenuCel" => $tieneMenuCel,
             "longitud" => $longitud,
-            "latitud"=> $latitud
+            "latitud"=> $latitud,
+            "imagen"=> html_entity_decode($imagen)
 
         );
 

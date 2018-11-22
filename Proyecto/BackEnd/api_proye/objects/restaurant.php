@@ -13,6 +13,7 @@ class Restaurant{
     public $tieneMenuCel;
     public $calificacion;
     public $descripcion;
+    public $imagen;
 
     // constructor, se le pasa un objeto de tipo database
     public function __construct($db){
@@ -24,7 +25,7 @@ class Restaurant{
 
         //consulta a la base de datos: seleccionar todos los restaurantes
         $query = "SELECT
-                    r.IDR, r.nombre, r.longitud, r.latitud, r.descripcion, r.tieneMenuCel, r.calificacion
+                    r.IDR, r.nombre, r.longitud, r.latitud, r.descripcion, r.tieneMenuCel, r.calificacion, r.imagen
                 FROM
                     " . $this->table_name . " r NATURAL JOIN estaubicado WHERE CP= ? ";
 
@@ -50,7 +51,7 @@ class Restaurant{
         $query = "INSERT INTO
                     " . $this->table_name . "
                 SET
-                    IDR=:id, nombre=:nombre, longitud=:longitud, latitud=:latitud, tieneMenuCel=:tieneMenuCel, calificacion=:calificacion, descripcion=:descripcion";
+                    IDR=:id, nombre=:nombre, longitud=:longitud, latitud=:latitud, tieneMenuCel=:tieneMenuCel, calificacion=:calificacion, descripcion=:descripcion, imagen=:imagen";
 
         $query2 = "INSERT INTO
                     estaubicado
@@ -68,6 +69,7 @@ class Restaurant{
         $this->tieneMenuCel=htmlspecialchars(strip_tags($this->tieneMenuCel));
         $this->calificacion=htmlspecialchars(strip_tags($this->calificacion));
         $this->descripcion=htmlspecialchars(strip_tags($this->descripcion));
+        $this->imagen=htmlspecialchars(strip_tags($this->imagen));
 
         $cp=htmlspecialchars(strip_tags($cp));
 
@@ -79,6 +81,7 @@ class Restaurant{
         $stmt->bindParam(":tieneMenuCel", $this->tieneMenuCel);
         $stmt->bindParam(":calificacion", $this->calificacion);
         $stmt->bindParam(":descripcion", $this->descripcion);
+        $stmt->bindParam(":imagen", $this->imagen);
 
         $stmt2->bindParam(":id", $this->id);
         $stmt2->bindParam(":cp", $cp);
@@ -98,17 +101,21 @@ class Restaurant{
         $query = "DELETE FROM " . $this->table_name . " WHERE IDR = ?";
 
         $query2 = "DELETE FROM estaubicado WHERE IDR = ?";
+
+        $query3 = "DELETE FROM califico WHERE IDR = ?";
         // preparar la consulta
         $stmt = $this->conn->prepare($query);
         $stmt2 = $this->conn->prepare($query2);
+        $stmt3 = $this->conn->prepare($query3);
         // se pasan los valores a formato html
         $this->id=htmlspecialchars(strip_tags($this->id));
 
         // se enlaza el parametro de id
         $stmt->bindParam(1, $this->id);
         $stmt2->bindParam(1, $this->id);
+        $stmt3->bindParam(1, $this->id);
         // ejecutar la consulta
-        if($stmt2->execute()){
+        if($stmt2->execute() && $stmt3->execute()){
           if($stmt->execute())
               return true;
         }
@@ -180,40 +187,110 @@ class Restaurant{
     }
 
     // actualizar los datos del restaurant
-    function update(){
+    function update($cont){
+      $stringConsulta = " ";
+
+      if($this->nombre!=NULL){
+         $stringConsulta = $stringConsulta . " nombre=:nombre";
+         if($cont>1){
+           $cont--;
+           $stringConsulta = $stringConsulta . ",";
+         }
+       }
+      if($this->latitud!=NULL){
+         $stringConsulta = $stringConsulta . " latitud=:latitud";
+         if($cont>1){
+           $cont--;
+           $stringConsulta = $stringConsulta . ",";
+         }
+      }
+      if($this->longitud!=NULL){
+         $stringConsulta = $stringConsulta . " longitud=:longitud";
+         if($cont>1){
+           $cont--;
+           $stringConsulta = $stringConsulta . ",";
+         }
+      }
+      if($this->tieneMenuCel!=NULL){
+         $stringConsulta = $stringConsulta . " tieneMenuCel=:tieneMenuCel";
+         if($cont>1){
+           $cont--;
+           $stringConsulta = $stringConsulta . ",";
+         }
+      }
+      if($this->calificacion!=NULL){
+         $stringConsulta = $stringConsulta . " calificacion=:calificacion";
+         if($cont>1){
+           $cont--;
+           $stringConsulta = $stringConsulta . ",";
+         }
+       }
+      if($this->descripcion!=NULL){
+         $stringConsulta = $stringConsulta . " descripcion=:descripcion";
+         if($cont>1){
+           $cont--;
+           $stringConsulta = $stringConsulta . ",";
+         }
+      }
+      if($this->imagen!=NULL){
+          $stringConsulta = $stringConsulta . " imagen=:imagen";
+          if($cont>1){
+            $cont--;
+          }
+      }
 
         // consulta de actualizacion
         $query = "UPDATE
                     restaurant
                 SET
-                    nombre =:nombre,
-                    latitud =:latitud,
-                    longitud =:longitud,
-                    descripcion =:descripcion,
-                    calificacion =:calificacion,
-                    tieneMenuCel =:tieneMenuCel
+                  "  . $stringConsulta . "
                 WHERE
                     IDR =:id";
 
         // preparar la consulta
         $stmt = $this->conn->prepare($query);
 
-        // pasar a formato html
-        $this->nombre=htmlspecialchars(strip_tags($this->nombre));
+        // pasar a formato html y se enlazan los nuevos valores
+        if($this->nombre!=NULL){
+          $stmt->bindParam(":nombre", $this->nombre);
+          $this->nombre=htmlspecialchars(strip_tags($this->nombre));
+        }
+        if($this->latitud!=NULL){
         $this->latitud=htmlspecialchars(strip_tags($this->latitud));
-        $this->longitud=htmlspecialchars(strip_tags($this->longitud));
-        $this->tieneMenuCel=htmlspecialchars(strip_tags($this->tieneMenuCel));
-        $this->id=htmlspecialchars(strip_tags($this->id));
-        $this->calificacion=htmlspecialchars(strip_tags($this->calificacion));
-        $this->descripcion=htmlspecialchars(strip_tags($this->descripcion));
-
-        // se enlazan los nuevos valores
-        $stmt->bindParam(":nombre", $this->nombre);
-        $stmt->bindParam(":longitud", $this->longitud);
         $stmt->bindParam(":latitud", $this->latitud);
-        $stmt->bindParam(":tieneMenuCel", $this->tieneMenuCel);
-        $stmt->bindParam(":calificacion", $this->calificacion);
-        $stmt->bindParam(":descripcion", $this->descripcion);
+
+      }
+        if($this->longitud!=NULL){
+          $this->longitud=htmlspecialchars(strip_tags($this->longitud));
+          $stmt->bindParam(":longitud", $this->longitud);
+      }
+        if($this->tieneMenuCel!=NULL){
+          $this->tieneMenuCel=htmlspecialchars(strip_tags($this->tieneMenuCel));
+          $stmt->bindParam(":tieneMenuCel", $this->tieneMenuCel);
+      }
+
+        $this->id=htmlspecialchars(strip_tags($this->id));
+
+        if($this->calificacion!=NULL){
+          $this->calificacion=htmlspecialchars(strip_tags($this->calificacion));
+          $stmt->bindParam(":calificacion", $this->calificacion);
+      }
+        if($this->descripcion!=NULL){
+          $this->descripcion=htmlspecialchars(strip_tags($this->descripcion));
+          $stmt->bindParam(":descripcion", $this->descripcion);
+      }
+        if($this->imagen!=NULL){
+          $this->imagen=htmlspecialchars(strip_tags($this->imagen));
+          $stmt->bindParam(":imagen", $this->imagen);
+        }
+
+
+
+
+
+
+
+
         $stmt->bindParam(":id", $this->id);
 
         // ejecutar la consulta
@@ -226,6 +303,7 @@ class Restaurant{
 
     function actualizarCalif($id){
 
+      $ret= false;
       echo "  " . $id;
       //regreso a 0 el valor de calificacion
       $this->calificacion=0;
@@ -310,4 +388,121 @@ class Restaurant{
 
     }
 
+    function actualizarPuesto($id){
+
+      //seleccionar el codigo postal del restaurante pasado por parametro
+      $query = "SELECT
+                  CP
+              FROM
+                  estaubicado WHERE IDR= ? ";
+      // preparar la consulta
+      $stmt = $this->conn->prepare($query);
+
+
+
+      //SE VINCULAN LOS PARAMETROS
+      $stmt->bindParam(1, $id);
+
+      // ejecutar la consulta
+      $stmt->execute();
+
+      $num = $stmt->rowCount();
+      echo " " . $num;
+      // si se hallo alguna fila (numero filas >0)
+      if($num>0){
+
+          // arreglo de restaurant
+          $restaurant_arr=array();
+          //en esta componente se almacena la informacion
+          $restaurant_arr["records"]=array();
+
+          // obtener los contenidos de las tablas
+          while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+              // extraer fila
+              extract($row);
+              // esto asigna fila['nombre'] a la variable $nombre, igual con el resto de campos
+              $restaurant_item=array(
+                  "cp" => $CP
+              );
+
+
+          }
+
+          //seleccionar todos los restaurantes de la ciudad ordenados por calificacion descendientemente
+          $query2 = "SELECT
+                      IDR
+                  from
+                      estaubicado NATURAL JOIN restaurant
+                  WHERE
+                      CP =:cp
+                  ORDER BY calificacion DESC";
+
+          // preparar la consulta
+          $stmt2 = $this->conn->prepare($query2);
+
+          // pasar a formato html
+
+          $cp=htmlspecialchars(strip_tags($restaurant_item["cp"]));
+
+          // se enlazan los nuevos valores
+          $stmt2->bindParam(":cp", $cp);
+
+
+          // ejecutar la consulta
+          if($stmt2->execute()){
+              //update de los puestos de cada restaurante de la ciudad
+              $num = $stmt2->rowCount();
+              echo " " . $num;
+              // si se hallo alguna fila (numero filas >0)
+              if($num>0){
+
+                  $cont=1;
+                  // arreglo de restaurant
+                  $restaurant_arr=array();
+                  //en esta componente se almacena la informacion
+                  $restaurant_arr["records"]=array();
+
+                  // obtener los contenidos de las tablas
+                  while ($row = $stmt2->fetch(PDO::FETCH_ASSOC)){
+                      // extraer fila
+
+                      extract($row);
+                      // esto asigna fila['nombre'] a la variable $nombre, igual con el resto de campos
+                      $restaurant_item=array(
+                          "id" => $IDR
+                      );
+                      // consulta de actualizacion
+                      $query3 = "UPDATE
+                                  estaubicado
+                              SET
+                                  puesto =:puesto
+                              WHERE
+                                  IDR =:id";
+
+                      // preparar la consulta
+                      $stmt3 = $this->conn->prepare($query3);
+
+                      echo " " . $restaurant_item["id"];
+                      // pasar a formato html
+                      $aux=$cont;
+                      $aux=htmlspecialchars(strip_tags($aux));
+                      $auxID=htmlspecialchars(strip_tags($restaurant_item["id"]));
+
+                      // se enlazan los nuevos valores
+                      $stmt3->bindParam(":puesto", $aux);
+                      $stmt3->bindParam(":id", $auxID);
+
+                      //actualizo valor de contador
+                      $cont++;
+
+                      // ejecutar la consulta
+                      if($stmt3->execute()){
+                          $ret=true;
+                      }
+                  }
+              }
+          }
+      }
+      return $ret;
+    }
 }
