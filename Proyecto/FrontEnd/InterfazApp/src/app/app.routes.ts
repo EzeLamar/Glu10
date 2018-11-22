@@ -15,7 +15,7 @@ const APP_ROUTES: Routes = [
      { path: 'restaurante/:id/info', component:  InfoRestauranteComponent, canActivate: [ AuthGuardService ] },
      { path: 'restaurante/:id/calificar', component:  CalificacionComponent, canActivate: [ AuthGuardService ] },
      { path: 'error', component: PageErrorComponent },
-     { path: '**', pathMatch: 'full', redirectTo: 'about' }
+     { path: '**', pathMatch: 'full', redirectTo: 'login' }
 ];
 
 export const APP_ROUTING = RouterModule.forRoot(APP_ROUTES);
