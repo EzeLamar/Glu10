@@ -1,5 +1,5 @@
 <mat-card>
-    <mat-card-title>Mapa</mat-card-title>
+    <mat-card-title>{{ perfil.name }}</mat-card-title>
     <mat-card-content>
         <agm-map (mapClick)= "agregarMarcador( $event )" 
                  [latitude]="lat" 
