@@ -11,16 +11,16 @@ import { Observable, Observer } from 'rxjs';
 @Injectable()
 export class AuthService {
 
-  private observer: Observer<string>;
-  userChange$: Observable<string> = new Observable(obs => this.observer = obs);
+  // private observer: Observer<string>;
+  // userChange$: Observable<string> = new Observable(obs => this.observer = obs);
 
   public userProfile: any;
 
   auth0 = new auth0.WebAuth({
-    clientID: 'Cg8fLad40Y6nxLL5b3E2i3mLtAbQNrIQ',
-    domain: 'gluten.auth0.com',
+    clientID: 'VaadtM2suHhtPGUI7LB6km7TuzXxyEK7',
+    domain: 'auth0prueba.auth0.com',
     responseType: 'token id_token',
-    redirectUri: 'https://localhost:4200/mapa',
+    redirectUri: 'https://localhost:4200/login',
     scope: 'openid profile'
   });
 
@@ -36,9 +36,9 @@ export class AuthService {
         window.location.hash = '';
         this.setSession(authResult);
         this.getProfile();
-        this.router.navigate(['/mapa']);
+        
       } else if (err) {
-        this.router.navigate(['/about']);
+        this.router.navigate(['/error']);
         console.log(err);
       }
     });
@@ -75,8 +75,14 @@ export class AuthService {
     const self = this;
     this.auth0.client.userInfo(accessToken, (err, profile) => {
       if (profile) {
-        this.observer.next(profile);
+        // this.observer.next(profile);
+        this.userProfile = profile;
+        this.router.navigate(['/mapa']);
         // self.userProfile = profile;
+      }
+      else{
+        this.router.navigate(['/error']);
+        console.log(err);
       }
       // cb(err, profile);
     });
