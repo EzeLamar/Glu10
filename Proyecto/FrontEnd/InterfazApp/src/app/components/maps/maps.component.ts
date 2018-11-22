@@ -6,6 +6,7 @@ import { Marcador } from '../../classes/marcador.class';
 
 // Servicio Autenticacion
 import { AuthService } from '../../services/auth.service';
+import { ToolbarComponent } from "../toolbar/toolbar.component";
 // importo al panel de restaurantes cerca para indicarle que se actualice LUEGO de obener los datos.
 import { RestaurantesComponent } from '../restaurantes/restaurantes.component';
 // Para Ruteo
@@ -41,6 +42,7 @@ export class MapsComponent implements OnInit {
                 private dialog: MatDialog,
                 private marcadorService: MarcadoresService,
                 private panelRestaurantesCerca: RestaurantesComponent,
+                private toolbar: ToolbarComponent,
                 private router: Router) {
   // Geolocacion del usuario
   if ('geolocation' in navigator) {
@@ -57,12 +59,16 @@ export class MapsComponent implements OnInit {
     this.marcadores = JSON.parse(localStorage.getItem('marcadores'));
   }
 
-  // this.marcadores.push(nuevoMarcador);
+  //setea el perfil según el servicio de auth0
+  this.perfil = this.auth0.userProfile;
+  this.toolbar.actualizarUsuario();
+
+
   }
 
   ngOnInit() {
     // Obtengo el perfil del usuario autentificado
-    this.auth0.userChange$.subscribe(userProfile => this.perfil = userProfile);
+    // this.auth0.userChange$.subscribe(userProfile => this.perfil = userProfile);
 
     // if (this.auth0.userProfile) {
     //   this.perfil = this.auth0.userProfile;

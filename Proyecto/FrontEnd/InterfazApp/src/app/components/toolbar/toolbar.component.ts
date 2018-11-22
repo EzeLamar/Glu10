@@ -18,15 +18,15 @@ export class ToolbarComponent implements OnInit {
 
   constructor( private router: Router, private auth0: AuthService ) {
     auth0.handleAuthentication();
-    // Borrar dsps ( FIX RAPIDO )
-    if (auth0.isAuthenticated()) {
-      auth0.logout();
+  }
+
+  actualizarUsuario(){
+    if (this.auth0.isAuthenticated()) {
+      this.perfil = this.auth0.userProfile;
     }
   }
 
-
   ngOnInit() {
-    this.auth0.userChange$.subscribe(userProfile => this.perfil = userProfile);
   }
   // For auth service purpose
   login() {
