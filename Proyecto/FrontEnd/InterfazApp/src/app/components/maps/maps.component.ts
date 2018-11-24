@@ -33,6 +33,7 @@ export class MapsComponent implements OnInit {
   // atributos de la clase
   marcadores: Marcador[] = [];
   error = 'todo bien';
+  esAdministrador = false;
 
   // Para verificar si es admin o no
   perfil: any;
@@ -44,10 +45,13 @@ export class MapsComponent implements OnInit {
                 private panelRestaurantesCerca: RestaurantesComponent,
                 private toolbar: ToolbarComponent,
                 private router: Router) {
+
+  //obtengo los marcadores del server
+  this.obtenerMarcadoresServer();
+
   // Geolocacion del usuario
   if ('geolocation' in navigator) {
     /* la geolocalización está disponible */
-    console.log('Puedo obtener Ubicacion');
     this.findMe();
   } else {
     /* la geolocalización NO está disponible */
@@ -63,32 +67,12 @@ export class MapsComponent implements OnInit {
   this.perfil = this.auth0.userProfile;
   this.toolbar.actualizarUsuario();
 
+  //seteo permisos al usuario actual
+  this.esAdministrador = this.auth0.esAdministrador();
 
   }
 
   ngOnInit() {
-    // Obtengo el perfil del usuario autentificado
-    // this.auth0.userChange$.subscribe(userProfile => this.perfil = userProfile);
-
-    // if (this.auth0.userProfile) {
-    //   this.perfil = this.auth0.userProfile;
-    // } else {
-    //   this.auth0.getProfile((err, profile) => {
-    //     this.perfil = profile;
-    //   });
-    // }
-    // obtener Marcadores
-    this.obtenerMarcadoresServer();
-    console.log(this.error);
-    // this.obtenerPrueba();
-  }
-  // Verifico si es admin para poder realizar la modificacion de marcadores
-  // this.perfil != null &&
-  esAdmin() {
-    if ( this.perfil != null && this.perfil.name === 'admin@admin.com') {
-      return true;
-    }
-      return false;
   }
 
   setearLatLng(position) {
@@ -100,7 +84,6 @@ export class MapsComponent implements OnInit {
   findMe() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position);
         this.setearLatLng(position);
         // this.marcadores.push(new Marcador( position.coords.latitude, position.coords.longitude));
             });
@@ -111,7 +94,7 @@ export class MapsComponent implements OnInit {
 
 
   agregarMarcador( evento ) {
-  if ( this.esAdmin() ) {
+    if ( this.esAdministrador ) {
       const coords: { lat: number, lng: number } = evento.coords;
 
       console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);
@@ -147,13 +130,9 @@ export class MapsComponent implements OnInit {
   }
 
   obtenerMarcadoresServer(): void {
-    console.log("esperando por los marcadores");
-
     this.marcadorService.getAll().subscribe(
       ( res: Marcador[] ) => {
         this.marcadores = res;
-        console.log("se obtuvieron los marcadores");
-        console.log("obtengo marcadores cerca..");
         this.marcadorService.setUbicacionActual(this.lat, this.lng);
         this.panelRestaurantesCerca.actualizarRestaurantesCerca();
         //this.marcadorService.setMarcadoresCerca(this.lat, this.lng);
@@ -165,9 +144,9 @@ export class MapsComponent implements OnInit {
   }
 
   almacenarMarcadorServer(nuevoMarcador: Marcador): void {
-
     this.marcadorService.addMarcador(nuevoMarcador).subscribe(
       ( res: string ) => {
+          //muestra la salida generada por el backend
           console.log(res);
       },
       ( err ) => {
@@ -193,12 +172,10 @@ export class MapsComponent implements OnInit {
 
    //para ruteos
    moverseACalificar(id: number){
-    console.log("calificar "+id);
     this.router.navigate(['/restaurante',id,'calificar']);
   }
 
   moverseAVerMas(id: number){
-    console.log("verMas "+id);
     this.router.navigate(['/restaurante',id,'info']);
   }
 
@@ -219,6 +196,7 @@ export class MapsComponent implements OnInit {
   public borrarMarcadorServer(id: number){
     this.marcadorService.removeMarcador(id).subscribe(
       ( res: string ) => {
+          //muestra la salida gnerada por el backend
           console.log(res);
       },
       ( err ) => {
@@ -251,8 +229,6 @@ export class MapsComponent implements OnInit {
             }
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      console.log(result);
       if ( !result ) {
         return;
       }
@@ -279,9 +255,6 @@ export class MapsComponent implements OnInit {
         marcador.imagen = result.imagen;
         Object.assign(valoresModificados,{'imagen': result.imagen}); 
       }
-
-      console.log("valoresModificados",valoresModificados);
-
       this.actualizarMarcadorServer(valoresModificados);
       this.guardaMarcadores();
       this.snackBar.open('Marcador actualizado', 'Cerrar', { duration: 1000 });
@@ -291,6 +264,7 @@ export class MapsComponent implements OnInit {
   public actualizarMarcadorServer(valoresModificados){
     this.marcadorService.updateMarcador(valoresModificados).subscribe(
       ( res: string ) => {
+          //muestra la salida generada por el backend
           console.log(res);
       },
       ( err ) => {

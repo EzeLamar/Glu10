@@ -30,7 +30,6 @@ export class RestaurantesComponent implements OnInit {
 
   actualizarRestaurantesCerca(){
     this.RestaurantesCerca= this.marcadoresService.setMarcadoresCerca();
-    console.log(this.RestaurantesCerca);
   }
 
 }

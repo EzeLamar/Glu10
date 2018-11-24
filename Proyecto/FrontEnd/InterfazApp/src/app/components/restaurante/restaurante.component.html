@@ -11,7 +11,7 @@
     <app-star-rating [rating]=restaurante.calificacion starCount="5" color="accent"></app-star-rating>
     {{ restaurante.calificacion }}
   <mat-card-actions>
-      <button (click)="moverseACalificar( restaurante.id )" mat-raised-button color="primary">Calificar</button>
-      <button (click)="moverseAVerMas( restaurante.id )" mat-stroked-button color="primary">Ver Más</button>
+      <button [disabled]="esAdmin" (click)="moverseACalificar( restaurante.id )" mat-raised-button color="primary">Calificar</button>
+      <button [disabled]="esAdmin" (click)="moverseAVerMas( restaurante.id )" mat-stroked-button color="primary">Ver Más</button>
   </mat-card-actions>
 </mat-card>

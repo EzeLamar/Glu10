@@ -1,6 +1,7 @@
 import { Component, Input,OnInit } from '@angular/core';
 import { Marcador } from '../../classes/marcador.class';
 import { Router } from '@angular/router';
+import { AuthService } from "../../services/auth.service";
 
 
 @Component({
@@ -11,20 +12,25 @@ import { Router } from '@angular/router';
 export class RestauranteComponent implements OnInit {
 
   @Input() restaurante:Marcador= new Marcador(1,1);
+  esAdmin = false;
 
-  constructor( private router: Router ) { }
+  constructor( private router: Router,
+               private auth0: AuthService
+             ) {
+
+                  this.esAdmin = this.auth0.esAdministrador();   
+
+                }
 
   ngOnInit() {
   }
 
   //para ruteos
   moverseACalificar(id: number){
-  console.log("calificar "+id);
   this.router.navigate(['/restaurante',id,'calificar']);
   }
 
   moverseAVerMas(id: number){
-    console.log("verMas "+id);
   this.router.navigate(['/restaurante',id,'info']);
   }
 
