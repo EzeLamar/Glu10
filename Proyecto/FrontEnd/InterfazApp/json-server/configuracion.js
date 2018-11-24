@@ -22,7 +22,8 @@ server.use(jsonServer.rewriter({
   '/restaurant/read.php': '/read',
   '/restaurant/create.php': '/salida',
   '/restaurant/update.php': '/update',
-  '/restaurant/remove.php': '/remove'
+  '/restaurant/remove.php': '/remove',
+  '/restaurant/calificar.php': '/votacion'
 }));
 
 server.use(middlewares);
@@ -35,5 +36,6 @@ https.createServer(options, server).listen(3003, function() {
   console.log("/restaurant/create.php <- POST 1 nuevo marcador.");
   console.log("/restaurant/update.php <- UPDATE de 1 marcador.");
   console.log("/restaurant/remove.php <- DELETE 1 marcador.");
+  console.log("/restaurant/calificar.php <- ultima calificacion.");
     
 });
