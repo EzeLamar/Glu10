@@ -99,7 +99,6 @@ export class AuthService {
   public esAdministrador(): boolean {
     this.backend.esAdmin(this.userProfile.name).subscribe(
       ( res: boolean ) => {
-          console.log(res);
           return res;
       },
       ( err ) => {
@@ -107,6 +106,7 @@ export class AuthService {
         return false;   //retorno false para no darle permisos cuando no deberia
       }
     );
+    //si no entra en ninguno de los otros.
     return false;
   }
 }
