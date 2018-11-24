@@ -31,7 +31,7 @@ export class MarcadoresService {
 
   
 
-  RadioMaximo = 1500; 
+  RadioMaximo = 3000; 
 
   constructor(  private http: HttpClient ,
                 private mapsAPILoader: MapsAPILoader ) { }
@@ -41,7 +41,6 @@ export class MarcadoresService {
     return this.http.get(`${this.baseUrl}/restaurant/read.php`).pipe(
       map((res) => {
         this.marcadoresServer = res['records'];
-        console.log(this.marcadoresServer);
         return this.marcadoresServer;
     }),
     catchError(this.handleError));
@@ -57,8 +56,6 @@ export class MarcadoresService {
           return m;
         }
       });
-      console.log("marcadores cerca");
-      console.log(this.marcadoresRadioPosicion);
       return this.marcadoresRadioPosicion;
   }
 
@@ -91,7 +88,6 @@ export class MarcadoresService {
           // ,'Authorization': 'my-auth-token'
         })
       };
-      console.log(nuevoMarcador);
       return this.http.post<string>(this.baseUrl+"/restaurant/create.php", nuevoMarcador, httpOptions)
         .pipe(
           catchError(this.handleError)
@@ -122,7 +118,6 @@ export class MarcadoresService {
       let idAEliminar = {
         id: idMarcador
       };
-      console.log("entre al removeMarcador!!");
       return this.http.post<string>(this.baseUrl+"/restaurant/remove.php", idAEliminar, httpOptions)
         .pipe(
           catchError(this.handleError)
@@ -130,7 +125,6 @@ export class MarcadoresService {
     }
 
     updateMarcador (camposModificados): Observable<string> {
-
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json'
@@ -159,6 +153,20 @@ export class MarcadoresService {
           catchError(this.handleError)
         );
 
+    }
+
+    calificar ( votacion ): Observable<string> {
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json'
+          // ,'Authorization': 'my-auth-token'
+        })
+      };
+
+      return this.http.post<string>(this.baseUrl+"/restaurant/calificar.php", votacion, httpOptions)
+        .pipe(
+          catchError(this.handleError)
+        );
     }
   
 }
