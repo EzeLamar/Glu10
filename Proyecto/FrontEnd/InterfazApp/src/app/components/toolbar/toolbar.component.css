@@ -29,6 +29,13 @@
        `<body>` to be our scrolling element for mobile layouts. */
     flex: 1 0 auto;
   }
+  
+  .example-header-image {
+    /* background-image: url(https://www.guiavoy.com.ar/media/com_mtree/images/listings/m/117.jpg); */
+    background-size: cover;
+    vertical-align: middle;
+  }
+  
 
   .example-spacer {
     flex: 1 1 auto;
