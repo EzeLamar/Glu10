@@ -1,3 +1,13 @@
-<p>
-  Este es la info de un Restaurante
-</p>
+<div id="notfound">
+  <div class="notfound-bg"></div>
+  <div class="notfound">
+    <div class="notfound-404">
+      <img [src]="marcadorActual.imagen" alt="foto restaurant">
+      <h1>{{ marcadorActual?.nombre }}</h1>
+    </div>
+    <h2>{{ marcadorActual?.calificacion }}</h2>
+    <p>{{marcadorActual?.descripcion}}</p>
+
+    <a> <button mat-raised-button color="primary" (click)="moverseACalificar( marcadorActual.id )">Calificar </button> </a>
+  </div>
+</div>
