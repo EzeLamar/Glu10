@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MarcadoresService } from "../../services/marcadores.service";
-import { ActivatedRoute } from "@angular/router";
+import { MarcadoresService } from '../../services/marcadores.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-calificacion',
@@ -29,9 +29,10 @@ export class CalificacionComponent implements OnInit {
     // Int calificado=(servicio+velocidad+precio+servicio)/4;
     // console.log(calificado);
 
-    //valores entre 0-5 (reales)
+    // valores entre 0-5 (reales)
     let votacion = {
-      id: this.idActual,     //lo tomamos de la ruta o path
+      IDR: this.idActual,     // lo tomamos de la ruta o path
+      id: 1,                  // id del usuario
       calidad: 5,
       velocidad: 3,
       precio: 2.5,
@@ -44,11 +45,11 @@ export class CalificacionComponent implements OnInit {
   public enviarCalificacion( votacion ){
     this.marcadoresService.calificar( votacion ).subscribe(
       ( res: string ) => {
-          //muestra la salida generada por el backend
+          // muestra la salida generada por el backend
           console.log(res);
       },
       ( err ) => {
-          console.log(err)   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
+          console.log(err);  // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
       }
     );
 

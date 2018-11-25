@@ -1,12 +1,12 @@
-//servicio
+// servicio
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-//comunicacion Server
+// comunicacion Server
 import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-//clase importada
-import { Marcador } from "../classes/marcador.class";
-//para detectar distancias entre marcadores
+// clase importada
+import { Marcador } from '../classes/marcador.class';
+// para detectar distancias entre marcadores
 import { MapsAPILoader } from '@agm/core';
 declare var google;
 
@@ -16,27 +16,23 @@ declare var google;
   providedIn: 'root'
 })
 export class MarcadoresService {
-  //conexion remota 
-  // ipServerPHP =  "192.168.1.102";
-  // baseUrl ="https://"+this.ipServerPHP+"/MIPROYECTO/api_proye";
-  
-  //conexion local json-server
-  baseUrl = "https://localhost:3003";
+  // conexion remota
+   ipServerPHP =  '192.168.0.14';
+   baseUrl = 'https://' + this.ipServerPHP + '/MIPROYECTO/api_proye';
+  // conexion local json-server
+  // baseUrl = "https://localhost:3003";
 
-  marcadoresServer: Marcador[]=[];
-  marcadoresRadioPosicion: Marcador[]=[];
-  latActual= 0;
+  marcadoresServer: Marcador[] = [];
+  marcadoresRadioPosicion: Marcador[] = [];
+  latActual = 0;
   lngActual = 0;
-  
 
-  
 
-  RadioMaximo = 3000; 
+  RadioMaximo = 3000;
 
   constructor(  private http: HttpClient ,
                 private mapsAPILoader: MapsAPILoader ) { }
-                
-  //solicito al servidor que me conteste con lo que haga api/list
+  // solicito al servidor que me conteste con lo que haga api/list
   public getAll(): Observable<Marcador[]> {
     return this.http.get(`${this.baseUrl}/restaurant/read.php`).pipe(
       map((res) => {
@@ -47,8 +43,8 @@ export class MarcadoresService {
   }
 
   public setMarcadoresCerca(): Marcador[] {
-      const center = new google.maps.LatLng(this.latActual,this.lngActual);
-      //markers located within 50 km distance from center are included
+      const center = new google.maps.LatLng(this.latActual, this.lngActual);
+      // markers located within 50 km distance from center are included
       this.marcadoresRadioPosicion = this.marcadoresServer.filter(m => {
         const markerLoc = new google.maps.LatLng(m.latitud, m.longitud);
         const  distanceInMts = google.maps.geometry.spherical.computeDistanceBetween(markerLoc, center);
@@ -64,23 +60,23 @@ export class MarcadoresService {
     this.lngActual = lngActual;
   }
 
-  public obtenerMayorIDR(): number{
-    let mayor= 0;
-    for(let i=0; i<this.marcadoresServer.length; i++){
+  public obtenerMayorIDR(): number {
+    let mayor = 0;
+    for (let i = 0; i < this.marcadoresServer.length; i++) {
       let idActual = this.marcadoresServer[i].id;
-      if(idActual>mayor)
-        mayor = idActual;
+      if ( idActual > mayor) {
+        mayor = idActual; }
     }
     return mayor;
   }
-    
+
   private handleError(error: HttpErrorResponse) {
     console.log(error);
     // return an observable with a user friendly message
     return throwError('Error! something went wrong.');
   }
 
-  //POST
+  // POST
     addMarcador (nuevoMarcador: Marcador): Observable<string> {
       const httpOptions = {
         headers: new HttpHeaders({
@@ -88,25 +84,25 @@ export class MarcadoresService {
           // ,'Authorization': 'my-auth-token'
         })
       };
-      return this.http.post<string>(this.baseUrl+"/restaurant/create.php", nuevoMarcador, httpOptions)
+      return this.http.post<string>( this.baseUrl + '/restaurant/create.php', nuevoMarcador, httpOptions)
         .pipe(
           catchError(this.handleError)
         );
     }
-    //buscar el marcador en marcadoresServer y retorna su posición actual.
-    //Retorna -1 si no lo encuentra
-    private buscarMarcador(id:number): number {
+    // buscar el marcador en marcadoresServer y retorna su posición actual.
+    // Retorna -1 si no lo encuentra
+    private buscarMarcador(id: number): number {
       let encontre = false;
-      let pos=0;
+      let pos = 0;
       for( pos=0; (pos<this.marcadoresServer.length)&&(!encontre); pos++ )
         if( this.marcadoresServer[pos].id === id )
           encontre = true;
-      if(!encontre)
-        pos=-1;
+      if (!encontre)
+        pos = -1;
       return pos;
     }
 
-    public removeMarcador(idMarcador: number):Observable<string>{
+    public removeMarcador(idMarcador: number): Observable<string> {
 
       const httpOptions = {
         headers: new HttpHeaders({
@@ -118,7 +114,7 @@ export class MarcadoresService {
       let idAEliminar = {
         id: idMarcador
       };
-      return this.http.post<string>(this.baseUrl+"/restaurant/remove.php", idAEliminar, httpOptions)
+      return this.http.post<string>(this.baseUrl + '/restaurant/delete.php', idAEliminar, httpOptions)
         .pipe(
           catchError(this.handleError)
         );
@@ -132,13 +128,13 @@ export class MarcadoresService {
         })
       };
 
-      return this.http.post<string>(this.baseUrl+"/restaurant/update.php", camposModificados, httpOptions)
+      return this.http.post<string>(this.baseUrl + '/restaurant/update.php', camposModificados, httpOptions)
         .pipe(
           catchError(this.handleError)
         );
     }
 
-    //para la autenticacion del usuario
+    // para la autenticacion del usuario
     public esAdmin( nombre:string ):Observable<boolean>{
       const httpOptions = {
         headers: new HttpHeaders({
@@ -148,7 +144,7 @@ export class MarcadoresService {
       };
       let usuarioAValidar = { name: nombre};
 
-      return this.http.post<boolean>(this.baseUrl+"/restaurant/esAdmin.php", usuarioAValidar, httpOptions)
+      return this.http.post<boolean>(this.baseUrl + '/usuario/verificarAdmin.php', usuarioAValidar, httpOptions)
         .pipe(
           catchError(this.handleError)
         );
@@ -158,17 +154,16 @@ export class MarcadoresService {
     calificar ( votacion ): Observable<string> {
       const httpOptions = {
         headers: new HttpHeaders({
-          'Content-Type':  'application/json'
-          // ,'Authorization': 'my-auth-token'
+          'Content-Type':  'application/json',
+          // 'Authorization': `${token}`
         })
       };
 
-      return this.http.post<string>(this.baseUrl+"/restaurant/calificar.php", votacion, httpOptions)
+      return this.http.post<string>(this.baseUrl + '/usuario/calificar.php', votacion, httpOptions)
         .pipe(
           catchError(this.handleError)
         );
     }
-  
 }
 
 

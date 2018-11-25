@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import * as auth0 from 'auth0-js';
 import { Observable, Observer } from 'rxjs';
-import { MarcadoresService } from "./marcadores.service";
+import { MarcadoresService } from './marcadores.service';
 import { error } from '@angular/compiler/src/util';
 
 (window as any).global = window;
@@ -19,15 +19,15 @@ export class AuthService {
   public userProfile: any;
 
   auth0 = new auth0.WebAuth({
-    //auth0 de ALE...
+    // auth0 de ALE...
     // clientID: 'Cg8fLad40Y6nxLL5b3E2i3mLtAbQNrIQ',
     // domain: 'gluten.auth0.com',
         // redirectUri: 'https://localhost:4200/mapa',
-    //fin Auth0 ALE..
+    // fin Auth0 ALE..
         clientID: 'VaadtM2suHhtPGUI7LB6km7TuzXxyEK7',
-    domain: 'auth0prueba.auth0.com', 
+    domain: 'auth0prueba.auth0.com',
     responseType: 'token id_token',
-    redirectUri: 'https://localhost:4200/login',
+    redirectUri: 'https://192.168.0.11:4200/login',
     scope: 'openid profile'
   });
 
@@ -88,7 +88,7 @@ export class AuthService {
         this.router.navigate(['/mapa']);
         // self.userProfile = profile;
       }
-      else{
+        else {
         this.router.navigate(['/error']);
         console.log(err);
       }
@@ -99,14 +99,15 @@ export class AuthService {
   public esAdministrador(): boolean {
     this.backend.esAdmin(this.userProfile.name).subscribe(
       ( res: boolean ) => {
+          console.log('resultadoSoyAdmin??' , res);
           return res;
       },
       ( err ) => {
-        console.log(error); 
-        return false;   //retorno false para no darle permisos cuando no deberia
+        console.log(error);
+        return false;   // retorno false para no darle permisos cuando no deberia
       }
     );
-    //si no entra en ninguno de los otros.
+    // si no entra en ninguno de los otros.
     return false;
   }
 }
