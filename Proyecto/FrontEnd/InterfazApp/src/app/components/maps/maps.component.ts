@@ -135,6 +135,7 @@ export class MapsComponent implements OnInit {
         this.marcadores = res;
         this.marcadorService.setUbicacionActual(this.lat, this.lng);
         this.panelRestaurantesCerca.actualizarRestaurantesCerca();
+        localStorage.setItem('marcadores', JSON.stringify(res));
         //this.marcadorService.setMarcadoresCerca(this.lat, this.lng);
       },
       ( err ) => {
