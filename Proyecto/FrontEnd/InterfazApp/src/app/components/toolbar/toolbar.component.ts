@@ -34,6 +34,7 @@ export class ToolbarComponent implements OnInit {
   }
   logout() {
     this.auth0.logout();
+    localStorage.clear();
     // this.router.navigate(['/login']); Ya lo realizo en el metodo "logout()" del servicio auth
   }
   // For the menu
