@@ -45,6 +45,11 @@ export class ToolbarComponent implements OnInit {
     this.sidenav.open();
   }
 
+  moverseALogin(){
+    this.sidenav.close();
+    this.router.navigate(['/login']);
+  }
+
   moverseAMap() {
     this.sidenav.close();
     this.router.navigate(['/mapa']);

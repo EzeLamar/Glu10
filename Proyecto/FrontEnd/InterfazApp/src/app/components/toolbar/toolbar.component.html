@@ -10,6 +10,7 @@
 <mat-sidenav-container
 class="example-container example-sidenav-container" color="primary" (backdropClick)="close()">
 <mat-sidenav #sidenav mode="push">
+  <p><button mat-button (click)="moverseALogin()" *ngIf="!auth0.isAuthenticated()"><mat-icon>home</mat-icon> Home</button></p>
   <p><button mat-button (click)="moverseAMap()" *ngIf="auth0.isAuthenticated()"><mat-icon>map</mat-icon> Mapa</button></p>
   <p><button mat-button (click)="sidenav.toggle()" *ngIf="auth0.isAuthenticated()"><mat-icon>import_contacts</mat-icon> Recetas</button></p>
   <p><button mat-button (click)="sidenav.toggle()" *ngIf="auth0.isAuthenticated()"><mat-icon>room_service</mat-icon> Menu del Dia</button></p>
