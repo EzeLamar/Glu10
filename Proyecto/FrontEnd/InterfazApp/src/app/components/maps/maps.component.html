@@ -37,6 +37,11 @@
                   
                 </agm-info-window>
             </agm-marker>
+            <agm-circle  [latitude]="lat" 
+                         [longitude]="lng"
+                         [radius]= "3000"
+                         [fillOpacity]="0.1"
+            ></agm-circle>
         </agm-map>
     </mat-card-content>
 </mat-card>
