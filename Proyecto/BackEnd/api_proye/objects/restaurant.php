@@ -21,7 +21,7 @@ class Restaurant{
     }
 
       // leer restaurants
-    function read($cp){
+    function read(){
 
         //consulta a la base de datos: seleccionar todos los restaurantes
         $query = "SELECT
@@ -33,7 +33,8 @@ class Restaurant{
         $stmt = $this->conn->prepare($query);
 
         // se pasa a formato html
-        $cp=htmlspecialchars(strip_tags($cp));
+        $num=8000;
+        $cp=htmlspecialchars(strip_tags($num));
 
         //SE VINCULAN LOS PARAMETROS
         $stmt->bindParam(1, $cp);

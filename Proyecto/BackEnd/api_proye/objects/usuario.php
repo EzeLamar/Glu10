@@ -357,4 +357,12 @@ class Usuario{
 
       return false;
     }
+
+    function verificarAdmin(){
+      $var=true;
+      if($this->email!="admin@admin.com")
+        $var=false;
+
+      return $var;
+    }
 }

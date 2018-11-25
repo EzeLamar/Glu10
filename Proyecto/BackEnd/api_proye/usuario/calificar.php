@@ -1,10 +1,10 @@
 <?php
 // required headers
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
+header("Content-Type: application/json; charset=utf-8");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Accept");
 
 // se incluye la base de datos
 include_once '../config/database.php';
@@ -28,23 +28,23 @@ $data = json_decode(file_get_contents("php://input"));
 if(
     !empty($data->id) &&
     !empty($data->IDR) &&
-    !empty($data->cs) &&
-    !empty($data->h) &&
-    !empty($data->a) &&
-    !empty($data->p)
+    !empty($data->calidad) &&
+    !empty($data->velocidad) &&
+    !empty($data->limpieza) &&
+    !empty($data->precio)
 ){
 
     //se setean los atributos
     $product->id = $data->id;
 
     $IDR=$data->IDR;
-    $cs=$data->cs;
-    $h=$data->h;
-    $p=$data->p;
-    $a=$data->a;
+    $calidad=$data->calidad;
+    $velocidad=$data->velocidad;
+    $precio=$data->precio;
+    $limpieza=$data->limpieza;
 
     // se crea el restaurant
-    if($product->calificar($IDR,$cs,$a,$p,$h)){
+    if($product->calificar($IDR,$calidad,$velocidad,$precio,$limpieza)){
 
 
         // setear el codigo de respuesta - 201 created

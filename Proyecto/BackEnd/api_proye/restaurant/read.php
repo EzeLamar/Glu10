@@ -19,7 +19,7 @@ $data = json_decode(file_get_contents("php://input"));
 
 
 // consulta a restaurant
-$stmt = $restaurant->read($data->cp);
+$stmt = $restaurant->read();
 $num = $stmt->rowCount();
 
 // si se hallo alguna fila (numero filas >0)
