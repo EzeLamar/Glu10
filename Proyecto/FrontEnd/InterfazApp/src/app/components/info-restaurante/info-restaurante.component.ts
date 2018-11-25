@@ -53,9 +53,12 @@ export class InfoRestauranteComponent implements OnInit {
 
   }
 
-  //para ruteos
-  moverseACalificar(id: number){
-    this.router.navigate(['/restaurante',id,'calificar']);
+  // para ruteos
+  moverseACalificar(id: number) {
+    this.router.navigate(['/restaurante', id, 'calificar']);
+  }
+  moverseAMapa() {
+    this.router.navigate(['/mapa']);
   }
 
   ngOnInit() {
