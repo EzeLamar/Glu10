@@ -8,56 +8,39 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/restaurant.php';
+include_once '../objects/ciudades.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
 // prepare product object
-$product = new Restaurant($db);
+$product = new Ciudad($db);
 
 // get id of product to be edited
 $data = json_decode(file_get_contents("php://input"));
 
-
-//contador de cantidad de parametros
+//cuenta la cantidad de parametros a ser actualizados
 $cont=0;
 
 // set ID property of product to be edited
-if($data->id!=NULL)
-$product->id = $data->id;
+if($data->cp!=NULL)
+$product->cp = $data->cp;
 
 // set product property values
 if($data->nombre!=NULL){
 $product->nombre = $data->nombre;
 $cont++;
 }
-if($data->latitud!=NULL){
-$product->latitud = $data->latitud;
+if($data->canthabit!=NULL){
+$product->canthabit = $data->canthabit;
 $cont++;
 }
-if($data->longitud!=NULL){
-$product->longitud = $data->longitud;
+if($data->canthabitcel!=NULL){
+$product->canthabitcel = $data->canthabitcel;
 $cont++;
 }
-if($data->descripcion!=NULL){
-$product->descripcion = $data->descripcion;
-$cont++;
-}
-if($data->tieneMenuCel!=NULL){
-$product->tieneMenuCel = $data->tieneMenuCel;
-$cont++;
-}
-if($data->calificacion!=NULL){
-$product->calificacion = $data->calificacion;
-$cont++;
-}
-if(!empty($data->imagen)){
-$product->imagen = $data->imagen;
-$cont++;
-}
-
+echo "" . $cont;
 // update the product
 if($product->update($cont)){
 
@@ -65,7 +48,7 @@ if($product->update($cont)){
     http_response_code(200);
 
     // tell the user
-    echo json_encode(array("message" => "los datos del restaurante fueron actualizados."));
+    echo json_encode(array("message" => "los datos de la ciudad fueron actualizados."));
 }
 
 // if unable to update the product, tell the user

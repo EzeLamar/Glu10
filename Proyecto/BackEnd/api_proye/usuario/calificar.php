@@ -1,16 +1,18 @@
 <?php
 // required headers
 header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-header("Access-Control-Allow-Methods: POST");
+header("Content-Type: application/json; charset=utf-8");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Max-Age: 3600");
-header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With, Accept");
 
 // se incluye la base de datos
 include_once '../config/database.php';
 
 // se incluyen los objetos
 include_once '../objects/usuario.php';
+// se incluyen los objetos
+include_once '../objects/restaurant.php';
 
 //constructor de la base de datos y obtencion de la conexion
 $database = new Database();
@@ -25,38 +27,31 @@ $data = json_decode(file_get_contents("php://input"));
 // asegurarse que los campos no esten vacios
 if(
     !empty($data->id) &&
-    !empty($data->nombre) &&
-    !empty($data->apellido) &&
-    !empty($data->edad) &&
-    !empty($data->email) &&
-    !empty($data->password) &&
-    !empty($data->nroTel)  &&
-    !empty($data->esCel) &&
-    !empty($data->cp)
+    !empty($data->IDR) &&
+    !empty($data->calidad) &&
+    !empty($data->velocidad) &&
+    !empty($data->limpieza) &&
+    !empty($data->precio)
 ){
 
     //se setean los atributos
     $product->id = $data->id;
-    $product->nombre = $data->nombre;
-    $product->apellido = $data->apellido;
-    $product->edad = $data->edad;
-    $product->email = $data->email;
-    $product->password = $data->password;
-    $product->nroTel=$data->nroTel;
-    $product->esCel=$data->esCel;
 
-    $id=$product->id;
-    $cp=$data->cp;
+    $IDR=$data->IDR;
+    $calidad=$data->calidad;
+    $velocidad=$data->velocidad;
+    $precio=$data->precio;
+    $limpieza=$data->limpieza;
 
     // se crea el restaurant
-    if($product->create($cp,$id)){
+    if($product->calificar($IDR,$calidad,$velocidad,$precio,$limpieza)){
 
 
         // setear el codigo de respuesta - 201 created
         http_response_code(201);
 
         // aviso al usuario
-        echo json_encode(array("message" => "el usuario fue creado exitosamente."));
+        echo json_encode(array("message" => "se califico exitosamente."));
 
     }
 
@@ -67,7 +62,7 @@ if(
         http_response_code(503);
 
         // aviso al usuario
-        echo json_encode(array("message" => "no se pudo crear el usuario"));
+        echo json_encode(array("message" => "no se pudo calificar"));
     }
 }
 
@@ -78,6 +73,6 @@ else{
     http_response_code(400);
 
     // aviso al usuario
-    echo json_encode(array("message" => "datos insuficientes para crear usuario."));
+    echo json_encode(array("message" => "datos insuficientes."));
 }
 ?>

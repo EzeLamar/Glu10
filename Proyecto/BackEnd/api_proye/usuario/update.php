@@ -20,20 +20,48 @@ $product = new Usuario($db);
 // get id of product to be edited
 $data = json_decode(file_get_contents("php://input"));
 
+//contador de cantidad de parametros
+$cont=0;
+
 // set ID property of product to be edited
+if($data->id!=NULL)
 $product->id = $data->id;
 
 // set product property values
-$product->nombre = $data->nombre;
+if($data->nombre!=NULL){
+  $product->nombre = $data->nombre;
+  $cont++;
+}
+if($data->apellido!=NULL){
 $product->apellido = $data->apellido;
+$cont++;
+}
+if($data->edad!=NULL){
 $product->edad = $data->edad;
+$cont++;
+}
+if($data->email!=NULL){
 $product->email = $data->email;
+$cont++;
+}
+if($data->password!=NULL){
 $product->password = $data->password;
+$cont++;
+}
+if($data->nroTel!=NULL){
 $product->nroTel = $data->nroTel;
+$cont++;
+}
+if($data->esCel!=NULL){
 $product->esCel = $data->esCel;
-
+$cont++;
+}
+if($data->IDGoogle!=NULL){
+$product->IDGoogle = $data->IDGoogle;
+$cont++;
+}
 // update the product
-if($product->update()){
+if($product->update($cont)){
 
     // set response code - 200 ok
     http_response_code(200);

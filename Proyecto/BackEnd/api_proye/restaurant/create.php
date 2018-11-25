@@ -24,24 +24,29 @@ $data = json_decode(file_get_contents("php://input"));
 
 // asegurarse que los campos no esten vacios
 if(
+    !empty($data->id) &&
     !empty($data->nombre) &&
     !empty($data->longitud) &&
     !empty($data->latitud) &&
     !empty($data->tieneMenuCel) &&
     !empty($data->descripcion) &&
-    !empty($data->calificacion)
+    !empty($data->calificacion) &&
+    !empty($data->imagen) &&
+    !empty($data->cp)
 ){
 
     //se setean los atributos
+    $product->id=$data->id;
     $product->nombre = $data->nombre;
     $product->longitud = $data->longitud;
     $product->latitud = $data->latitud;
     $product->tieneMenuCel = $data->tieneMenuCel;
     $product->descripcion = $data->descripcion;
     $product->calificacion=$data->calificacion;
+    $product->imagen=$data->imagen;
 
     // se crea el restaurant
-    if($product->create()){
+    if($product->create($data->cp)){
 
         // setear el codigo de respuesta - 201 created
         http_response_code(201);
