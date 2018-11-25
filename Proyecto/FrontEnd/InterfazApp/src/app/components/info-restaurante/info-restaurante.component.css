@@ -26,7 +26,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #555555;
+    /* background-color: #555555; */
   }
   
   #notfound .notfound {
@@ -55,27 +55,32 @@
   }
   
   .notfound {
-    max-width: 600px;
-    width: 100%;
+    /* max-width: 80vh; */
+    width: 90%;
     text-align: center;
-    padding: 30px;
+    padding: 0px;
     line-height: 1.4;
   }
   
   .notfound .notfound-404 {
     position: relative;
-    height: 200px;
+    height: 400px;
   }
+  .notfound .notfound-404 img {
+    /* max-width: 100%; */
+    /* height: auto; */
+    border-radius: 50%;
+}
   
   .notfound .notfound-404 h1 {
     font-family: 'Passion One', cursive;
     position: absolute;
-    left: 50%;
-    top: 50%;
+    left: 10%;
+    top: 10%;
     -webkit-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
-    font-size: 30px;
+    font-size: 33px;
     margin: 0px;
     color: #222225;
     
