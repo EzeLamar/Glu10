@@ -22,18 +22,12 @@ export class CalificacionComponent implements OnInit {
   ngOnInit() {}
 
   calificar() {
-    // Int servicio= request.getParameter("servicio");
-    // Int velocidad= request.getParameter("velocidad");
-    // Int precio= request.getParameter("precio");
-    // Int servicio= request.getParameter("limpieza");
-    // Int calificado=(servicio+velocidad+precio+servicio)/4;
-    // console.log(calificado);
 
     // valores entre 0-5 (reales)
     let votacion = {
       IDR: this.idActual,     // lo tomamos de la ruta o path
       id: 1,                  // id del usuario
-      calidad: 5,
+      calidad: ,
       velocidad: 3,
       precio: 2.5,
       limpieza : 5
