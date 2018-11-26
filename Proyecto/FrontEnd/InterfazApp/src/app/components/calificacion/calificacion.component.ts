@@ -27,7 +27,7 @@ export class CalificacionComponent implements OnInit {
     let votacion = {
       IDR: this.idActual,     // lo tomamos de la ruta o path
       id: 1,                  // id del usuario
-      calidad: ,
+      calidad: 5,
       velocidad: 3,
       precio: 2.5,
       limpieza : 5

@@ -2,7 +2,7 @@
   <h1> Calificaion :</h1>
   <h4>Calidad de servicio</h4>
   <mat-form-field>
-  <mat-select [(value)]="servicio">
+  <mat-select [(value)]="calidad">
     <mat-option>selectiona una</mat-option>
     <mat-option value="0">Muy bien</mat-option>
     <mat-option value="1">Bien</mat-option>
@@ -11,7 +11,8 @@
     <mat-option value="4">Muy Mala</mat-option>
     <mat-option value="5">Ausente</mat-option>
   </mat-select>
-  
+<p>{{calidad}}</p>
+
 </mat-form-field>
 <h4>Velocidad de atencion :</h4>
 <mat-form-field>
