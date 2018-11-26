@@ -1,0 +1,10 @@
+
+{
+    "/MIPROYECTO/api_proye/*": {
+        "target": "https://localhost",
+        "secure": false ,
+        "changeOrigin": true
+
+    }
+
+}

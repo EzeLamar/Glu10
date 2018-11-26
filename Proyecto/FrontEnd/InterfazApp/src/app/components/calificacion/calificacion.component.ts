@@ -12,9 +12,9 @@ export class CalificacionComponent implements OnInit {
 
   idActual: number;
 
-  constructor( private marcadoresService: MarcadoresService, 
+  constructor( private marcadoresService: MarcadoresService,
                private activatedRoute: ActivatedRoute ) {
-    this.activatedRoute.params.subscribe( params =>{
+    this.activatedRoute.params.subscribe( params => {
       this.idActual = Number(params.id);
     });
   }
@@ -42,14 +42,14 @@ export class CalificacionComponent implements OnInit {
 
   }
 
-  public enviarCalificacion( votacion ){
+  public enviarCalificacion( votacion ) {
     this.marcadoresService.calificar( votacion ).subscribe(
       ( res: string ) => {
           // muestra la salida generada por el backend
           console.log(res);
       },
       ( err ) => {
-          console.log(err);  // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
+          console.log(err);  // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia.
       }
     );
 

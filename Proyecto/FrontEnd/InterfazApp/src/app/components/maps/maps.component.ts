@@ -46,7 +46,7 @@ export class MapsComponent implements OnInit {
                 private toolbar: ToolbarComponent,
                 private router: Router) {
 
-  //obtengo los marcadores del server
+  // obtengo los marcadores del server
   this.obtenerMarcadoresServer();
 
   // Geolocacion del usuario
@@ -63,11 +63,11 @@ export class MapsComponent implements OnInit {
     this.marcadores = JSON.parse(localStorage.getItem('marcadores'));
   }
 
-  //setea el perfil según el servicio de auth0
+  // setea el perfil según el servicio de auth0
   this.perfil = this.auth0.userProfile;
   this.toolbar.actualizarUsuario();
 
-  //seteo permisos al usuario actual
+  // seteo permisos al usuario actual
   this.esAdministrador = this.auth0.esAdministrador();
 
   }
@@ -94,25 +94,27 @@ export class MapsComponent implements OnInit {
 
 
   agregarMarcador( evento ) {
-    if ( this.esAdministrador ) {
+    console.log("Entre a crear marcador wuacho");
+    if (!this.esAdministrador ) {
+      
       const coords: { lat: number, lng: number } = evento.coords;
 
       console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);
-      //creo el nuevo marcador con la latitud y longitud donde se hizo click..
+      // creo el nuevo marcador con la latitud y longitud donde se hizo click..
       const nuevoMarcador = new Marcador(coords.lat, coords.lng);
-      //asigno el mayorID+1 al nuevo marcador (para evitar conflictos cn la BD).
-      nuevoMarcador.id = this.marcadorService.obtenerMayorIDR()+1;
-      //seteo el resto de los campos del nuevo Marcador..
+      // asigno el mayorID+1 al nuevo marcador (para evitar conflictos cn la BD).
+      nuevoMarcador.id = this.marcadorService.obtenerMayorIDR() + 1;
+      // seteo el resto de los campos del nuevo Marcador..
       nuevoMarcador.nombre = 'Nuevo Marcador';
       nuevoMarcador.descripcion = 'ingrese dirección..';
-      nuevoMarcador.tieneMenuCel= "true";
+      nuevoMarcador.tieneMenuCel = 'true';
       nuevoMarcador.cp = 8000;
       nuevoMarcador.calificacion = 3;
-      nuevoMarcador.imagen = "../../assets/image-not-available.png";
+      nuevoMarcador.imagen = '../../assets/image-not-available.png';
 
       this.marcadores.push(nuevoMarcador);
 
-      //lo agregamos a la base de datos
+      // lo agregamos a la base de datos
       this.almacenarMarcadorServer(nuevoMarcador);
 
       this.snackBar.open('Marcador agregado', 'Cerrar', { duration: 1000 });

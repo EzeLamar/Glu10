@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 // comunicacion Server
 import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
+import {RequestOptions, Request, Headers } from '@angular/http';
 // clase importada
 import { Marcador } from '../classes/marcador.class';
 // para detectar distancias entre marcadores
@@ -17,8 +18,10 @@ declare var google;
 })
 export class MarcadoresService {
   // conexion remota
-   ipServerPHP =  '192.168.0.14';
-   baseUrl = 'https://' + this.ipServerPHP + '/MIPROYECTO/api_proye';
+  ipServerPHP =  'localhost';
+  //  ipServerPHP =  '192.168.0.14';
+  baseUrl = '/MIPROYECTO/api_proye';
+  //  baseUrl = 'https://' + this.ipServerPHP + '/MIPROYECTO/api_proye';
   // conexion local json-server
   // baseUrl = "https://localhost:3003";
 
@@ -127,7 +130,6 @@ export class MarcadoresService {
           // ,'Authorization': 'my-auth-token'
         })
       };
-
       return this.http.post<string>(this.baseUrl + '/restaurant/update.php', camposModificados, httpOptions)
         .pipe(
           catchError(this.handleError)
@@ -135,7 +137,7 @@ export class MarcadoresService {
     }
 
     // para la autenticacion del usuario
-    public esAdmin( nombre:string ):Observable<boolean>{
+    public esAdmin( nombre: string ): Observable<boolean> {
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json'

@@ -53,7 +53,8 @@
             "browserTarget": "InterfazApp:build",
             "ssl": true,
             "sslKey": "ssl/server.key",
-            "sslCert": "ssl/server.crt"
+            "sslCert": "ssl/server.crt",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {

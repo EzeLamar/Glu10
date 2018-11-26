@@ -27,7 +27,7 @@ export class AuthService {
         clientID: 'VaadtM2suHhtPGUI7LB6km7TuzXxyEK7',
     domain: 'auth0prueba.auth0.com',
     responseType: 'token id_token',
-    redirectUri: 'https://192.168.0.11:4200/login',
+    redirectUri: 'https://localhost:4200/login',
     scope: 'openid profile'
   });
 
