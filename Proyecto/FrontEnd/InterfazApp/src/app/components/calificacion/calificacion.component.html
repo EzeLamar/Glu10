@@ -2,29 +2,29 @@
   <mat-card class="example-card">
   <mat-card-title>Calificacion :</mat-card-title>
   <mat-form-field>
-  <mat-select placeholder="Calidad de servicio" [(ngModel)]="selectedcalidad" [(value)]="calidad">
-    <mat-option value="0">Muy bien</mat-option>
-    <mat-option value="1">Bien</mat-option>
-    <mat-option value="2">Pasable</mat-option>
-    <mat-option value="3">Mala</mat-option>
-    <mat-option value="4">Muy Mala</mat-option>
-    <mat-option value="5">Ausente</mat-option>
+  <mat-select placeholder="Calidad de servicio" [(value)]="selectedcalidad">
+    <mat-option value="0">Ausente</mat-option>
+    <mat-option value="1">Muy Mala</mat-option>
+    <mat-option value="2">Mala</mat-option>
+    <mat-option value="3">Pasable</mat-option>
+    <mat-option value="4">Bien</mat-option>
+    <mat-option value="5">Muy bien</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field>
-<mat-select placeholder="Velocidad de servicio" [(value)]="velocidad">
-  <mat-option value="0">Muy rapida</mat-option>
-  <mat-option value="1">Rapida</mat-option>
-  <mat-option value="2">Normal</mat-option>
-  <mat-option value="3">Lenta</mat-option>
-  <mat-option value="4">Muy lenta</mat-option>
-  <mat-option value="5">Demasiado lenta me fui</mat-option>
+<mat-select placeholder="Velocidad de servicio" [(value)]="slectedvelocidad">
+  <mat-option value="0">Demasiado lenta me fui</mat-option>
+  <mat-option value="1">Muy lenta</mat-option>
+  <mat-option value="2">Lenta</mat-option>
+  <mat-option value="3">Normal</mat-option>
+  <mat-option value="4">Rapida</mat-option>
+  <mat-option value="5">Muy rapida</mat-option>
 </mat-select>
 </mat-form-field>
 
 <mat-form-field>
-<mat-select  placeholder="Precio" [(value)]="precio">
+<mat-select  placeholder="Precio" [(value)]="selectedprecio">
   <mat-option value="0">Mas de 250 $</mat-option>
   <mat-option value="1">Entre 200 y 250 $</mat-option>
   <mat-option value="2">Entre 150 y 200 $</mat-option>
@@ -35,7 +35,7 @@
 </mat-form-field>
 
 <mat-form-field>
-<mat-select  placeholder="Limpieza del local" [(value)]="limpieza">
+<mat-select  placeholder="Limpieza del local" [(value)]="selectedlimpieza">
   <mat-option value="0">No se puede comer aca</mat-option>
   <mat-option value="1">Sucio</mat-option>
   <mat-option value="2">Poco sucio</mat-option>

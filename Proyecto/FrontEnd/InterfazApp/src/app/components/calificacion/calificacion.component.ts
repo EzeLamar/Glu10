@@ -25,7 +25,7 @@ export class CalificacionComponent implements OnInit {
   ngOnInit() {}
 
   calificar() {
-
+    console.log(this.selectedcalidad);
     // valores entre 0-5 (reales)
     let votacion = {
       IDR: this.idActual,     // lo tomamos de la ruta o path
