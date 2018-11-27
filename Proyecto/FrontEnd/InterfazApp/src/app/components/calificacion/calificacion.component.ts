@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MarcadoresService } from '../../services/marcadores.service';
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
   selector: 'app-calificacion',
   templateUrl: './calificacion.component.html',
@@ -10,6 +9,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CalificacionComponent implements OnInit {
 
+  selectedcalidad: number;
+  selectedvelocidad: number;
+  selectedprecio: number;
+  selectedlimpieza: number;
   idActual: number;
 
   constructor( private marcadoresService: MarcadoresService,
@@ -27,10 +30,10 @@ export class CalificacionComponent implements OnInit {
     let votacion = {
       IDR: this.idActual,     // lo tomamos de la ruta o path
       id: 1,                  // id del usuario
-      calidad: 3,
-      velocidad: 0,
-      precio: 2.5,
-      limpieza : 5
+      calidad: this.selectedcalidad,
+      velocidad: this.selectedvelocidad,
+      precio: this.selectedprecio,
+      limpieza : this.selectedlimpieza
     };
     this.enviarCalificacion( votacion );
 
@@ -48,9 +51,5 @@ export class CalificacionComponent implements OnInit {
     );
 
   }
-  close() {
 
-
-
-    }
 }

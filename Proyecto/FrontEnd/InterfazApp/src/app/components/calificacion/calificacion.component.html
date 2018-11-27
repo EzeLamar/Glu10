@@ -1,10 +1,8 @@
-<body>
-  <h1 mat-dialog-title> Calificaion :</h1>
-  <mat-dialog-content [formGroup]="form">
-  <h4>Calidad de servicio</h4>
+  <form>
+  <mat-card class="example-card">
+  <mat-card-title>Calificacion :</mat-card-title>
   <mat-form-field>
-  <mat-select [(value)]="calidad">
-    <mat-option>selectiona una</mat-option>
+  <mat-select placeholder="Calidad de servicio" [(ngModel)]="selectedcalidad" [(value)]="calidad">
     <mat-option value="0">Muy bien</mat-option>
     <mat-option value="1">Bien</mat-option>
     <mat-option value="2">Pasable</mat-option>
@@ -12,13 +10,10 @@
     <mat-option value="4">Muy Mala</mat-option>
     <mat-option value="5">Ausente</mat-option>
   </mat-select>
-
-
 </mat-form-field>
-<h4>Velocidad de atencion :</h4>
+
 <mat-form-field>
-<mat-select [(value)]="velocidad">
-  <mat-option>selectiona una</mat-option>
+<mat-select placeholder="Velocidad de servicio" [(value)]="velocidad">
   <mat-option value="0">Muy rapida</mat-option>
   <mat-option value="1">Rapida</mat-option>
   <mat-option value="2">Normal</mat-option>
@@ -28,37 +23,31 @@
 </mat-select>
 </mat-form-field>
 
-
-<h4>Precio :</h4>
 <mat-form-field>
-<mat-select [(value)]="Precio">
-  <mat-option>selectiona una</mat-option>
-  <mat-option value="0">Menos de 50$</mat-option>
-  <mat-option value="1">Entre 50 y 100$</mat-option>
-  <mat-option value="2">Entre 100 y 150 $</mat-option>
-  <mat-option value="3">Entre 150 y 200 $</mat-option>
-  <mat-option value="4">Entre 200 y 250 $</mat-option>
-  <mat-option value="5">Mas de 250 $</mat-option>
+<mat-select  placeholder="Precio" [(value)]="precio">
+  <mat-option value="0">Mas de 250 $</mat-option>
+  <mat-option value="1">Entre 200 y 250 $</mat-option>
+  <mat-option value="2">Entre 150 y 200 $</mat-option>
+  <mat-option value="3">Entre 100 y 150 $</mat-option>
+  <mat-option value="4">Entre 50 y 100$</mat-option>
+  <mat-option value="5">Menos de 50$</mat-option>
 </mat-select>
 </mat-form-field>
 
-
-<h4>Limpieza del local :</h4>
 <mat-form-field>
-<mat-select [(value)]="limpieza">
-  <mat-option>selectiona una</mat-option>
-  <mat-option value="0">Menos de 50$</mat-option>
-  <mat-option value="1">Perfectamente limpio</mat-option>
-  <mat-option value="2">Limpio</mat-option>
-  <mat-option value="3">Poco sucio</mat-option>
-  <mat-option value="4">Sucio</mat-option>
-  <mat-option value="5">No se puede comer aca</mat-option>
+<mat-select  placeholder="Limpieza del local" [(value)]="limpieza">
+  <mat-option value="0">No se puede comer aca</mat-option>
+  <mat-option value="1">Sucio</mat-option>
+  <mat-option value="2">Poco sucio</mat-option>
+  <mat-option value="3">Poco Limpio</mat-option>
+  <mat-option value="4">Limpio</mat-option>
+  <mat-option value="5">Perfectamente limpio</mat-option>
 </mat-select>
 </mat-form-field>
-</mat-dialog-content>
 
 <div>
-  <button class="mat-raised-button mat-primary"(click)="calificar()">calificar</button>
+  <button class="mat-raised-button mat-primary"(click)="calificar()">Calificar</button>
   <button class="mat-raised-button"(click)="close()">Close</button>
 </div>
-</body>
+</mat-card>
+</form>
