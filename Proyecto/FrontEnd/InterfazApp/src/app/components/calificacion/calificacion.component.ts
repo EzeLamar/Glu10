@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MarcadoresService } from '../../services/marcadores.service';
 import { ActivatedRoute } from '@angular/router';
+// Para Ruteo
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calificacion',
@@ -15,7 +17,8 @@ export class CalificacionComponent implements OnInit {
   selectedlimpieza: number;
   idActual: number;
 
-  constructor( private marcadoresService: MarcadoresService,
+  constructor( private router: Router,
+    private marcadoresService: MarcadoresService,
                private activatedRoute: ActivatedRoute ) {
     this.activatedRoute.params.subscribe( params => {
       this.idActual = Number(params.id);
@@ -23,6 +26,14 @@ export class CalificacionComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  // para ruteos
+  moverseACalificar(id: number) {
+    this.router.navigate(['/restaurante', id, 'calificar']);
+  }
+  moverseAMapa() {
+    this.router.navigate(['/mapa']);
+  }
 
   calificar() {
     //console.log(this.selectedcalidad);

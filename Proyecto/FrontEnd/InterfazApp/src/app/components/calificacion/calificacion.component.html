@@ -1,53 +1,69 @@
-  <form>
-  <mat-card class="example-card">
-  <mat-card-title>Calificacion :</mat-card-title>
-  <mat-form-field>
-  <mat-select placeholder="Calidad de servicio" [(value)]="selectedcalidad">
-    <mat-option value="0">Ausente</mat-option>
-    <mat-option value="1">Muy Mala</mat-option>
-    <mat-option value="2">Mala</mat-option>
-    <mat-option value="3">Pasable</mat-option>
-    <mat-option value="4">Bien</mat-option>
-    <mat-option value="5">Muy bien</mat-option>
-  </mat-select>
-</mat-form-field>
 
-<mat-form-field>
-<mat-select placeholder="Velocidad de servicio" [(value)]="slectedvelocidad">
-  <mat-option value="0">Demasiado lenta me fui</mat-option>
-  <mat-option value="1">Muy lenta</mat-option>
-  <mat-option value="2">Lenta</mat-option>
-  <mat-option value="3">Normal</mat-option>
-  <mat-option value="4">Rapida</mat-option>
-  <mat-option value="5">Muy rapida</mat-option>
-</mat-select>
-</mat-form-field>
 
-<mat-form-field>
-<mat-select  placeholder="Precio" [(value)]="selectedprecio">
-  <mat-option value="0">Mas de 250 $</mat-option>
-  <mat-option value="1">Entre 200 y 250 $</mat-option>
-  <mat-option value="2">Entre 150 y 200 $</mat-option>
-  <mat-option value="3">Entre 100 y 150 $</mat-option>
-  <mat-option value="4">Entre 50 y 100$</mat-option>
-  <mat-option value="5">Menos de 50$</mat-option>
-</mat-select>
-</mat-form-field>
-
-<mat-form-field>
-<mat-select  placeholder="Limpieza del local" [(value)]="selectedlimpieza">
-  <mat-option value="0">No se puede comer aca</mat-option>
-  <mat-option value="1">Sucio</mat-option>
-  <mat-option value="2">Poco sucio</mat-option>
-  <mat-option value="3">Poco Limpio</mat-option>
-  <mat-option value="4">Limpio</mat-option>
-  <mat-option value="5">Perfectamente limpio</mat-option>
-</mat-select>
-</mat-form-field>
-
-<div>
-  <button class="mat-raised-button mat-primary"(click)="calificar()">Calificar</button>
-  <button class="mat-raised-button"(click)="close()">Close</button>
+<div id="notfound">
+  <div class="notfound-bg"></div>
+  <div class="notfound">
+    <div class="notfound-404">
+      <h1>Califica tu restaurante:</h1>
+    </div>
+  <div>
+      <form>
+          <mat-card class="example-card">
+          <!-- <mat-card-title>Calificacion :</mat-card-title> -->
+          <mat-form-field>
+          <mat-select placeholder="Calidad de servicio" [(value)]="selectedcalidad">
+            <mat-option value="0">Ausente</mat-option>
+            <mat-option value="1">Muy Mala</mat-option>
+            <mat-option value="2">Mala</mat-option>
+            <mat-option value="3">Pasable</mat-option>
+            <mat-option value="4">Bien</mat-option>
+            <mat-option value="5">Muy bien</mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field>
+        <mat-select placeholder="Velocidad de servicio" [(value)]="selectedvelocidad">
+          <!-- <mat-option value="0">Demasiado lenta me fui</mat-option> -->
+          <mat-option value="1">Muy lenta</mat-option>
+          <mat-option value="2">Lenta</mat-option>
+          <mat-option value="3">Normal</mat-option>
+          <mat-option value="4">Rapida</mat-option>
+          <mat-option value="5">Muy rapida</mat-option>
+        </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field>
+        <mat-select  placeholder="Precio" [(value)]="selectedprecio">
+          <mat-option value="0">Mas de 250 $</mat-option>
+          <mat-option value="1">Entre 200 y 250 $</mat-option>
+          <mat-option value="2">Entre 150 y 200 $</mat-option>
+          <mat-option value="3">Entre 100 y 150 $</mat-option>
+          <mat-option value="4">Entre 50 y 100$</mat-option>
+          <mat-option value="5">Menos de 50$</mat-option>
+        </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field>
+        <mat-select  placeholder="Limpieza del local" [(value)]="selectedlimpieza">
+          <mat-option value="0">No se puede comer aca</mat-option>
+          <mat-option value="1">Sucio</mat-option>
+          <mat-option value="2">Poco sucio</mat-option>
+          <mat-option value="3">Poco Limpio</mat-option>
+          <mat-option value="4">Limpio</mat-option>
+          <mat-option value="5">Perfectamente limpio</mat-option>
+        </mat-select>
+        </mat-form-field>
+        
+        <!-- <div>
+          <button class="mat-raised-button mat-primary"(click)="calificar()">Calificar</button>
+          <button class="mat-raised-button"(click)="close()">Close</button>
+        </div> -->
+        </mat-card>
+      </form>
+    </div>
+    <div class="botones">
+      <a> <button mat-raised-button color="primary" (click)="moverseACalificar( marcadorActual.id )">Calificar </button> </a>
+      <a> <button mat-stroked-button color="primary" (click)="moverseAMapa()">Volver </button> </a>
+    </div>
+    </div>
 </div>
-</mat-card>
-</form>

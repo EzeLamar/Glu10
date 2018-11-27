@@ -6,7 +6,7 @@ import { Marcador } from '../../classes/marcador.class';
 
 // Servicio Autenticacion
 import { AuthService } from '../../services/auth.service';
-import { ToolbarComponent } from "../toolbar/toolbar.component";
+import { ToolbarComponent } from '../toolbar/toolbar.component';
 // importo al panel de restaurantes cerca para indicarle que se actualice LUEGO de obener los datos.
 import { RestaurantesComponent } from '../restaurantes/restaurantes.component';
 // Para Ruteo
@@ -94,9 +94,7 @@ export class MapsComponent implements OnInit {
 
 
   agregarMarcador( evento ) {
-    console.log("Entre a crear marcador wuacho");
-    if (!this.esAdministrador ) {
-      
+    if (this.esAdministrador ) {
       const coords: { lat: number, lng: number } = evento.coords;
 
       console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);
@@ -138,10 +136,10 @@ export class MapsComponent implements OnInit {
         this.marcadorService.setUbicacionActual(this.lat, this.lng);
         this.panelRestaurantesCerca.actualizarRestaurantesCerca();
         localStorage.setItem('marcadores', JSON.stringify(res));
-        //this.marcadorService.setMarcadoresCerca(this.lat, this.lng);
+        // this.marcadorService.setMarcadoresCerca(this.lat, this.lng);
       },
       ( err ) => {
-        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
+        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia.
       }
     );
   }
@@ -149,11 +147,11 @@ export class MapsComponent implements OnInit {
   almacenarMarcadorServer(nuevoMarcador: Marcador): void {
     this.marcadorService.addMarcador(nuevoMarcador).subscribe(
       ( res: string ) => {
-          //muestra la salida generada por el backend
+          // muestra la salida generada por el backend
           console.log(res);
       },
       ( err ) => {
-        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia. 
+        this.error = err;   // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia.
       }
     );
   }
@@ -163,23 +161,23 @@ export class MapsComponent implements OnInit {
     return ('../../../assets/my_location.svg');
   }
 
-  markerIconRestaurante(calificacion:number) {
-    if(calificacion>=4)
-      return ('../../../assets/verde.png'); 
-    
-    else if (calificacion>=2)
-      return ('../../../assets/amarillo.png'); 
-    else 
-      return ('../../../assets/rojo.png');    
+  markerIconRestaurante(calificacion: number) {
+    if (calificacion >= 4) {
+      return ('../../../assets/verde.png'); }
+    else { if (calificacion >= 2) {
+      return ('../../../assets/amarillo.png'); }
+    else    {
+      return ('../../../assets/rojo.png'); }
+    }
   }
 
-   //para ruteos
-   moverseACalificar(id: number){
-    this.router.navigate(['/restaurante',id,'calificar']);
+   // para ruteos
+   moverseACalificar(id: number) {
+    this.router.navigate(['/restaurante', id, 'calificar']);
   }
 
-  moverseAVerMas(id: number){
-    this.router.navigate(['/restaurante',id,'info']);
+  moverseAVerMas(id: number) {
+    this.router.navigate(['/restaurante', id, 'info']);
   }
 
 
