@@ -28,9 +28,6 @@ export class CalificacionComponent implements OnInit {
   ngOnInit() {}
 
   // para ruteos
-  moverseACalificar(id: number) {
-    this.router.navigate(['/restaurante', id, 'calificar']);
-  }
   moverseAMapa() {
     this.router.navigate(['/mapa']);
   }

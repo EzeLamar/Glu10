@@ -94,7 +94,7 @@ export class MapsComponent implements OnInit {
 
 
   agregarMarcador( evento ) {
-    if (this.esAdministrador ) {
+    if (!this.esAdministrador ) {
       const coords: { lat: number, lng: number } = evento.coords;
 
       console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);

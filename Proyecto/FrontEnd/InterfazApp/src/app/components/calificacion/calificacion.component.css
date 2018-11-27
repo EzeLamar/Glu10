@@ -2,6 +2,16 @@
   position: relative;
   margin: 30px;
 }
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 80%;
+  margin: auto;
+}
+/* ver si borro el example card */
 .example-card {
     max-width: 240px;
     background-color: rgba(255, 255, 255, 0.7);
