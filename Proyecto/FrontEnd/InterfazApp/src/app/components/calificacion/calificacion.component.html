@@ -1,50 +1,70 @@
-  <body>
-    <h1> Calificaion :</h1>
-    <h4>Calidad de servicio</h4>
-    <div class="d-inline-flex p-2">
-      <select class="custom-select" name="servicio">
-        <option selected>selectiona una</option>
-        <option value="1">Muy bien</option>
-        <option value="2">Bien</option>
-        <option value="3">Pasable</option>
-        <option value="4">Mala</option>
-      </select>
-  </div>
-  <h4>Velocidad de atencion :</h4>
-  <div class="d-inline-flex p-2">
-  <select class="custom-select" name="velocidad">
-    <option selected>selectiona una</option>
-    <option value="1">Muy rapida</option>
-    <option value="2">Rapida</option>
-    <option value="3">Lenta</option>
-    <option value="4">Muy lenta</option>
-  </select>
-  </div>
-  <h4>Precio :</h4>
-  <div class="d-inline-flex p-2">
-  <select class="custom-select" name="precio">
-    <option selected>selectiona una</option>
-    <option value="1">Menos de 50$</option>
-    <option value="2">Entre 50 y 100$</option>
-    <option value="3">Entre 100 y 150 $</option>
-    <option value="4">Mas de 150$</option>
-  </select>
-  </div>
-  <h4>Limpieza del local :</h4>
-  <div class="d-inline-flex p-2">
-  <select class="custom-select" name="limpieza">
-    <option selected>selectiona una</option>
-    <option value="1">Perfectamente limpio</option>
-    <option value="2">Limpio</option>
-    <option value="3">Poco sucio</option>
-    <option value="4">Sucio</option>
-  </select>
-  </div>
+
+
+<div id="notfound">
+  <div class="notfound-bg"></div>
+  <div class="notfound">
+    <div class="notfound-404">
+      <h1>Califica tu restaurante:</h1>
+    </div>
   <div>
-    <button (click)="calificar()" type="submit" class="btn btn-primary">Submit</button>
-  </div>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  </body>
+      <form class="example-container">
+          <!-- <mat-card class="example-container"> -->
+          <!-- <mat-card-title>Calificacion :</mat-card-title> -->
+          <mat-form-field>
+          <mat-select placeholder="Calidad de servicio" [(value)]="selectedcalidad">
+            <mat-option value="0">Ausente</mat-option>
+            <mat-option value="1">Muy Mala</mat-option>
+            <mat-option value="2">Mala</mat-option>
+            <mat-option value="3">Pasable</mat-option>
+            <mat-option value="4">Bien</mat-option>
+            <mat-option value="5">Muy bien</mat-option>
+            <!-- <mat-error *ngIf="selectedcalidad.invalid">{{getErrorMessage()}}</mat-error> -->
+          </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field>
+        <mat-select placeholder="Velocidad de servicio" [(value)]="selectedvelocidad">
+          <mat-option value="0">Demasiado lenta me fui</mat-option>
+          <mat-option value="1">Muy lenta</mat-option>
+          <mat-option value="2">Lenta</mat-option>
+          <mat-option value="3">Normal</mat-option>
+          <mat-option value="4">Rapida</mat-option>
+          <mat-option value="5">Muy rapida</mat-option>
+        </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field>
+        <mat-select  placeholder="Precio" [(value)]="selectedprecio">
+          <mat-option value="0">Mas de 250 $</mat-option>
+          <mat-option value="1">Entre 200 y 250 $</mat-option>
+          <mat-option value="2">Entre 150 y 200 $</mat-option>
+          <mat-option value="3">Entre 100 y 150 $</mat-option>
+          <mat-option value="4">Entre 50 y 100$</mat-option>
+          <mat-option value="5">Menos de 50$</mat-option>
+        </mat-select>
+        </mat-form-field>
+        
+        <mat-form-field>
+        <mat-select  placeholder="Limpieza del local" [(value)]="selectedlimpieza">
+          <mat-option value="0">No se puede comer aca</mat-option>
+          <mat-option value="1">Sucio</mat-option>
+          <mat-option value="2">Poco sucio</mat-option>
+          <mat-option value="3">Poco Limpio</mat-option>
+          <mat-option value="4">Limpio</mat-option>
+          <mat-option value="5">Perfectamente limpio</mat-option>
+        </mat-select>
+        </mat-form-field>
+        
+        <!-- <div>
+          <button class="mat-raised-button mat-primary"(click)="calificar()">Calificar</button>
+          <button class="mat-raised-button"(click)="close()">Close</button>
+        </div> -->
+        <!-- </mat-card> -->
+      </form>
+    </div>
+    <div class="botones">
+      <a> <button mat-raised-button color="primary" (click)="calificar()">Calificar </button> </a>
+      <a> <button mat-stroked-button color="primary" (click)="moverseAMapa()">Volver </button> </a>
+    </div>
+    </div>
+</div>

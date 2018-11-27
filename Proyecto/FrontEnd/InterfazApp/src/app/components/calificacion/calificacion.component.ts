@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MarcadoresService } from '../../services/marcadores.service';
 import { ActivatedRoute } from '@angular/router';
+// Para Ruteo
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calificacion',
@@ -9,10 +11,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CalificacionComponent implements OnInit {
 
-
+  selectedcalidad: number;
+  selectedvelocidad: number;
+  selectedprecio: number;
+  selectedlimpieza: number;
   idActual: number;
 
-  constructor( private marcadoresService: MarcadoresService,
+  constructor( private router: Router,
+    private marcadoresService: MarcadoresService,
                private activatedRoute: ActivatedRoute ) {
     this.activatedRoute.params.subscribe( params => {
       this.idActual = Number(params.id);
@@ -21,22 +27,21 @@ export class CalificacionComponent implements OnInit {
 
   ngOnInit() {}
 
-  calificar() {
-    // Int servicio= request.getParameter("servicio");
-    // Int velocidad= request.getParameter("velocidad");
-    // Int precio= request.getParameter("precio");
-    // Int servicio= request.getParameter("limpieza");
-    // Int calificado=(servicio+velocidad+precio+servicio)/4;
-    // console.log(calificado);
+  // para ruteos
+  moverseAMapa() {
+    this.router.navigate(['/mapa']);
+  }
 
+  calificar() {
+    //console.log(this.selectedcalidad);
     // valores entre 0-5 (reales)
     let votacion = {
       IDR: this.idActual,     // lo tomamos de la ruta o path
       id: 1,                  // id del usuario
-      calidad: 5,
-      velocidad: 3,
-      precio: 2.5,
-      limpieza : 5
+      calidad: this.selectedcalidad,
+      velocidad: this.selectedvelocidad,
+      precio: this.selectedprecio,
+      limpieza : this.selectedlimpieza
     };
     this.enviarCalificacion( votacion );
 
@@ -54,4 +59,5 @@ export class CalificacionComponent implements OnInit {
     );
 
   }
+
 }
