@@ -24,7 +24,6 @@ $data = json_decode(file_get_contents("php://input"));
 
 // asegurarse que los campos no esten vacios
 if(
-    !empty($data->id) &&
     !empty($data->nombre) &&
     !empty($data->longitud) &&
     !empty($data->latitud) &&
@@ -36,7 +35,6 @@ if(
 ){
 
     //se setean los atributos
-    $product->id=$data->id;
     $product->nombre = $data->nombre;
     $product->longitud = $data->longitud;
     $product->latitud = $data->latitud;
