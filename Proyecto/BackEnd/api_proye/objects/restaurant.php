@@ -305,7 +305,7 @@ class Restaurant{
     function actualizarCalif($id){
 
       $ret= false;
-      echo "  " . $id;
+      //echo "  " . $id;
       //regreso a 0 el valor de calificacion
       $this->calificacion=0;
       //consulta a la base de datos: seleccionar todos los restaurantes
@@ -326,7 +326,7 @@ class Restaurant{
       $stmt->execute();
 
       $num = $stmt->rowCount();
-      echo " " . $num;
+      //echo " " . $num;
       // si se hallo alguna fila (numero filas >0)
       if($num>0){
 
@@ -380,7 +380,7 @@ class Restaurant{
 
           // ejecutar la consulta
           if($stmt2->execute()){
-              echo " " . $this->calificacion;
+              // echo " " . $this->calificacion;
               return true;
           }
       }
@@ -408,7 +408,7 @@ class Restaurant{
       $stmt->execute();
 
       $num = $stmt->rowCount();
-      echo " " . $num;
+      //echo " " . $num;
       // si se hallo alguna fila (numero filas >0)
       if($num>0){
 
@@ -453,7 +453,7 @@ class Restaurant{
           if($stmt2->execute()){
               //update de los puestos de cada restaurante de la ciudad
               $num = $stmt2->rowCount();
-              echo " " . $num;
+              //echo " " . $num;
               // si se hallo alguna fila (numero filas >0)
               if($num>0){
 
@@ -483,7 +483,7 @@ class Restaurant{
                       // preparar la consulta
                       $stmt3 = $this->conn->prepare($query3);
 
-                      echo " " . $restaurant_item["id"];
+                      // echo " " . $restaurant_item["id"];
                       // pasar a formato html
                       $aux=$cont;
                       $aux=htmlspecialchars(strip_tags($aux));

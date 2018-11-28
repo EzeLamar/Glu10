@@ -3,7 +3,7 @@ class Database{
 
     // specify your own database credentials
     private $host = "localhost";
-    private $db_name = "celiacos2";
+    private $db_name = "celiacos3";
     private $username = "admin";
     private $password = "admin";
     public $conn;

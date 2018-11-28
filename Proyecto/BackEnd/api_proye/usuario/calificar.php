@@ -51,7 +51,7 @@ if(
         http_response_code(201);
 
         // aviso al usuario
-        echo json_encode(array("message" => "se califico exitosamente."));
+        echo json_encode(array("message" => "se pudo calificar"));
 
     }
 
@@ -73,6 +73,6 @@ else{
     http_response_code(400);
 
     // aviso al usuario
-    echo json_encode(array("message" => "datos insuficientes."));
+    echo json_encode(array("message" => "datos insuficientes"));
 }
 ?>

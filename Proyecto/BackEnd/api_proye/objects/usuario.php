@@ -359,9 +359,9 @@ class Usuario{
     }
 
     function verificarAdmin(){
-      $var=true;
-      if($this->email!="admin@admin.com")
-        $var=false;
+      $var=false;
+      if($this->nombre=="admin@admin.com")
+        $var=true;
 
       return $var;
     }
