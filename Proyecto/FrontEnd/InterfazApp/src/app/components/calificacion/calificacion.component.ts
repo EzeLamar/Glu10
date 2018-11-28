@@ -16,6 +16,7 @@ export class CalificacionComponent implements OnInit {
   selectedprecio: number;
   selectedlimpieza: number;
   idActual: number;
+  id: number;
 
   constructor( private router: Router,
     private marcadoresService: MarcadoresService,
@@ -36,12 +37,12 @@ export class CalificacionComponent implements OnInit {
     //console.log(this.selectedcalidad);
     // valores entre 0-5 (reales)
     let votacion = {
-      IDR: this.idActual,     // lo tomamos de la ruta o path
+      IDR: Number(this.idActual),     // lo tomamos de la ruta o path
       id: 1,                  // id del usuario
-      calidad: this.selectedcalidad,
-      velocidad: this.selectedvelocidad,
-      precio: this.selectedprecio,
-      limpieza : this.selectedlimpieza
+      calidad: Number(this.selectedcalidad),
+      velocidad: Number(this.selectedvelocidad),
+      precio: Number(this.selectedprecio),
+      limpieza : Number(this.selectedlimpieza)
     };
     this.enviarCalificacion( votacion );
 
@@ -61,3 +62,7 @@ export class CalificacionComponent implements OnInit {
   }
 
 }
+
+interface respuesta {
+  message: string
+};
