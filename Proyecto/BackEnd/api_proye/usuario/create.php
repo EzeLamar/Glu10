@@ -24,7 +24,6 @@ $data = json_decode(file_get_contents("php://input"));
 
 // asegurarse que los campos no esten vacios
 if(
-    !empty($data->id) &&
     !empty($data->nombre) &&
     !empty($data->apellido) &&
     !empty($data->edad) &&
@@ -36,7 +35,6 @@ if(
 ){
 
     //se setean los atributos
-    $product->id = $data->id;
     $product->nombre = $data->nombre;
     $product->apellido = $data->apellido;
     $product->edad = $data->edad;
@@ -45,11 +43,10 @@ if(
     $product->nroTel=$data->nroTel;
     $product->esCel=$data->esCel;
 
-    $id=$product->id;
     $cp=$data->cp;
 
     // se crea el restaurant
-    if($product->create($cp,$id)){
+    if($product->create($cp)){
 
 
         // setear el codigo de respuesta - 201 created
