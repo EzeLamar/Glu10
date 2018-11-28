@@ -46,24 +46,26 @@ class Restaurant{
     }
 
     // insertar un restaurant
-    function create($cp){
+function create($cp){
 
         // consulta a la base de datos para insertar un registro
         $query = "INSERT INTO
                     " . $this->table_name . "
                 SET
-                    IDR=:id, nombre=:nombre, longitud=:longitud, latitud=:latitud, tieneMenuCel=:tieneMenuCel, calificacion=:calificacion, descripcion=:descripcion, imagen=:imagen";
+                     nombre=:nombre, longitud=:longitud, latitud=:latitud, tieneMenuCel=:tieneMenuCel, calificacion=:calificacion, descripcion=:descripcion, imagen=:imagen";
 
         $query2 = "INSERT INTO
                     estaubicado
                 SET
                     IDR=:id, CP =:cp";
+
+        $queryAux = "SELECT IDR FROM restaurant ORDER BY IDR DESC";
         // preparar la consulta
         $stmt = $this->conn->prepare($query);
         $stmt2 = $this->conn->prepare($query2);
-
+        $stmt3 = $this->conn->prepare($queryAux);
         // se pasan los atributos a formato html
-        $this->id=htmlspecialchars(strip_tags($this->id));
+        //$this->id=htmlspecialchars(strip_tags($this->id));
         $this->nombre=htmlspecialchars(strip_tags($this->nombre));
         $this->longitud=htmlspecialchars(strip_tags($this->longitud));
         $this->latitud=htmlspecialchars(strip_tags($this->latitud));
@@ -72,10 +74,9 @@ class Restaurant{
         $this->descripcion=htmlspecialchars(strip_tags($this->descripcion));
         $this->imagen=htmlspecialchars(strip_tags($this->imagen));
 
-        $cp=htmlspecialchars(strip_tags($cp));
 
         // se ligan los valores de parametros
-        $stmt->bindParam(":id", $this->id);
+        //$stmt->bindParam(":id", $this->id);
         $stmt->bindParam(":nombre", $this->nombre);
         $stmt->bindParam(":longitud", $this->longitud);
         $stmt->bindParam(":latitud", $this->latitud);
@@ -84,13 +85,38 @@ class Restaurant{
         $stmt->bindParam(":descripcion", $this->descripcion);
         $stmt->bindParam(":imagen", $this->imagen);
 
-        $stmt2->bindParam(":id", $this->id);
-        $stmt2->bindParam(":cp", $cp);
 
         // ejecutar la consulta: puede fallar o ser exitosa
-        if($stmt->execute() && $stmt2->execute()){
-            return true;
-        }
+        if($stmt->execute()){
+           $stmt3->execute();
+           $num = $stmt3->rowCount();
+           if($num>0){
+
+             if ($row = $stmt3->fetch(PDO::FETCH_ASSOC)){
+                 // extraer fila
+
+                 extract($row);
+                 // esto asigna fila['nombre'] a la variable $nombre, igual con el resto de campos
+                 $restaurant_item=array(
+                     "id" => $IDR
+
+                 );
+
+                 // se pasan los atributos a formato html
+                 $cp=htmlspecialchars(strip_tags($cp));
+                 $restaurant_item["id"]=htmlspecialchars(strip_tags($restaurant_item["id"]));
+
+                 // se ligan los valores de parametros
+                 $stmt2->bindParam(":cp", $cp);
+                 $stmt2->bindParam(":id", $restaurant_item["id"]);
+
+
+                 if($stmt2->execute()){
+                   return true;
+                 }
+             }
+          }
+      }
 
         return false;
 
