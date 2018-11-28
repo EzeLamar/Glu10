@@ -2,7 +2,8 @@
 
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import {throwError  } from "rxjs";
+import { map, filter, catchError } from 'rxjs/operators';
 import * as auth0 from 'auth0-js';
 import { Observable, Observer } from 'rxjs';
 import { MarcadoresService } from './marcadores.service';
@@ -31,8 +32,8 @@ export class AuthService {
     scope: 'openid profile'
   });
 
-  constructor( public router: Router,
-               private backend: MarcadoresService
+  constructor(  private router: Router,
+                private backend: MarcadoresService
              ) {}
 
   public login(): void {
@@ -96,7 +97,7 @@ export class AuthService {
     });
   }
 
-  public esAdministrador(): boolean {
+  public esAdministrador(): boolean {   
     this.backend.esAdmin(this.userProfile.name).subscribe(
       ( res: boolean ) => {
           console.log('resultadoSoyAdmin??' , res);

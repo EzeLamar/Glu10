@@ -137,7 +137,7 @@ export class MarcadoresService {
     }
 
     // para la autenticacion del usuario
-    public esAdmin( nombre: string ): Observable<string> {
+    public esAdmin( nombre: string ): Observable<boolean> {
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json'
@@ -146,7 +146,7 @@ export class MarcadoresService {
       };
       let usuarioAValidar = { name: nombre};
 
-      return this.http.post<string>(this.baseUrl + '/usuario/verificarAdmin.php', usuarioAValidar, httpOptions)
+      return this.http.post<boolean>(this.baseUrl + '/usuario/verificarAdmin.php', usuarioAValidar, httpOptions)
         .pipe(
           catchError(this.handleError)
         );
