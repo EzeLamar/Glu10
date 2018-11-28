@@ -24,17 +24,17 @@ $data = json_decode(file_get_contents("php://input"));
 
 // asegurarse que los campos no esten vacios
 if(
-    !empty($data->email)
+    !empty($data->name)
 
 ){
 
     //se setean los atributos
-    $product->email = $data->email;
+    $product->nombre = $data->name;
 
     // se crea el restaurant
     $rta= $product->verificarAdmin();
 
-      if($product->email!=null){
+      if($product->nombre!=null){
           // create array
           $product_arr = array(
               "respuesta" =>  $rta

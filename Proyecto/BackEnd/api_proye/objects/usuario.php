@@ -40,13 +40,13 @@ class Usuario{
     }
 
     // insertar un usuario nuevo
-    function create($cp,$id){
+    function create($cp){
 
         // consulta a la base de datos para insertar un registro
         $query = "INSERT INTO
                     " . $this->table_name . "
                 SET
-                    IDU =:id, nombre =:nombre, apellido =:apellido, edad =:edad, email =:email, password =:password, nroTel =:nroTel, esCel =:esCel, IDGoogle=:IDGoogle";
+                     nombre =:nombre, apellido =:apellido, edad =:edad, email =:email, password =:password, nroTel =:nroTel, esCel =:esCel, IDGoogle=:IDGoogle";
 
         // consulta a la base de datos para insertar un registro
         $query2 = "INSERT INTO
@@ -54,15 +54,18 @@ class Usuario{
                 SET
                    CP =:cp, IDU =:id ";
 
-
+        $queryAux = "SELECT IDU FROM usuario ORDER BY IDU DESC";
         // preparar la consulta
         $stmt = $this->conn->prepare($query);
 
         // preparar la consulta
         $stmt2= $this->conn->prepare($query2);
 
+        // preparar la consulta
+        $stmt3= $this->conn->prepare($queryAux);
+
         // se pasan los atributos a formato html
-        $this->id=htmlspecialchars(strip_tags($this->id));
+        //$this->id=htmlspecialchars(strip_tags($this->id));
         $this->nombre=htmlspecialchars(strip_tags($this->nombre));
         $this->apellido=htmlspecialchars(strip_tags($this->apellido));
         $this->edad=htmlspecialchars(strip_tags($this->edad));
@@ -71,12 +74,10 @@ class Usuario{
         $this->nroTel=htmlspecialchars(strip_tags($this->nroTel));
         $this->esCel=htmlspecialchars(strip_tags($this->esCel));
         $this->IDGoogle=htmlspecialchars(strip_tags($this->IDGoogle));
-        // se pasan los atributos a formato html
-        $cp=htmlspecialchars(strip_tags($cp));
-        $this->id=htmlspecialchars(strip_tags($id));
+
 
         // se ligan los valores de parametros
-        $stmt->bindParam(":id", $this->id);
+        //$stmt->bindParam(":id", $this->id);
         $stmt->bindParam(":nombre", $this->nombre);
         $stmt->bindParam(":apellido", $this->apellido);
         $stmt->bindParam(":edad", $this->edad);
@@ -86,15 +87,38 @@ class Usuario{
         $stmt->bindParam(":esCel", $this->esCel);
         $stmt->bindParam(":IDGoogle", $this->IDGoogle);
 
-        // se ligan los valores de parametros
-        $stmt2->bindParam(":cp", $cp);
-        $stmt2->bindParam(":id", $id);
 
         // ejecutar la consulta: puede fallar o ser exitosa
-      if($stmt->execute() && $stmt2->execute()){
-            return true;
-        }
+        if($stmt->execute()){
+           $stmt3->execute();
+           $num = $stmt3->rowCount();
+           if($num>0){
 
+             if ($row = $stmt3->fetch(PDO::FETCH_ASSOC)){
+                 // extraer fila
+
+                 extract($row);
+                 // esto asigna fila['nombre'] a la variable $nombre, igual con el resto de campos
+                 $restaurant_item=array(
+                     "id" => $IDU
+
+                 );
+
+                 // se pasan los atributos a formato html
+                 $cp=htmlspecialchars(strip_tags($cp));
+                 $restaurant_item["id"]=htmlspecialchars(strip_tags($restaurant_item["id"]));
+
+                 // se ligan los valores de parametros
+                 $stmt2->bindParam(":cp", $cp);
+                 $stmt2->bindParam(":id", $restaurant_item["id"]);
+
+
+                 if($stmt2->execute()){
+                   return true;
+                 }
+             }
+          }
+      }
         return false;
 
     }
@@ -360,7 +384,7 @@ class Usuario{
 
     function verificarAdmin(){
       $var=true;
-      if($this->email!="admin@admin.com")
+      if($this->nombre!="admin@admin.com")
         $var=false;
 
       return $var;
