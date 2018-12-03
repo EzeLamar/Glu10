@@ -31,7 +31,7 @@ export class MarcadoresService {
   lngActual = 0;
 
 
-  RadioMaximo = 3000;
+  RadioMaximo = 1000;
 
   constructor(  private http: HttpClient ,
                 private mapsAPILoader: MapsAPILoader ) { }
@@ -137,7 +137,7 @@ export class MarcadoresService {
     }
 
     // para la autenticacion del usuario
-    public esAdmin( nombre: string ): Observable<boolean> {
+    public esAdmin( nombre: string ): Observable<any> {
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type':  'application/json'
@@ -146,7 +146,7 @@ export class MarcadoresService {
       };
       let usuarioAValidar = { name: nombre};
 
-      return this.http.post<boolean>(this.baseUrl + '/usuario/verificarAdmin.php', usuarioAValidar, httpOptions)
+      return this.http.post<any>(this.baseUrl + '/usuario/verificarAdmin.php', usuarioAValidar, httpOptions)
         .pipe(
           catchError(this.handleError)
         );

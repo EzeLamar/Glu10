@@ -1,7 +1,7 @@
 <mat-drawer-container class="example-container">
     <mat-drawer class=fondoPanelTarjetas mode="side" opened >
             <div class="espacioEntreTarjetas" *ngIf="!mobile">
-                Restaurantes Cercanos:
+                <mat-card-title class="tituloTabla">Restaurantes Cercanos:</mat-card-title>
                 <app-restaurante  [restaurante]="resto" *ngFor="let resto of RestaurantesCerca"></app-restaurante>
             </div>            
 

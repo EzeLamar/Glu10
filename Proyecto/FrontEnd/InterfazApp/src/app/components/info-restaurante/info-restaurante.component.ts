@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
   templateUrl: './info-restaurante.component.html',
   styleUrls: ['./info-restaurante.component.css']
 })
-export class InfoRestauranteComponent implements OnInit {
 
+export class InfoRestauranteComponent implements OnInit {
   marcadorActual: Marcador = new Marcador(1,1);
 
   constructor( private activatedRoute: ActivatedRoute,
@@ -36,7 +36,7 @@ export class InfoRestauranteComponent implements OnInit {
     let pos=0;
     let posBuscada=0;
     for( pos=0; (pos<marcadoresLocalStorage.length)&&(!encontre); pos++ )
-      if( marcadoresLocalStorage[pos].id === idActual ){
+      if( marcadoresLocalStorage[pos].id == idActual ){
         encontre = true;
         posBuscada = pos;
       }

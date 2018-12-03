@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MarcadoresService } from '../../services/marcadores.service';
 import { ActivatedRoute } from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 // Para Ruteo
 import { Router } from '@angular/router';
 
@@ -19,7 +20,8 @@ export class CalificacionComponent implements OnInit {
   id: number;
 
   constructor( private router: Router,
-    private marcadoresService: MarcadoresService,
+               private marcadoresService: MarcadoresService,
+               private snackBar: MatSnackBar,
                private activatedRoute: ActivatedRoute ) {
     this.activatedRoute.params.subscribe( params => {
       this.idActual = Number(params.id);
@@ -53,6 +55,8 @@ export class CalificacionComponent implements OnInit {
       ( res: string ) => {
           // muestra la salida generada por el backend
           console.log(res);
+          this.snackBar.open('Calificación Enviada!', 'Cerrar', { duration: 1000 });
+          this.router.navigate(['/mapa']);
       },
       ( err ) => {
           console.log(err);  // VER DSPS: nunca recibe el mensaje de error , por loque nunca cambia.

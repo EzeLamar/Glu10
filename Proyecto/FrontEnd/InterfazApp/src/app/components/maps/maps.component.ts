@@ -66,9 +66,8 @@ export class MapsComponent implements OnInit {
   // setea el perfil según el servicio de auth0
   this.perfil = this.auth0.userProfile;
   this.toolbar.actualizarUsuario();
-
-  // seteo permisos al usuario actual
-  this.esAdministrador = this.auth0.esAdministrador();
+  if( this.perfil.name == "admin@admin.com" )
+    this.esAdministrador = true;
 
   }
 
@@ -94,14 +93,14 @@ export class MapsComponent implements OnInit {
 
 
   agregarMarcador( evento ) {
-    if (!this.esAdministrador ) {
+    if (this.esAdministrador ) {
       const coords: { lat: number, lng: number } = evento.coords;
 
       console.log( 'lat:' + coords.lat + ', long:'  + coords.lng);
       // creo el nuevo marcador con la latitud y longitud donde se hizo click..
       const nuevoMarcador = new Marcador(coords.lat, coords.lng);
       // asigno el mayorID+1 al nuevo marcador (para evitar conflictos cn la BD).
-      nuevoMarcador.id = this.marcadorService.obtenerMayorIDR() + 1;
+      nuevoMarcador.id = Number(this.marcadorService.obtenerMayorIDR()) + 1;
       // seteo el resto de los campos del nuevo Marcador..
       nuevoMarcador.nombre = 'Nuevo Marcador';
       nuevoMarcador.descripcion = 'ingrese dirección..';

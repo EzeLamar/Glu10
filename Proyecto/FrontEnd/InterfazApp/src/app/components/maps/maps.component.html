@@ -3,7 +3,7 @@
         <agm-map (mapClick)= "agregarMarcador( $event )" 
                  [latitude]="lat" 
                  [longitude]="lng" 
-                 [zoom]="14"
+                 [zoom]="15"
                  [streetViewControl]="false"
                  [minZoom]="14"
                  [maxZoom]="16"
@@ -31,17 +31,18 @@
                     <button (click)="moverseACalificar( marcador.id )" mat-raised-button color="primary" *ngIf="!esAdministrador">Calificar</button>
                     <button (click)="moverseAVerMas( marcador.id )" mat-stroked-button color="primary" *ngIf="!esAdministrador">Ver Más</button>
 
-                    <button (click)="editarMarcador( marcador )" mat-raised-button color="primary" >Editar</button>
-                   <button (click)="borrarMarcador( marcador.id )" mat-raised-button color="warn" >Borrar</button>
+                    <!-- <button (click)="editarMarcador( marcador )" mat-raised-button color="primary" >Editar</button>
+                   <button (click)="borrarMarcador( marcador.id )" mat-raised-button color="warn" >Borrar</button> -->
                   
-                   <!-- <button (click)="editarMarcador( marcador )" mat-raised-button color="primary" *ngIf="esAdministrador">Editar</button>
-                   <button (click)="borrarMarcador( marcador.id )" mat-raised-button color="warn" *ngIf="esAdministrador">Borrar</button> -->
+                   <button (click)="editarMarcador( marcador )" mat-raised-button color="primary" *ngIf="esAdministrador">Editar</button>
+                   <button (click)="borrarMarcador( marcador.id )" mat-raised-button color="warn" *ngIf="esAdministrador">Borrar</button>
                   
                 </agm-info-window>
             </agm-marker>
-            <agm-circle  [latitude]="lat" 
+            <agm-circle  *ngIf="!esAdministrador"
+                         [latitude]="lat" 
                          [longitude]="lng"
-                         [radius]= "3"
+                         [radius]= "1000"
                          [fillOpacity]="0.1"
             ></agm-circle>
         </agm-map>

@@ -2,6 +2,7 @@ import { Component, Input,OnInit } from '@angular/core';
 import { Marcador } from '../../classes/marcador.class';
 import { Router } from '@angular/router';
 import { AuthService } from "../../services/auth.service";
+import { RestaurantesComponent } from "../restaurantes/restaurantes.component";
 
 
 @Component({
@@ -15,14 +16,18 @@ export class RestauranteComponent implements OnInit {
   esAdmin = false;
 
   constructor( private router: Router,
-               private auth0: AuthService
+               private listaRestaurantes: RestaurantesComponent
              ) {
 
-                  this.esAdmin = this.auth0.esAdministrador();   
-
+                  //this.esAdmin = this.auth0.esAdministrador();   
+                  this.esAdmin=this.listaRestaurantes.esAdministrador;
                 }
 
   ngOnInit() {
+  }
+
+  obtenerCalificacion(){
+    return this.restaurante.calificacion.toFixed(2);
   }
 
   //para ruteos

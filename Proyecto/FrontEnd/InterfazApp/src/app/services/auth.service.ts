@@ -18,6 +18,7 @@ export class AuthService {
   // userChange$: Observable<string> = new Observable(obs => this.observer = obs);
 
   public userProfile: any;
+  public esAdmin;
 
   auth0 = new auth0.WebAuth({
     // auth0 de ALE...
@@ -28,7 +29,7 @@ export class AuthService {
         clientID: 'VaadtM2suHhtPGUI7LB6km7TuzXxyEK7',
     domain: 'auth0prueba.auth0.com',
     responseType: 'token id_token',
-    redirectUri: 'https://localhost:4200/login',
+    redirectUri: 'https://192.168.1.148:4200/login',
     scope: 'openid profile'
   });
 
@@ -97,18 +98,27 @@ export class AuthService {
     });
   }
 
-  public esAdministrador(): boolean {   
-    this.backend.esAdmin(this.userProfile.name).subscribe(
-      ( res: boolean ) => {
-          console.log('resultadoSoyAdmin??' , res);
-          return res;
-      },
-      ( err ) => {
-        console.log(error);
-        return false;   // retorno false para no darle permisos cuando no deberia
-      }
-    );
-    // si no entra en ninguno de los otros.
-    return false;
+  public esAdministrador() : boolean{   
+    let i = 0;
+    while( this.esAdmin == null && i<=5 ){
+      setTimeout( function(){ 
+        this.backend.esAdmin(this.userProfile.name).subscribe(
+          ( res: any ) => {
+              console.log('resultadoSoyAdmin??' , res);
+              this.esAdmin = res.resultado;
+              return res;
+          },
+          ( err ) => {
+            console.log(error);
+            return false;   // retorno false para no darle permisos cuando no deberia
+          }
+        );
+        // Do something after 1 second 
+      }  , 4000 );
+      i=i+1;      
+    }
+    console.log("valor admin auth0Service", this.esAdmin );
+    return this.esAdmin;
+    
   }
 }

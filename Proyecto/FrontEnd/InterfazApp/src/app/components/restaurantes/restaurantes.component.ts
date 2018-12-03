@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Marcador } from '../../classes/marcador.class';
 import { MarcadoresService } from "../../services/marcadores.service";
-
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: 'app-restaurantes',
@@ -14,11 +14,18 @@ export class RestaurantesComponent implements OnInit {
   RestaurantesCerca: Marcador[] = [];
   Arr = Array; //Array type captured in a variable 
   num:number = 5; 
+  perfil:any;
+  esAdministrador = false;
 
 
-  constructor( private marcadoresService:MarcadoresService ) {
+  constructor( private marcadoresService:MarcadoresService,
+               private auth: AuthService ) {
       //deberia obtener los marcadores desde la BD con una consulta al servico...
       this.actualizarRestaurantesCerca();
+       // setea el perfil según el servicio de auth0
+      this.perfil = this.auth.userProfile;
+      if( this.perfil.name == "admin@admin.com" )
+        this.esAdministrador = true;
    }
 
   ngOnInit() {

@@ -5,12 +5,13 @@
 
 agm-map {
     height: 80vh;
+    padding-left: 20px;
     /* width: 120vh; */
 }
 
 mat-drawer
 {
-  flex: 1;
+  flex: 0;
 }
 
 .example-header-image {

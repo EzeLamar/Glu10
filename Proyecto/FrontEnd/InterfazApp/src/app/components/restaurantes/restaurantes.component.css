@@ -1,12 +1,12 @@
 .example-container {
-    /* width: 400px;
-    height: 200px; */
+    /* width: 223px; */
+    /* height: 200px; */
     margin: 10px;
     /* border: 1px solid #555; */
   }
 
   .fondoPanelTarjetas{
-    background-color: blueviolet;
+    background-color: #7B1FA2;
   }
 
   .TituloPanelTarjetas{
@@ -17,3 +17,12 @@
   .espacioEntreTarjetas{
     margin-top: 10px;
   }
+
+.tituloTabla {
+  font-family: Bold, Arial, Helvetica, sans-serif;
+  color: #ffffff;
+  font-size: 100%;
+  align-content: center;
+
+
+}
