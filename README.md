@@ -22,4 +22,6 @@ Este proyecto estará dividido en 2 partes:
    - Figma
    
 Enlaces:
-- https://docs.google.com/document/d/1bt0-IS8auRRWgLFGX8P24iDKugq0DPadhusrV9aaGQU/edit?usp=sharing
+
+- Informe: https://docs.google.com/document/d/1bt0-IS8auRRWgLFGX8P24iDKugq0DPadhusrV9aaGQU/edit?usp=sharing
+- Manual de Usuario: https://docs.google.com/document/d/1VQIG8FSEva1AI_k7wrVmlPKaqj85Ad_JuAhX62Q7u1Y/edit?usp=sharing
